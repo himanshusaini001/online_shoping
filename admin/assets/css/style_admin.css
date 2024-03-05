@@ -1,0 +1,20 @@
+/* category page css Start */
+
+ .custom-form {
+	max-width: 400px;
+	margin: 50px auto;
+}
+
+a.category_btn {
+    float: right;
+    font-size: 16px;
+}
+
+.border_bottom_header {
+    border-bottom: 1px solid #000;
+    margin-bottom: 20px;
+}
+.category_table_style{
+	width:100%!important;
+}
+/* category page css End */

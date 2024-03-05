@@ -5,8 +5,6 @@
 		include('../include/db_file/connection_file.php');
 		
 		// Session Start
-	
-		
 		
 		// Session End
 		
@@ -27,8 +25,6 @@
 				$password = $_POST["password"];
 				
 				// Session  Start
-				
-				
 				
 				$otp = mt_rand(100000, 999999);
 				// Perform data insertion logic into users table
@@ -71,19 +67,13 @@
 					echo "Insert Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
-		
-		
 			// Login  function
 			
-			
-
 			  if ($action == 'login') {
 					
 					// Retrieve data from POST request
 					$username = $_POST['username'];
 					$password = $_POST['password'];
-
-					
 
 					// SQL query to check username and password
 					$sql = "SELECT * FROM registration WHERE username = '$username' AND password = '$password'";
@@ -149,14 +139,11 @@
 				
 				if ($result->num_rows > 0) {
 					$row = $result->fetch_assoc();
-						
-						$otp = $row['otp'];
-					
-						if($userInputOTP == $otp)
-						{
-							 echo 'successful';
-						}
-						
+					$otp = $row['otp'];
+					if($userInputOTP == $otp)
+					{
+						echo 'successful';
+					}
 				}
 				else{
 					  'error';
@@ -165,7 +152,8 @@
 			
 			// verify_otp  function
 			
-			 if ($action == "random_link") {
+			 if ($action == "random_link") 
+			 {
 				// Check if the OTP is provided
 				$email = $_POST["email"];
 
@@ -199,9 +187,6 @@
 				}
 			}
 			
-			
-			
-
 				// Assuming you have established a database connection ($conn)
 				// You should also handle errors and sanitize user input to prevent SQL injection
 
@@ -222,8 +207,175 @@
 						echo "Error updating record: " . $conn->error;
 					}
 				}
+				
+				
+				// Add category 
+				
+				if ($action == "category") {
+					// Get data from AJAX request
+					$cname = $_POST['cname'];
+					$cimg = $_POST['cimg'];
 
-			
+					// Insert data into the category table
+
+					$sql = "INSERT INTO category (cname, cimg) VALUES ('$cname', '$cimg')";
+
+					if ($conn->query($sql) === TRUE) {
+						echo "success";
+					} else {
+						echo "Error: " . $conn->error;
+					}
+				}
+				
+				// Fetch Category All data
+				
+				if ($action == "fetch_data") {
+					$sql = "select * from category";
+					$result = mysqli_query($conn, $sql) or die("sql query failed");
+					$output = "";
+					if (mysqli_num_rows($result) > 0) {
+						$output = '<table border="1" width="100" cellspacing="0" cellpadding="10px" class="category_table_style">
+						<tr>
+						<th>cid</th>
+						<th>cname</th>
+						<th>cimg</th>
+						<th>Update </th>
+						<th>Delete</th>
+						</tr>';
+						while ($row = mysqli_fetch_assoc($result))
+						//print_r($row);exit;
+						{
+							$output .= "<tr>
+							<td>{$row['cid']}</td>
+							<td>{$row['cname']}</td>
+							<td>{$row['cimg']}</td>
+							<td><a class='btn btn-success' href='update_category?cid={$row['cid']}'>Update</a></td>
+							 <td><a class='btn btn-danger' href='delete_category?cid={$row['cid']}'>delete</a></td>
+							</tr>";
+						}
+						$output .= "</table>";
+						echo $output;
+					} else {
+						echo "no record found";
+					}
+				}
+				
+				// Delete Category
+				
+				if ($action == "delete_category") {
+					 $cid = $_POST['cid'];
+
+					// Perform the deletion query (Example, please use prepared statements for security)
+					$sql = "DELETE FROM category WHERE cid = $cid";
+
+					if (mysqli_query($conn, $sql)) {
+						echo "Record deleted successfully";
+					} else {
+						echo "Error deleting record: " . mysqli_error($conn);
+					}
+				}
+				
+				
+				// Update Category
+				
+				if ($action == "update_category") {
+					// Get data from AJAX request
+					$cname = $_POST['cname'];
+					$cimg = $_POST['cimg'];
+					$cid = $_POST['cid'];
+					// Insert data into the category table
+
+					$sql = "UPDATE category SET cname='$cname',cimg='$cimg' where cid='$cid'";
+
+					if ($conn->query($sql) === TRUE) {
+						echo "success";
+					} else {
+						echo "Error: " . $conn->error;
+					}
+				}
+				
+				
+				//Add Size 
+				
+				if ($action == "add_size") {
+					// Get data from AJAX request
+					$size = $_POST['size'];
+					
+
+					// Insert data into the category table
+
+					$sql = "INSERT INTO clothing_sizes (size) VALUES ('$size')";
+
+					if ($conn->query($sql) === TRUE) {
+						echo "success";
+					} else {
+						echo "Error: " . $conn->error;
+					}
+				}
+				
+				
+				// show Size 
+				if ($action == "fetch_size") {
+					$sql = "select * from clothing_sizes";
+					$result = mysqli_query($conn, $sql) or die("sql query failed");
+					$output = "";
+					if (mysqli_num_rows($result) > 0) {
+						$output = '<table border="1" width="100" cellspacing="0" cellpadding="10px">
+						<tr>
+						<th>sid</th>
+						<th>size</th>
+						<th>Update </th>
+						<th>Delete</th>
+						</tr>';
+						while ($row = mysqli_fetch_assoc($result))
+						//print_r($row);exit;
+						{
+							$output .= "<tr>
+							<td>{$row['sid']}</td>
+							<td>{$row['size']}</td>
+							<td><a class='btn btn-success' href='update_size?sid={$row['sid']}'>Update</a></td>
+							 <td><a class='btn btn-danger' href='delete_size?sid={$row['sid']}'>delete</a></td>
+							</tr>";
+						}
+						$output .= "</table>";
+
+						echo $output;
+					} else {
+						echo "no record found";
+					}
+				}
+				
+				// Delete size
+				
+				if ($action == "delete_size") {
+					 $sid = $_POST['sid'];
+
+					// Perform the deletion query (Example, please use prepared statements for security)
+					$sql = "DELETE FROM clothing_sizes WHERE sid = $sid";
+
+					if (mysqli_query($conn, $sql)) {
+						echo "Record deleted successfully";
+					} else {
+						echo "Error deleting record: " . mysqli_error($conn);
+					}
+				}
+				
+				// Update size
+				
+				if ($action == "update_size") {
+					// Get data from AJAX request
+					$size = $_POST['size'];
+					$sid = $_POST['sid'];
+					// Insert data into the category table
+
+					$sql = "UPDATE clothing_sizes SET size='$size' where sid='$sid'";
+
+					if ($conn->query($sql) === TRUE) {
+						echo "success";
+					} else {
+						echo "Error: " . $conn->error;
+					}
+				}
 		}
 		
 		mysqli_close($conn);

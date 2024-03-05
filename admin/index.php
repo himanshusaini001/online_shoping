@@ -14,12 +14,12 @@
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
 		$name =  $row['name'];
-		
+		$_SESSION['username'] = $name;
 		
 			$username = $_POST["username"];
 			if($username == $name)
 			{
-				header("location:category/showcategory.php");
+				header("location:pages/category/show_category.php");
 				$_SESSION['username'] = $name;
 			}
 	}
@@ -35,7 +35,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>admin login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<link href="<?php  echo DTS_WS_SITE_CSS ?>bg_style.css" rel="stylesheet" type="text/css"media="screen">
+	<link href="../assets/css/bg_style.css" rel="stylesheet" type="text/css"media="screen">
 	<style>
 	body{
 		margin:0px;
