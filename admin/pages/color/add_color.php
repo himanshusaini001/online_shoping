@@ -25,11 +25,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Add Size Page</h1>
+            <h1 class="m-0">Add Color Page</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../size/show_size.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../color/add_color.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
@@ -48,8 +48,8 @@
 					   <form class="custom-form shadow p-4" id="addForm" action="#" method="post" enctype="multipart/form-data">
 							<!-- XS Size Field -->
 							<div class="form-group">
-								<label for="cname">Size:</label>
-								<input type="text" class="form-control" id="size" name="size" placeholder="Enter Size" required>
+								<label for="cname">Color:</label>
+								<input type="text" class="form-control" id="color" name="color" placeholder="Enter Size" required>
 							</div>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
@@ -76,46 +76,58 @@
         $("#submitBtn").click(function () {
             // Reset previous error messages
             $(".error-message").text("");
+			
+            var userInputColor = $("#color").val();
+			var color = userInputColor.toLowerCase();
+			var found = false;
+			var colors = [
+				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
+				'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
+				'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
+			];
+            
+			
+			for (var i = 0; i < colors.length; i++) {
+				
+				if (userInputColor === colors[i]) {
+					
+					 found = true;
+					var isValid = true;
+					if (color === "") {
+						isValid = false;
+						alert("Fild is required.");
+					}
 
-            var uppercaseText = $("#size").val();
-            var size = uppercaseText.toUpperCase();
-
-            if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
-                var isValid = true;
-
-                if (size === "") {
-                    isValid = false;
-                    alert("Size is required.");
-                }
-
-                if (isValid) {
-                    // AJAX to submit form data
-                    $.ajax({
-                        type: "POST",
-                        url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                        data: {
-                            action: "add_size",
-                            size: size
-                        },
-                        success: function (response) {
-                            if (response === "success") {
-                                // Redirect to another page after successful insertion
-                                window.location.href = "../size/show_size.php";
-                            } else {
-                                alert("Size is Already Added");
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            alert("AJAX request failed: " + status + "\nError: " + error);
-                        }
-                    });
-                }
-            } else {
-				let sizesList = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-				sizesList.push(size);
-				alert("Added size to the list: " + sizesList.join(', '));
-				// Your code for the false condition goes here
+					if (isValid) {
+						// AJAX to submit form data
+						$.ajax({
+							type: "POST",
+							url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
+							data: {
+								action: "add_color",
+								color: color
+							},
+							success: function (response) {
+								if (response === "success") {
+									// Redirect to another page after successful insertion
+									window.location.href = "../color/show_color.php";
+								} else {
+									alert("Color is Already Added");
+								}
+							},
+							error: function (xhr, status, error) {
+								alert("AJAX request failed: " + status + "\nError: " + error);
+							}
+						});
+					}
+				}
+				
 			}
+			if (found == false) {
+				alert("Please Don't Correct Value  ");
+			} 
+			
+			
         });
     });
 </script>

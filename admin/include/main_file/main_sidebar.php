@@ -31,13 +31,18 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../category/add_category.php" class="nav-link active">
+                <a href="../category/show_category.php" class="nav-link active">
                   <p>Add Category</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../size/add_size.php" class="nav-link">
+                <a href="../size/show_size.php" class="nav-link">
                   <p>Add Size</p>
+                </a>
+              </li>
+			  <li class="nav-item">
+                <a href="../color/show_color.php" class="nav-link">
+                  <p>Add Color</p>
                 </a>
               </li>
             </ul>

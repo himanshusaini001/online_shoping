@@ -1,8 +1,8 @@
 <?php 
-$sid = $_GET['sid'];
+$color_id = $_GET['color_id'];
 
 ?>
-<input type="hidden" id="sid" value="<?php echo $sid ?>">
+<input type="hidden" id="color_id" value="<?php echo $color_id ?>">
 
 <!-- Include jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,7 +11,7 @@ $sid = $_GET['sid'];
     // Delete button click event
 (function() {
     // Your code
-    var sid = $("#sid").val();
+    var color_id = $("#color_id").val();
 
     // Confirm before deleting
     if (confirm('Are you sure you want to delete this record?')) {
@@ -20,12 +20,12 @@ $sid = $_GET['sid'];
             url: '../../../functions/function_ajax.php',
             type: 'POST',
             data: { 
-                action: "delete_size",
-                sid: sid 
+                action: "delete_color",
+                color_id: color_id 
             },
             success: function (response) {
                 // Redirect after successful deletion
-                window.location.href = 'show_size.php';
+                window.location.href = 'show_color.php';
             },
             error: function (xhr, status, error) {
                 console.error('AJAX request failed:', status, error);
@@ -35,7 +35,7 @@ $sid = $_GET['sid'];
     }
 	else
 	{
-		window.location.href = 'show_size.php';
+		window.location.href = 'show_color.php';
 	}
 })();
 

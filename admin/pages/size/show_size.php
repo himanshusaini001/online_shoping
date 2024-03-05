@@ -31,7 +31,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../size/show_size.php">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active"><span><a href="add_size.php" class="btn btn-primary">Add Size</a></span></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -43,26 +43,26 @@
 		<div class="container">
 			<div >
 			   <div class="row">
-				   <div class="col-md-3">
+				   <div class="col-md-1">
 				   </div>
-					<div class="col-md-6">
+					<div class="col-md-10">
 						<!--div class="alert alert-success mt-5" role="alert">
 							Data has been successfully submitted!
 						</div-->
-						<table id="main" border="0" cellspacing="0">
+						<table id="main" border="0" cellspacing="0" class="category_table_style">
 						<tr>
 						<tr>
 							<td id="table">
-								<span><a href="add_size.php" class="btn btn-primary">Add Size</a></span>
+								
 							</td>
 						</tr>
 						<tr>
-							<td id="table-data">
+							<td id="table-data" >
 							</td>
 						</tr>
 					</table>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-1">
 			   </div>
 		   </div>
         </div>

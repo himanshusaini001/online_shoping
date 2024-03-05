@@ -17,7 +17,7 @@
 		include("../../include/main_file/main_sidebar.php");
 	
 	// Sidebar End
-	$sid = $_GET['sid'];
+	$color_id = $_GET['color_id'];
  ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -30,7 +30,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../size/show_size.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../color/show_color.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
@@ -47,7 +47,7 @@
 			   </div>
 				<div class="col-md-6">
 				<?php 
-					$sql = "SELECT * FROM clothing_sizes WHERE sid=$sid";
+					$sql = "SELECT * FROM colors WHERE color_id=$color_id";
 					$result = $conn->query($sql);
 					if($result->num_rows > 0)
 					{
@@ -59,8 +59,8 @@
 							<!-- Name Field -->
 							<div class="form-group">
 								<label for="cname">Name:</label>
-								<input type="text" class="form-control" id="size" name="size" value="<?php echo $row['size'] ?>" placeholder="Enter name" required>
-								<input type="hidden" class="form-control" id="sid" name="sid" value="<?php echo $sid ?>" placeholder="Enter name" required>
+								<input type="text" class="form-control" id="color_name" name="color_name" value="<?php echo $row['color_name'] ?>" placeholder="Enter name" required>
+								<input type="hidden" class="form-control" id="color_id" name="color_id" value="<?php echo $color_id ?>" placeholder="Enter name" required>
 							</div>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
@@ -86,17 +86,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
      <script>
-        $(document).ready(function () {
-            // Form validation using jQuery
-            $("#submitBtn").click(function () {
-                // Reset previous error messages
-                $(".error-message").text("");
-				var sid = $("#sid").val();
-                 var uppercaseText = $("#size").val();
-				var size = uppercaseText.toUpperCase();
-                var isValid = true;
+    $(document).ready(function () {
+        // Form validation using jQuery
+        $("#submitBtn").click(function () {
+            // Reset previous error messages
+            $(".error-message").text("");
+			
+			var color_id = $("#color_id").val();
 
-                if (size === "") {
+            var userInputColor = $("#color_name").val();
+			var color = userInputColor.toLowerCase();
+			var found = false;
+			var colors = [
+				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
+				'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
+				'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
+			];
+            
+			
+			for (var i = 0; i < colors.length; i++) {
+				
+				if (userInputColor === colors[i]) {
+					
+					 found = true;
+					 var isValid = true;
+
+                if (color_name === "") {
                     isValid = false;
                 }
 
@@ -108,16 +123,16 @@
                         type: "POST",
                         url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
                         data: {
-							action:"update_size",
-                            size: size,
-							sid: sid
+							action:"update_color",
+                            color_name: color_name,
+							color_id: color_id
                         },
                         success: function (response) {
                             if (response === "success") {
                                 // Redirect to another page after successful insertion
-                                window.location.href = "../size/show_size.php";
+                                window.location.href = "../color/show_color.php";
                             } else {
-                                 alert("Size is Already Added");
+                                 alert("Color is Already Added");
                             }
                         },
                         error: function (xhr, status, error) {
@@ -125,8 +140,17 @@
                         }
                     });
                 }
-            });
+				}
+				
+			}
+			if (found == false) {
+				alert("Please Don't Correct Value  ");
+			} 
+			
+			
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>

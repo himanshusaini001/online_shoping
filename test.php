@@ -1,51 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Styled Form</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .custom-form {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      border-radius: 10px;
+<script> 
+
+var userInputColor = prompt("Enter a color:");
+
+// Convert the user input to lowercase to make the comparison case-insensitive
+userInputColor = userInputColor.toLowerCase();
+
+var colorToDisplay = 'Default Color'; // Default color or message
+
+// List of colors
+var colors = [
+    'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
+    'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
+    'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
+];
+
+// Iterate through the list of colors using a for loop
+for (var i = 0; i < colors.length; i++) {
+    if (userInputColor === colors[i]) {
+        colorToDisplay = userInputColor;
+        break; // Exit the loop if a match is found
     }
+}
 
-    .custom-form:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-  </style>
-</head>
-<body>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="custom-form">
-          <h3 class="text-center mb-4">Styled Form</h3>
-          <form id="loginForm">
-					<div class="form-group">
-						<label for="usernameField">Username:</label>
-						<input type="text" class="form-control" id="usernameField" name="username">
-					</div>
+// Display the alert with the chosen color
 
-					<div class="form-group">
-						<label for="passwordField">Password:</label>
-						<input type="password" class="form-control" id="passwordField" name="password">
-					</div>
+</script>
 
-					<button type="button" class="btn btn-primary" id="submitButton">Submit</button>
-				</form>
+<script>
+    $(document).ready(function () {
+        // Form validation using jQuery
+        $("#submitBtn").click(function () {
+            // Reset previous error messages
+            $(".error-message").text("");
+			
+            var userInputColor = $("#color").val();
+			var color = userInputColor.toLowerCase();
 
-        </div>
-      </div>
-    </div>
-  </div>
+			var colors = [
+				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
+				'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
+				'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
+			];
+            
+			
+			for (var i = 0; i < colors.length; i++) {
+				if (userInputColor === colors[i]) {
+					var isValid = true;
 
-  <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+					if (color === "") {
+						isValid = false;
+						alert("Fild is required.");
+					}
+
+					if (isValid) {
+						// AJAX to submit form data
+						$.ajax({
+							type: "POST",
+							url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
+							data: {
+								action: "add_color",
+								color: color
+							},
+							success: function (response) {
+								if (response === "success") {
+									// Redirect to another page after successful insertion
+									window.location.href = "../color/show_color.php";
+								} else {
+									alert("Color is Already Added");
+								}
+							},
+							error: function (xhr, status, error) {
+								alert("AJAX request failed: " + status + "\nError: " + error);
+							}
+						});
+					}
+					break; // Exit the loop if a match is found
+				}
+			}
+			
+			alert("The chosen color is: " + colorToDisplay);
+
+				
+			
+        });
+    });
+</script>

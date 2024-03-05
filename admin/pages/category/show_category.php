@@ -31,7 +31,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../category/show_category.php">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
+              <li class="breadcrumb-item active"><span><a href="add_category.php" class="btn btn-primary">Add Category</a></span></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,6 +50,7 @@
 						<tr>
 						<tr>
 							<td id="table">
+								
 							</td>
 						</tr>
 						<tr>
