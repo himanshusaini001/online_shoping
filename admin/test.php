@@ -1,54 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form with AJAX</title>
-  
-</head>
-<body>
-
-    <form id="myForm">
-        <label for="cname">Name:</label>
-        <input type="text" id="cname" name="cname" required>
-
-        <label for="cimg">Image URL:</label>
-        <input type="text" id="cimg" name="cimg" required>
-
-        <button type="submit">Submit</button>
-    </form>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
+ <script>
         $(document).ready(function () {
-            // Function to handle form submission
-            $("#myForm").submit(function (e) {
-                e.preventDefault(); // Prevent the form from submitting in the traditional way
+            // Form validation using jQuery
+            $("#submitBtn").click(function () {
+                // Reset previous error messages
+                $(".error-message").text("");
 
-                // Get form data
+                var uppercaseText = $("#size").val();
+				var size = uppercaseText.toUpperCase();
+				
+				if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
+				var isValid = true;
+
+                if (size === "") {
+                    isValid = false;
+                }
+				
+                if (!isValid) {
+                    alert("Name and Image URL are required.");
+                } else {
+                    // AJAX to submit form data
+                    $.ajax({
+                        type: "POST",
+                        url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
+                        data: {
+							action:"add_size",
+                            size : size
+                        },
+                        success: function (response) {
+                            if (response === "success") {
+                                // Redirect to another page after successful insertion
+                                window.location.href = "../size/show_size.php";
+                            } else {
+                                alert("Size is Already Added");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert("AJAX request failed: " + status + "\nError: " + error);
+                        }
+                    });
+                }
+				} else {
+					let sizesList = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+					sizesList.push(size);
+					console.log("Added size to the list:", sizesList);
+					// Your code for the false condition goes here
+				}
                 
-                    var cname = $("#cname").val();	
-                    var cimg = $("#cimg").val();
-               
-
-                // Send AJAX request to update data
-                $.ajax({
-                    type: "POST",
-                    url: "../functions/function_ajax.php", // Replace with the actual backend URL
-                    data: {
-						action:"update_category",
-						cname:cname,
-						cimg:cimg
-					},
-                    success: function (response) {
-                        // Redirect to another page after successful update
-                        window.location.href = "pages/category/show_category.php"; // Replace with the desired page URL
-                    },
-                    error: function (error) {
-                        console.error("Error updating data: " + JSON.stringify(error));
-                    }
-                });
             });
         });
     </script>
-</body>
-</html>

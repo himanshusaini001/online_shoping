@@ -249,8 +249,8 @@
 							<td>{$row['cid']}</td>
 							<td>{$row['cname']}</td>
 							<td>{$row['cimg']}</td>
-							<td><a class='btn btn-success' href='update_category?cid={$row['cid']}'>Update</a></td>
-							 <td><a class='btn btn-danger' href='delete_category?cid={$row['cid']}'>delete</a></td>
+							<td><a class='btn btn-success' href='update_category.php?cid={$row['cid']}'>Update</a></td>
+							 <td><a class='btn btn-danger' href='delete_category.php?cid={$row['cid']}'>delete</a></td>
 							</tr>";
 						}
 						$output .= "</table>";
@@ -333,8 +333,8 @@
 							$output .= "<tr>
 							<td>{$row['sid']}</td>
 							<td>{$row['size']}</td>
-							<td><a class='btn btn-success' href='update_size?sid={$row['sid']}'>Update</a></td>
-							 <td><a class='btn btn-danger' href='delete_size?sid={$row['sid']}'>delete</a></td>
+							<td><a class='btn btn-success' href='update_size.php?sid={$row['sid']}'>Update</a></td>
+							 <td><a class='btn btn-danger' href='delete_size.php?sid={$row['sid']}'>delete</a></td>
 							</tr>";
 						}
 						$output .= "</table>";
