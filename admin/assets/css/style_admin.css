@@ -18,3 +18,61 @@ a.category_btn {
 	width:100%!important;
 }
 /* category page css End */
+
+/* main Siderbar link css Start */
+ .nav-link.active {
+    color: white; /* Text color for active link */
+    background-color: blue; /* Background color for active link */
+  }	
+		
+/* main Siderbar link css End */ 
+.edit_icon {
+    margin-left: 10px!important;
+}
+
+[class*=sidebar-dark] .brand-link {
+    border-bottom: none
+}
+.border_bottom {
+    border-bottom: 1px solid #fff;
+    margin-top: 11px;
+    margin-bottom: 20px;
+}
+
+/* Style for the dropdown container */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Style for the dropdown button */
+    .dropdown-btn {
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Style for the dropdown content */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    /* Style for the dropdown links */
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    /* Style for the links on hover */
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }

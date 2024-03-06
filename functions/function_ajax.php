@@ -78,7 +78,6 @@
 				// Get data from AJAX request
 				$cname = $_POST['cname'];
 				$cimg = $_POST['cimg'];
-
 				// Insert data into the category table
 
 				$sql = "INSERT INTO category (cname, cimg) VALUES ('$cname', '$cimg')";

@@ -5,12 +5,6 @@
 	include("../../include/main_file/top_link.php");
 	include("../../include/db_file/connection_file.php");
 	 // Top Link Start
-	 
-	// Navbar Start 
-	
-		include("../../include/main_file/navbar.php");
-	
-	// Navbar End
 	
 	// Sidebar Start 
 	
@@ -25,10 +19,20 @@
     <div class="content-header border_bottom_header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Update Size Page</h1>
+			<div class="col-sm-4">
+			   <ul class="navbar-nav">
+				  <li class="nav-item">
+					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+				  </li>
+				  <!--li class="nav-item d-none d-sm-inline-block">
+					<a href="../category/show_category.php" class="nav-link">Home</a>
+				  </li-->
+				</ul>
+			</div>
+          <div class="col-sm-4">
+            <h1 class="m-0">Update Color Page</h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../color/show_color.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
