@@ -73,7 +73,18 @@
 								<label for="img">Image URL:</label>
 								<input type="file" class="form-control" id="cimg" name="cimg" value="<?php echo $row['cimg'] ?>" placeholder="Enter image URL" required>
 							</div>
+							
+							<!-- Status Field -->
+							<div class="form-group">
+								<label for="selectOption" >Select an option:</label>
+								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
+								<option value="0">Inactive</option>
+								<option value="1">Active</option>
+								<!-- Add more options as needed -->
+								</select>
+							</div>
 
+						
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
 						</form>
@@ -108,6 +119,7 @@
 				var cid = $("#cid").val();
                 var cname = $("#cname").val();
                 var cimg = $("#cimg").val();
+				var status = $("#status").val();
                 var isValid = true;
 
                 if (cname === "") {
@@ -115,6 +127,10 @@
                 }
 
                 if (cimg === "") {
+                    isValid = false;
+                }
+				
+				if (status === "") {
                     isValid = false;
                 }
 
@@ -129,6 +145,7 @@
 							action:"update_category",
                             cname: cname,
                             cimg: cimg,
+							status: status,
 							cid: cid
                         },
                         success: function (response) {

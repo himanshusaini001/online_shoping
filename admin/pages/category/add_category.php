@@ -53,7 +53,15 @@ include("../../include/main_file/main_sidebar.php");
                             <label for="img">Image URL:</label>
                             <input type="file" class="form-control" id="cimg" name="cimg" placeholder="Enter image URL" accept="image/*" required>
                         </div>
-
+						<!-- Status Field -->
+						<div class="form-group">
+							<label for="selectOption" >Select an option:</label>
+							<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
+							<option value="0">Inactive</option>
+							<option value="1">Active</option>
+							<!-- Add more options as needed -->
+							</select>
+                        </div>
                         <!-- Submit Button -->
                         <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
                     </form>
@@ -82,8 +90,9 @@ include("../../include/main_file/footer.php");
             // Reset previous error messages
             $(".error-message").text("");
 
-            var cname = $("#cname").val();
-             var cimg = $("#cimg").val();
+			var cname = $("#cname").val();
+			var cimg = $("#cimg").val();
+			var status = $("#status").val();
 			
 
             var isValid = true;
@@ -93,6 +102,9 @@ include("../../include/main_file/footer.php");
             }
 
             if (cimg === "") {
+                isValid = false;
+            }
+			if (status === "") {
                 isValid = false;
             }
 
@@ -106,7 +118,8 @@ include("../../include/main_file/footer.php");
                     data: {
                         action: "category",
                         cname: cname,
-                        cimg: cimg
+                        cimg: cimg,
+						status: status
                     },
                     success: function (response) {
                         if (response === "success") {

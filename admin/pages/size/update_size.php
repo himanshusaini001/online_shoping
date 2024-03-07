@@ -66,6 +66,16 @@
 								<input type="text" class="form-control" id="size" name="size" value="<?php echo $row['size'] ?>" placeholder="Enter name" required>
 								<input type="hidden" class="form-control" id="sid" name="sid" value="<?php echo $sid ?>" placeholder="Enter name" required>
 							</div>
+							
+							<!-- Status Field -->
+							<div class="form-group">
+								<label for="selectOption" >Select an option:</label>
+								<select type="text" class="form-control"  id="status" name="status" value="<?php echo $row['status'] ?>" placeholder="Enter status URL"  required>
+									<option value="0">0</option>
+									<option value="1"> 1</option>
+								<!-- Add more options as needed -->
+								</select>
+							</div>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
 						</form>
@@ -95,15 +105,21 @@
         $("#submitBtn").click(function () {
             // Reset previous error messages
             $(".error-message").text("");
-
-            var uppercaseText = $("#size").val();
-            var sid = $("#sid").val();
-            var size = uppercaseText.toUpperCase();
+			
+			var sid = $("#sid").val();
+			var status = $("#status").val();
+			var uppercaseText = $("#size").val();
+			var size = uppercaseText.toUpperCase();
 
             if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
                 var isValid = true;
 
                 if (size === "") {
+                    isValid = false;
+                    alert("Size is required.");
+                }
+				
+				if (status === "") {
                     isValid = false;
                     alert("Size is required.");
                 }
@@ -116,6 +132,7 @@
                         data: {
                             action: "update_size",
                             size: size,
+							status: status,
 							sid: sid
                         },
                         success: function (response) {

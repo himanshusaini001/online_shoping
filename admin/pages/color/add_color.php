@@ -55,6 +55,16 @@
 								<label for="cname">Color:</label>
 								<input type="text" class="form-control" id="color" name="color" placeholder="Enter Size" required>
 							</div>
+							
+							<!-- Status Field -->
+							<div class="form-group">
+								<label for="selectOption" >Select an option:</label>
+								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
+								<option value="0">Inactive</option>
+								<option value="1"> Active</option>
+								<!-- Add more options as needed -->
+								</select>
+							</div>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
 						</form>
@@ -83,6 +93,8 @@
 			
             var userInputColor = $("#color").val();
 			var color = userInputColor.toLowerCase();
+			var status = $("#status").val();
+			
 			var found = false;
 			var colors = [
 				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
@@ -101,6 +113,12 @@
 						isValid = false;
 						alert("Fild is required.");
 					}
+					
+					if (status === "") {
+						isValid = false;
+						alert("Fild is required.");
+					}
+
 
 					if (isValid) {
 						// AJAX to submit form data
@@ -109,7 +127,8 @@
 							url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
 							data: {
 								action: "add_color",
-								color: color
+								color: color,
+								status: status
 							},
 							success: function (response) {
 								if (response === "success") {

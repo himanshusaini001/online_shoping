@@ -66,6 +66,16 @@
 								<input type="text" class="form-control" id="color_name" name="color_name" value="<?php echo $row['color_name'] ?>" placeholder="Enter name" required>
 								<input type="hidden" class="form-control" id="color_id" name="color_id" value="<?php echo $color_id ?>" placeholder="Enter name" required>
 							</div>
+							
+							<!-- Status Field -->
+							<div class="form-group">
+								<label for="selectOption" >Status</label>
+								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
+								<option value="0">Inactive</option>
+								<option value="1"> Active</option>
+								<!-- Add more options as needed -->
+								</select>
+							</div>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
 						</form>
@@ -98,6 +108,7 @@
 			
             var color_name = $("#color_name").val();
 			var color_id = $("#color_id").val();
+			var status = $("#status").val();
 			
 			var found = false;
 			var colors = [
@@ -117,6 +128,11 @@
 						isValid = false;
 						alert("Fild is required.");
 					}
+					
+					if (status === "") {
+						isValid = false;
+						alert("Fild is required.");
+					}
 
 					if (isValid) {
 						// AJAX to submit form data
@@ -126,7 +142,8 @@
 							data: {
 								action: "update_color",
 								color_name: color_name,
-								color_id:color_id
+								color_id:color_id,
+								status: status
 							},
 							success: function (response) {
 								if (response === "success") {

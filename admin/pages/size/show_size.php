@@ -59,6 +59,7 @@
 										<tr>
 											<th>ID</th>
 											<th>Name</th>
+											<th>Status</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -76,6 +77,16 @@
 													<tr>
 														<td><?php echo $sh ?></td>
 														<td><?php echo $row['size'] ?></td>
+														<?php 
+															if($row['status'] == '0'){
+																$status = "Inactive";
+															}
+															else{
+																$status = "Active";
+															}
+															
+														?>
+														<td><?php echo $status ?></td>
 														<td> <a class='btn ' href="update_size.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-edit "  aria-hidden="true"></i></a><a class='btn ' href="delete_size.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-trash edit_icon" aria-hidden="true"></i></a></td>
 													</tr>
 													<!-- Add more rows as needed -->

@@ -78,9 +78,10 @@
 				// Get data from AJAX request
 				$cname = $_POST['cname'];
 				$cimg = $_POST['cimg'];
+				$status = $_POST['status'];
 				// Insert data into the category table
 
-				$sql = "INSERT INTO category (cname, cimg) VALUES ('$cname', '$cimg')";
+				$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
 
 				if ($conn->query($sql) === TRUE) {
 					echo "success";
@@ -94,11 +95,11 @@
 			if ($action == "add_size") {
 				// Get data from AJAX request
 				$size = $_POST['size'];
-				
+				$status = $_POST['status'];
 
 				// Insert data into the category table
 
-				$sql = "INSERT INTO clothing_sizes (size) VALUES ('$size')";
+				$sql = "INSERT INTO clothing_sizes (size,status) VALUES ('$size','$status')";
 
 				if ($conn->query($sql) === TRUE) {
 					echo "success";
@@ -112,11 +113,12 @@
 			if ($action == "add_color") {
 				// Get data from AJAX request
 				$color = $_POST['color'];
+				$status = $_POST['status'];
 				
 
 				// Insert data into the category table
 
-				$sql = "INSERT INTO colors (color_name) VALUES ('$color')";
+				$sql = "INSERT INTO colors (color_name,status) VALUES ('$color','$status')";
 
 				if ($conn->query($sql) === TRUE) {
 					echo "success";
@@ -160,9 +162,10 @@
 					$cname = $_POST['cname'];
 					$cimg = $_POST['cimg'];
 					$cid = $_POST['cid'];
+					$status = $_POST['status'];
 					// Insert data into the category table
 
-					$sql = "UPDATE category SET cname='$cname',cimg='$cimg' where cid='$cid'";
+					$sql = "UPDATE category SET cname='$cname',cimg='$cimg',status='$status' where cid='$cid'";
 
 					if ($conn->query($sql) === TRUE) {
 						echo "success";
@@ -178,9 +181,10 @@
 					// Get data from AJAX request
 					$size = $_POST['size'];
 					$sid = $_POST['sid'];
+					$status = $_POST['status'];
 					// Insert data into the category table
 
-					$sql = "UPDATE clothing_sizes SET size='$size' where sid='$sid'";
+					$sql = "UPDATE clothing_sizes SET size='$size',status='$status' where sid='$sid'";
 
 					if ($conn->query($sql) === TRUE) {
 						echo "success";
@@ -196,9 +200,10 @@
 					// Get data from AJAX request
 					$color_name = $_POST['color_name'];
 					$color_id = $_POST['color_id'];
+					$status = $_POST['status'];
 					// Insert data into the category table
 
-					$sql = "UPDATE colors SET color_name='$color_name' where color_id='$color_id'";
+					$sql = "UPDATE colors SET color_name='$color_name',status='$status' where color_id='$color_id'";
 					
 					if ($conn->query($sql) === TRUE) {
 						echo "success";

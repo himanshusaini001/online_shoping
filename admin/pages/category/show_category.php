@@ -54,6 +54,7 @@
 											<th>ID</th>
 											<th>Name</th>
 											<th>Images</th>
+											<th>Status</th>
 											<th>Action</th>
 										</tr>
 									</thead>
@@ -73,6 +74,11 @@
 													<td><?php echo $sh ?></td>
 													<td><?php echo $row['cname'] ?></td>
 													<td><?php echo $row['cimg'] ?></td>
+													<?php 
+													if($row['status'] == '0'){ $status= "Inactive";
+													}else{ $status= "Active"; }
+													?>
+													<td><?= $status; ?></td>
 													<td> <a class='btn ' href="update_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-edit "  aria-hidden="true"></i></a><a class='btn ' href="delete_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-trash edit_icon" aria-hidden="true"></i></a></td>
 													</tr>
 													<!-- Add more rows as needed -->

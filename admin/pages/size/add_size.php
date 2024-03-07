@@ -55,6 +55,16 @@
 								<label for="cname">Size:</label>
 								<input type="text" class="form-control" id="size" name="size" placeholder="Enter Size" required>
 							</div>
+							
+							<!-- Status Field -->
+							<div class="form-group">
+								<label for="selectOption" >Select an option:</label>
+								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
+								<option value="0">Active</option>
+								<option value="1">Inactive</option>
+								<!-- Add more options as needed -->
+								</select>
+							</div>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
 						</form>
@@ -83,11 +93,17 @@
 
             var uppercaseText = $("#size").val();
             var size = uppercaseText.toUpperCase();
+			 var status = $("#status").val();
 
             if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
                 var isValid = true;
 
                 if (size === "") {
+                    isValid = false;
+                    alert("Size is required.");
+                }
+				
+				if (status === "") {
                     isValid = false;
                     alert("Size is required.");
                 }
@@ -99,7 +115,8 @@
                         url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
                         data: {
                             action: "add_size",
-                            size: size
+                            size: size,
+							status: status
                         },
                         success: function (response) {
                             if (response === "success") {
