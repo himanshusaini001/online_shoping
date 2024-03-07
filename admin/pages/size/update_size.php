@@ -34,7 +34,7 @@
           </div><!-- /.col -->
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../../home.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../profile/home.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
