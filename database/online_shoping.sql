@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 07, 2024 at 06:53 AM
+-- Generation Time: Mar 07, 2024 at 08:18 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -49,26 +49,29 @@ INSERT INTO `admin` (`id`, `name`, `password`) VALUES
 CREATE TABLE `category` (
   `cid` int NOT NULL,
   `cname` varchar(30) NOT NULL,
-  `cimg` text
+  `cimg` text,
+  `status` int NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`cid`, `cname`, `cimg`) VALUES
-(1, 'sahil', 'C:fakepathyoda.gif'),
-(2, 'rohit saini', 'C:fakepathavatar.png'),
-(3, 'kamal', 'C:fakepathavatar2.png'),
-(27, 'efew', 'C:fakepathyoda.gif'),
-(25, 'ef', 'C:fakepathyoda.gif'),
-(26, 'dsfg', 'C:fakepathyoda.gif'),
-(20, 'sahil', 'C:fakepathyoda.gif'),
-(22, 'sdcs', 'C:fakepathyoda.gif'),
-(23, 'sads', 'C:fakepathyoda.gif'),
-(28, 'edwf', 'C:fakepathyoda.gif'),
-(29, 'sahil', 'C:fakepathyoda.gif'),
-(30, 'bunty', 'C:fakepathyoda.gif');
+INSERT INTO `category` (`cid`, `cname`, `cimg`, `status`) VALUES
+(1, 'sahil', 'C:fakepathyoda.gif', 1),
+(2, 'rohit saini', 'C:fakepathyoda.gif', 1),
+(3, 'kamal', 'C:fakepathavatar2.png', 0),
+(27, 'efew', 'C:fakepathyoda.gif', 0),
+(25, 'ef', 'C:fakepathyoda.gif', 0),
+(26, 'dsfg', 'C:fakepathyoda.gif', 0),
+(20, 'sahil', 'C:fakepathyoda.gif', 0),
+(22, 'sdcs', 'C:fakepathyoda.gif', 0),
+(23, 'sads', 'C:fakepathyoda.gif', 0),
+(28, 'edwf', 'C:fakepathyoda.gif', 0),
+(29, 'sahil', 'C:fakepathyoda.gif', 0),
+(30, 'bunty', 'C:fakepathyoda.gif', 0),
+(31, 'sahil', 'C:fakepathyoda.gif', 0),
+(32, 'sumit', 'C:fakepathyoda.gif', 1);
 
 -- --------------------------------------------------------
 
@@ -78,19 +81,21 @@ INSERT INTO `category` (`cid`, `cname`, `cimg`) VALUES
 
 CREATE TABLE `clothing_sizes` (
   `sid` int NOT NULL,
-  `size` varchar(5) DEFAULT NULL
+  `size` varchar(5) DEFAULT NULL,
+  `status` int NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `clothing_sizes`
 --
 
-INSERT INTO `clothing_sizes` (`sid`, `size`) VALUES
-(14, 'M'),
-(7, 'S'),
-(13, 'XL'),
-(15, 'XXL'),
-(16, 'XXXL');
+INSERT INTO `clothing_sizes` (`sid`, `size`, `status`) VALUES
+(14, 'M', 0),
+(7, 'S', 0),
+(13, 'XL', 0),
+(15, 'XXL', 0),
+(16, 'XXXL', 1),
+(17, 'XS', 1);
 
 -- --------------------------------------------------------
 
@@ -100,19 +105,21 @@ INSERT INTO `clothing_sizes` (`sid`, `size`) VALUES
 
 CREATE TABLE `colors` (
   `color_id` int NOT NULL,
-  `color_name` varchar(50) NOT NULL
+  `color_name` varchar(50) NOT NULL,
+  `status` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `colors`
 --
 
-INSERT INTO `colors` (`color_id`, `color_name`) VALUES
-(17, 'cyan'),
-(7, 'red'),
-(12, 'teal'),
-(15, 'white'),
-(16, 'yellow');
+INSERT INTO `colors` (`color_id`, `color_name`, `status`) VALUES
+(7, 'red', 0),
+(12, 'teal', 0),
+(15, 'white', 0),
+(16, 'yellow', 0),
+(17, 'cyan', 0),
+(19, 'olive', 1);
 
 -- --------------------------------------------------------
 
@@ -219,19 +226,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `clothing_sizes`
 --
 ALTER TABLE `clothing_sizes`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `login`
