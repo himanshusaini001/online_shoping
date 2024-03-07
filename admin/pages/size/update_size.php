@@ -34,7 +34,7 @@
           </div><!-- /.col -->
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../size/show_size.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../../home.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
@@ -89,30 +89,32 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-     <script>
-        $(document).ready(function () {
-            // Form validation using jQuery
-            $("#submitBtn").click(function () {
-                // Reset previous error messages
-                $(".error-message").text("");
-				var sid = $("#sid").val();
-                 var uppercaseText = $("#size").val();
-				var size = uppercaseText.toUpperCase();
+    <script>
+    $(document).ready(function () {
+        // Form validation using jQuery
+        $("#submitBtn").click(function () {
+            // Reset previous error messages
+            $(".error-message").text("");
+
+            var uppercaseText = $("#size").val();
+            var sid = $("#sid").val();
+            var size = uppercaseText.toUpperCase();
+
+            if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
                 var isValid = true;
 
                 if (size === "") {
                     isValid = false;
+                    alert("Size is required.");
                 }
 
-                if (!isValid) {
-                    alert("Name and Image URL are required.");
-                } else {
+                if (isValid) {
                     // AJAX to submit form data
                     $.ajax({
                         type: "POST",
                         url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
                         data: {
-							action:"update_size",
+                            action: "update_size",
                             size: size,
 							sid: sid
                         },
@@ -121,7 +123,7 @@
                                 // Redirect to another page after successful insertion
                                 window.location.href = "../size/show_size.php";
                             } else {
-                                 alert("Size is Already Added");
+                                alert("Size is Already Added");
                             }
                         },
                         error: function (xhr, status, error) {
@@ -129,8 +131,15 @@
                         }
                     });
                 }
-            });
+            } else {
+				let sizesList = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+				sizesList.push(size);
+				alert("Added size to the list: " + sizesList.join(', '));
+				// Your code for the false condition goes here
+			}
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>

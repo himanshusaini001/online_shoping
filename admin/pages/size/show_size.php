@@ -31,11 +31,11 @@
 				</ul>
 			</div>
           <div class="col-sm-4">
-            <h1 class="m-0">Management Sizes</h1>
+            <h1 class="m-0">Manage Sizes</h1>
           </div><!-- /.col -->
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../../index.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../../home.php">Home</a></li>
               <li class="breadcrumb-item active"><span><a href="add_size.php" class="btn btn-primary">Add Size</a></span></li>
             </ol>
           </div><!-- /.col -->
@@ -45,175 +45,78 @@
     <!-- /.content-header -->
 
 		<!-- Main content -->
-		<div class="container">
-			<div >
-			   <div class="row">
-				   <div class="col-md-1">
-				   </div>
-					<div class="col-md-10">
-						<div class="container mt-5">
-					  
-
-						  <!-- Search field and entries per page dropdown -->
-						  <div class="row mb-3">
-							<div class="col-md-4">
-								<label for="entriesPerPage">Entries per page:</label>
-							  <input type="text" class="form-control" id="search" placeholder="Search" onkeyup="searchTable()">
+	<div class="container">
+		<div>
+			<div class="row">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10">
+					<div class="container mt-4">
+						<div class="row">
+							<div class="col-12">
+								<table id="dataTable" class="table table-bordered">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php
+											$sh = 0;
+											$sql = "SELECT * FROM clothing_sizes";
+											$result = $conn->query($sql);
+											if ($result->num_rows > 0) {
+												while ($row = $result->fetch_assoc()) 
+												{
+													$sh++;
+										?>
+													<!-- Dummy Data -->
+													<tr>
+														<td><?php echo $sh ?></td>
+														<td><?php echo $row['size'] ?></td>
+														<td> <a class='btn ' href="update_size.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-edit "  aria-hidden="true"></i></a><a class='btn ' href="delete_size.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-trash edit_icon" aria-hidden="true"></i></a></td>
+													</tr>
+													<!-- Add more rows as needed -->
+										<?php
+												}
+											}
+										?>
+									</tbody>
+								</table>
 							</div>
-							<div class="col-md-6">
-							</div>
-							<div class="col-md-2">
-							  <label for="entriesPerPage">Entries per page:</label>
-							  <select class="form-control" id="entriesPerPage" onchange="changeEntriesPerPage()">
-								<option>5</option>
-								<option>10</option>
-								<option>20</option>
-							  </select>
-							</div>
-						  </div>
-
-						  <!-- Data Table -->
-						  <table class="table" id="dataTable" border="0" cellspacing="0" class="category_table_style">
-							<thead>
-							  <tr>
-								<th>ID</th>
-								<th>Size</th>
-								<th>Action</th>
-								
-							  </tr>
-							</thead>
-							<?php 
-								$sh = 0;
-								$sql = "SELECT * FROM clothing_sizes";
-								$result = $conn->query($sql);
-								if($result->num_rows > 0)
-								{
-									while($row = $result->fetch_assoc())
-									{
-										$sh++
-							?>
-							<tbody>
-								 <tr>
-								<td><?php echo $sh ?></td>
-								<td><?php echo $row['size'] ?></td>
-								<td> <a class='btn ' href="update_size.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-edit "  aria-hidden="true"></i></a><a class='btn ' href="delete_size.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-trash edit_icon" aria-hidden="true"></i></a></td>
-								
-							  </tr>
-							</tbody>
-							<?php 			
-									}
-									
-								}
-							?>
-						  </table>
-
-					  <!-- Pagination -->
-					  <nav aria-label="Page navigation">
-						<ul class="pagination justify-content-end">
-						  <!-- Pagination links will be dynamically generated here -->
-						</ul>
-					  </nav>
-
+						</div>
 					</div>
 				</div>
 				<div class="col-md-1">
-			   </div>
-		   </div>
-        </div>
-    </div>
-    <!-- /.content -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 	<?php 
-
 		include("../../include/main_file/footer.php");
-
 	?>
-	
-	<script>
-  var entriesPerPage = 5; // Default number of entries per page
-  var currentPage = 1; // Default current page
+<script>
+    $(document).ready(function() {
+        // DataTable Initialization
+        var dataTable = $('#dataTable').DataTable();
 
-  function searchTable() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("search");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("dataTable");
-    tr = table.getElementsByTagName("tr");
+        // Search Bar
+        $('#search').on('keyup', function () {
+            dataTable.search(this.value).draw();
+        });
 
-    for (i = 0; i < tr.length; i++) {
-      // Assuming you want to search in the second column (index 1), adjust as needed
-      td = tr[i].getElementsByTagName("td")[1];
-
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-
-    currentPage = 1; // Reset current page after searching
-    updatePagination();
-  }
-
-  function changeEntriesPerPage() {
-    var select = document.getElementById("entriesPerPage");
-    entriesPerPage = parseInt(select.value);
-    currentPage = 1;
-    updateTable();
-  }
-
-  function updateTable() {
-    var table = document.getElementById("dataTable");
-    var tr = table.getElementsByTagName("tr");
-
-    var startIndex = (currentPage - 1) * entriesPerPage;
-    var endIndex = startIndex + entriesPerPage;
-
-    for (var i = 0; i < tr.length; i++) {
-      if (i >= startIndex && i < endIndex) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-
-    updatePagination();
-  }
-
-  function updatePagination() {
-    var table = document.getElementById("dataTable");
-    var tr = table.getElementsByTagName("tr");
-    var totalPages = Math.ceil(tr.length / entriesPerPage);
-
-    var pagination = document.querySelector(".pagination");
-    pagination.innerHTML = "";
-
-    for (var i = 1; i <= totalPages; i++) {
-      var li = document.createElement("li");
-      li.className = "page-item" + (i === currentPage ? " active" : "");
-      var a = document.createElement("a");
-      a.className = "page-link";
-      a.href = "#";
-      a.innerText = i;
-      a.addEventListener("click", function (event) {
-        event.preventDefault();
-        currentPage = parseInt(event.target.innerText);
-        updateTable();
-      });
-      li.appendChild(a);
-      pagination.appendChild(li);
-    }
-  }
-
-  // Call updateTable after adding or removing rows to initialize the table
-  updateTable();
+        // Entries per page
+        $('#entries').on('change', function () {
+            dataTable.page.len(this.value).draw();
+        });
+    });
 </script>
-	
+
 
 </body>
 </html>

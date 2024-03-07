@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Include your head content here -->
-    <!-- Bootstrap CSS and dependencies -->
-    <!-- Add your CSS links here -->
-</head>
-<body>
+
 <?php
 include("../../include/main_file/top_link.php");
 include("../../include/main_file/main_sidebar.php");
@@ -32,7 +25,7 @@ include("../../include/main_file/main_sidebar.php");
                 </div><!-- /.col -->
                 <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="../category/show_category.php">Home</a></li>
+                        <li class="breadcrumb-item"><a href="../../home.php">Home</a></li>
                         <li class="breadcrumb-item active">Starter Page</li>
                     </ol>
                 </div><!-- /.col -->

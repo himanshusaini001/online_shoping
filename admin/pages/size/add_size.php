@@ -33,7 +33,7 @@
           </div><!-- /.col -->
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../size/show_size.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../../home.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->

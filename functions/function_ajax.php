@@ -199,7 +199,7 @@
 					// Insert data into the category table
 
 					$sql = "UPDATE colors SET color_name='$color_name' where color_id='$color_id'";
-
+					
 					if ($conn->query($sql) === TRUE) {
 						echo "success";
 					} else {

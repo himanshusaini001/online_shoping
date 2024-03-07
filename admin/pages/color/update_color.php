@@ -30,11 +30,11 @@
 				</ul>
 			</div>
           <div class="col-sm-4">
-            <h1 class="m-0">Update Color Page</h1>
+            <h1 class="m-0">Update Size Page</h1>
           </div><!-- /.col -->
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="../color/show_color.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="../../home.php">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
           </div><!-- /.col -->
@@ -89,17 +89,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-     <script>
+    <script>
     $(document).ready(function () {
         // Form validation using jQuery
         $("#submitBtn").click(function () {
             // Reset previous error messages
             $(".error-message").text("");
 			
+            var color_name = $("#color_name").val();
 			var color_id = $("#color_id").val();
-
-            var userInputColor = $("#color_name").val();
-			var color = userInputColor.toLowerCase();
+			
 			var found = false;
 			var colors = [
 				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
@@ -110,45 +109,43 @@
 			
 			for (var i = 0; i < colors.length; i++) {
 				
-				if (userInputColor === colors[i]) {
+				if (color_name === colors[i]) {
 					
 					 found = true;
-					 var isValid = true;
+					var isValid = true;
+					if (color_name === "") {
+						isValid = false;
+						alert("Fild is required.");
+					}
 
-                if (color_name === "") {
-                    isValid = false;
-                }
-
-                if (!isValid) {
-                    alert("Name and Image URL are required.");
-                } else {
-                    // AJAX to submit form data
-                    $.ajax({
-                        type: "POST",
-                        url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                        data: {
-							action:"update_color",
-                            color_name: color_name,
-							color_id: color_id
-                        },
-                        success: function (response) {
-                            if (response === "success") {
-                                // Redirect to another page after successful insertion
-                                window.location.href = "../color/show_color.php";
-                            } else {
-                                 alert("Color is Already Added");
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            alert("AJAX request failed: " + status + "\nError: " + error);
-                        }
-                    });
-                }
+					if (isValid) {
+						// AJAX to submit form data
+						$.ajax({
+							type: "POST",
+							url: "../../../functions/function_ajax.php", // Replace with the actual server-side processing script
+							data: {
+								action: "update_color",
+								color_name: color_name,
+								color_id:color_id
+							},
+							success: function (response) {
+								if (response === "success") {
+									// Redirect to another page after successful insertion
+									window.location.href = "../color/show_color.php";
+								} else {
+									alert("Color is Already Added");
+								}
+							},
+							error: function (xhr, status, error) {
+								alert("AJAX request failed: " + status + "\nError: " + error);
+							}
+						});
+					}
 				}
 				
 			}
 			if (found == false) {
-				alert("Please Don't Correct Value  ");
+				alert("Please Don't Correct Color  ");
 			} 
 			
 			

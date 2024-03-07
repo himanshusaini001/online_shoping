@@ -18,8 +18,8 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link ">
-              <p>
-                Content Management Settings
+              <p class="hover_color">
+                <b>Content Management Settings</b>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
