@@ -11,7 +11,7 @@
 	
 		if(!isset($_SESSION['is_customer_login']))
 		{
-			header("location: admin/login.php");
+			header("location: front_admin/login.php");
 		}
 		
 		// Session End

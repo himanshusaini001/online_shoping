@@ -1,4 +1,12 @@
 <?php 
+// Session Start
+
+	include('../../include/db_file/config.php');
+		if(!isset($_SESSION['admin_name']))
+		{
+				header("location:../../admin_login.php");
+		}
+	// Session End
 $sid = $_GET['sid'];
 
 ?>

@@ -106,7 +106,7 @@
             if ($(".error:empty").length === $(".error").length) {
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost/online-shoping/functions/function_ajax.php",
+                    url: "../../functions/function_ajax.php",
                     data: {
                         action: "random_link",
                         email: email
@@ -147,7 +147,7 @@
 								if (seconds < 0) 
 								{
 									clearInterval(countdownInterval);
-									window.location.href = "http://localhost/online-shoping/admin/verify_otp/register_otp.php"; // Redirect to another page
+									window.location.href = "http://localhost/online-shoping/front_admin/verify_otp/register_otp.php"; // Redirect to another page
 								}
 							}, 1500);
                         }

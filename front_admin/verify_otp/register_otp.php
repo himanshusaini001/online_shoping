@@ -134,7 +134,7 @@
 								if (seconds < 0) 
 								{
 									clearInterval(countdownInterval);
-									window.location.href = "http://localhost/online-shoping/admin/login.php"; // Redirect to another page
+									window.location.href = "http://localhost/online-shoping/front_admin/login.php"; // Redirect to another page
 								}
 							}, 1400);
 						}else {

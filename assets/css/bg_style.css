@@ -30,3 +30,9 @@ element.style {
     opacity: 0.6;
 }
 	.error {color: #FF0000;}
+	
+	
+.profile_border h1 {
+	border-bottom: 1px solid #000;
+	width: 100%;
+}

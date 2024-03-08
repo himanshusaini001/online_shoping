@@ -24,6 +24,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/bg_style.css" rel="stylesheet">
 	
 </head>
 

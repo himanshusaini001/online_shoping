@@ -28,6 +28,10 @@ a.category_btn {
 /* main Siderbar link css End */ 
 .edit_icon {
     margin-left: 10px!important;
+	color : green;
+}
+.delete_icon{
+	color : red;
 }
 
 [class*=sidebar-dark] .brand-link {

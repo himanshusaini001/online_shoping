@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <!-- Brand Logo -->
-    <a href="../../home.php" class="brand-link pt-4">
+    <a href="../profile/home.php" class="brand-link pt-4">
       <img src="../../assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 " style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -17,13 +17,12 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link ">
-              <p class="hover_color">
-                <b>Content Management Settings</b>
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
             <ul class="nav nav-treeview">
+			 <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <h5><b>Management Settings</b></h5>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="../category/show_category.php" class="nav-link">
                   <p>Manage Categorys</p>
@@ -37,6 +36,11 @@
 			  <li class="nav-item">
                 <a href="../color/show_color.php" class="nav-link">
                   <p>Manage Colors</p>
+                </a>
+              </li>
+			   <li class="nav-item">
+                <a href="../../../admin/admin_logout.php" class="nav-link">
+                  <p>Logout</p>
                 </a>
               </li>
             </ul>

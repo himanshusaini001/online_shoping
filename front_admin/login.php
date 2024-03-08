@@ -115,7 +115,7 @@ if(isset($_SESSION['admin']))
 						); */
 
 						// Redirect to another page (e.g., home.html)
-						window.location.href = "profile.php"; // Change this to the desired page
+						window.location.href = "../profile.php"; // Change this to the desired page
 					} else {
 						// Authentication failed
 						$("#errorMessages").html(response.message);

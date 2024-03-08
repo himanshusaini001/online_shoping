@@ -113,6 +113,7 @@
             if (response.includes("successfully")) {
               // Update the result div
               $("#result").html(response);
+			 window.location.href = "http://localhost/online-shoping/front_admin/login.php";
             }
           },
         });

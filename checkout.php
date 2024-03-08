@@ -8,7 +8,7 @@
 		
 		if(!isset($_SESSION['admin']))
 		{
-			header("location: admin/login.php");
+			header("location: front_admin/login.php");
 		}
 	?>
 	<!-- header End -->

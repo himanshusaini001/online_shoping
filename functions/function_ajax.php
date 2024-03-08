@@ -25,8 +25,7 @@
 				$phone = $_POST["phone"];
 				$address = $_POST["address"];
 				$username = $_POST["username"];
-				$password = $_POST["password"];
-				
+				$password = md5($_POST["password"]);
 				// Session  Start
 				
 				$otp = mt_rand(100000, 999999);
@@ -138,14 +137,11 @@
 			
 				if ($action == "confrom_pass") {
 					// Check if the OTP is provided
-					$password = $_POST['password'];
-					$sid = $_POST['sid'];
-
-					// Hash the password
-					$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+					$password = md5($_POST['password']);
+					
 
 					// Update the user information in the database
-					$sql = "UPDATE registration SET password='$hashedPassword' WHERE sid='2'";
+					$sql = "UPDATE registration SET password='$password' WHERE sid='8'";
 
 					if ($conn->query($sql) === TRUE) {
 						echo "successfully";
@@ -280,8 +276,7 @@
 						
 						// Retrieve data from POST request
 						$username = $_POST['username'];
-						$password = $_POST['password'];
-
+						$password = md5($_POST["password"]);
 						// SQL query to check username and password
 						$sql = "SELECT * FROM registration WHERE username = '$username' AND password = '$password'";
 						$result = $conn->query($sql);
@@ -384,7 +379,7 @@
 								//echo "successfully!";
 								$token = uniqid();
 							
-							  $resetLink = "http://localhost/online-shoping/admin/reset_all/conform_pass.php?sid=$sid&email=$email&token=".uniqid();
+							  $resetLink = "http://localhost/online-shoping/front_admin/reset_all/conform_pass.php?sid=$sid&email=$email&token=".uniqid();
 								echo $resetLink; die();
 							// Send the link to the user's email (use a proper mail library in production)
 							mail($email, "Password Reset", "Click the link to reset your password: $resetLink");
@@ -394,7 +389,36 @@
 							echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 						}
 					}
-					
+					// Delete Category
+				
+					  if ($action == "admin_login") {
+						// Get form data
+						$admin_name = $_POST['admin_name'];
+						$admin_password = $_POST['admin_password'];
+
+						
+
+						// Perform a simple SQL query without prepared statement (not recommended for production due to SQL injection risk)
+						$sql = "SELECT * FROM admin WHERE name = '$admin_name' AND password ='$admin_password'";
+						$result = $conn->query($sql);
+						$row = $result->fetch_assoc();
+						 $name = $row['name'];
+							
+						if ($name == $admin_name) {
+							
+								// Start a session and set session variables
+								$_SESSION['admin_name'] = $admin_name;
+
+								// Explicitly set the content type to JSON
+								header('Content-Type: application/json');
+								echo json_encode(["status" => "success"]);
+							
+						} else {
+							// Provide a generic error message
+							header('Content-Type: application/json');
+							echo json_encode(["status" => "error", "message" => "Error executing the query"]);
+						}
+					  }
 					
 			// Select Query All End ->
 			

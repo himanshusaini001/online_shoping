@@ -2,8 +2,9 @@
     <div class="container-fluid bg-dark mb-30">
         <div class="row px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                    <h6 class="text-dark m-0"></i>LOGO</h6>
+                <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 80px; padding: 0 30px;">
+                   <img class="logo" src="assets/img/online_shoping.png">
+					<h4>LuxeAlign</h4>
                     
                 </a>
             </div>
@@ -31,10 +32,25 @@
                             <a href="contact.php" class="nav-item nav-link">Contact</a>
                         </div>
 						<div class="nav-item dropdown">
-						<a href="#" class="nav-link dropdown-toggle logout_btn_none" data-toggle="dropdown">Register/Login <i class="fa fa-angle-down mt-1"></i></a>
-							<div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-								<a href="admin/registration.php" class="dropdown-item login_btn_link">Register</a>
-								<a href="admin/login.php" class="dropdown-item login_btn_link">Login</a>
+						<?php 
+							if(isset($_SESSION['admin']))
+								{
+								
+								?>
+									<a href="#" class="nav-link logout_btn_none" data-toggle="dropdown"><i class="fa fa-user arrow_right" aria-hidden="true"></i></a>
+								<?php 
+							}
+								else
+								{
+									
+							?>
+									<a href="#" class="nav-link dropdown-toggle logout_btn_none" data-toggle="dropdown">Register/Login<i class="fa fa-angle-down arrow_right1 mt-1"></i></a>
+							<?php 
+								}
+						?>
+							<div class="dropdown-menu  bg-primary rounded-0 border-0 m-0">
+								<a href="front_admin/registration.php" class="dropdown-item login_btn_link">Register</a>
+								<a href="front_admin/login.php" class="dropdown-item login_btn_link">Login</a>
 								<?php 
 								
 									if(isset($_SESSION['admin']))
@@ -46,7 +62,8 @@
 										}
 										
 										</style>
-										<a href="admin/logout.php" class="dropdown-item">Logout</a>
+										<a href="profile.php" class="dropdown-item">Auount</a>
+										<a href="front_admin/logout.php" class="dropdown-item">Logout</a>
 								<?php
 									}
 								?>

@@ -1,7 +1,16 @@
 
 <?php
+
+include('../../include/db_file/config.php');
+include("../../include/db_file/connection_file.php");
+
 include("../../include/main_file/top_link.php");
 include("../../include/main_file/main_sidebar.php");
+
+	if(!isset($_SESSION['admin_name']))
+	{
+			header("location:../../admin_login.php");
+	}
 ?>
 
 <!-- Content Wrapper. Contains page content -->

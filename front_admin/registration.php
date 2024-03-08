@@ -224,7 +224,7 @@
 								if (seconds < 0) 
 								{
 									clearInterval(countdownInterval);
-									window.location.href = "http://localhost/online-shoping/admin/verify_otp/register_otp.php"; // Redirect to another page
+									window.location.href = "http://localhost/online-shoping/front_admin/verify_otp/register_otp.php"; // Redirect to another page
 								}
 							}, 1500);
 						}

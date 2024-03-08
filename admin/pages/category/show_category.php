@@ -1,13 +1,16 @@
 <?php
-    // Top Link Start 
-		include("../../include/main_file/top_link.php");
-		include("../../include/db_file/connection_file.php");
-	 // Top Link Start
-	
-	// Sidebar Start 
-		include("../../include/main_file/main_sidebar.php");
-	// Sidebar End
- ?>
+
+include('../../include/db_file/config.php');
+include("../../include/db_file/connection_file.php");
+
+include("../../include/main_file/top_link.php");
+include("../../include/main_file/main_sidebar.php");
+
+	if(!isset($_SESSION['admin_name']))
+	{
+			header("location:../../admin_login.php");
+	}
+?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -71,15 +74,21 @@
 										?>
 													<!-- Dummy Data -->
 													<tr>
-													<td><?php echo $sh ?></td>
+													<td><b><?php echo $sh ?></b></td>
 													<td><?php echo $row['cname'] ?></td>
 													<td><?php echo $row['cimg'] ?></td>
 													<?php 
-													if($row['status'] == '0'){ $status= "Inactive";
-													}else{ $status= "Active"; }
+														if($row['status'] == '0'){
+															$status = "Inactive";
+															  $style = "color: red;";
+														}
+														else{
+															$status = "Active";
+															 $style = "color: green;";
+														}
 													?>
-													<td><?= $status; ?></td>
-													<td> <a class='btn ' href="update_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-edit "  aria-hidden="true"></i></a><a class='btn ' href="delete_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-trash edit_icon" aria-hidden="true"></i></a></td>
+													<td><p style="<?php echo $style; ?>"><?php echo $status; ?></p></td>
+													<td> <a class='btn ' href="update_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-edit edit_icon "  aria-hidden="true"></i></a><a class='btn ' href="delete_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-trash delete_icon" aria-hidden="true"></i></a></td>
 													</tr>
 													<!-- Add more rows as needed -->
 										<?php
