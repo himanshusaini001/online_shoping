@@ -70,49 +70,6 @@
 				}
 			}
 			
-			
-			// Add category 
-				
-			if ($action == "category") {
-				// Get data from AJAX request
-				$cname = $_POST['cname'];
-				$cimg = $_POST['cimg'];
-				$status = $_POST['status'];
-				// Insert data into the category table
-
-				$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
-
-				if ($conn->query($sql) === TRUE) {
-					echo "success";
-				} else {
-					echo "Error: " . $conn->error;
-				}
-			}
-
-			// Add product 
-				
-			if ($action == "product") {
-				// Get data from AJAX request
-				$category = $_POST['category'];
-				$product_color = $_POST['product_color'];
-				$product_size = $_POST['product_size'];
-				$price = $_POST['price'];
-				$product_name = $_POST['product_name'];
-				$description = $_POST['description'];
-				$product_img = $_POST['product_img'];
-				$status = $_POST['status'];
-				// Insert data into the category table
-
-				$sql = "INSERT INTO product (category, product_color, product_size, price, product_name, description, product_img, status) VALUES ('$category', '$product_color', '$product_size', '$price', '$product_name', '$description', '$product_img', '$status')";
-
-
-				if ($conn->query($sql) === TRUE) {
-					echo "success";
-				} else {
-					echo "Error: " . $conn->error;
-				}
-			}	
-			
 			//Add Size 
 			
 			if ($action == "add_size") {
@@ -165,7 +122,7 @@
 					
 
 					// Update the user information in the database
-					$sql = "UPDATE registration SET password='$password' WHERE sid='14'";
+					$sql = "UPDATE registration SET password='$password' WHERE sid='1'";
 
 					if ($conn->query($sql) === TRUE) {
 						echo "successfully";
@@ -175,24 +132,7 @@
 				}
 				
 				
-				// Update Category
 				
-				if ($action == "update_category") {
-					// Get data from AJAX request
-					$cname = $_POST['cname'];
-					$cimg = $_POST['cimg'];
-					$cid = $_POST['cid'];
-					$status = $_POST['status'];
-					// Insert data into the category table
-
-					$sql = "UPDATE category SET cname='$cname',cimg='$cimg',status='$status' where cid='$cid'";
-
-					if ($conn->query($sql) === TRUE) {
-						echo "success";
-					} else {
-						echo "Error: " . $conn->error;
-					}
-				}
 				
 				
 				// Update size
@@ -242,35 +182,6 @@
 			// Delete Query All Start ->
 			
 			
-			// Delete Category
-				
-				if ($action == "delete_category") {
-					 $cid = $_POST['cid'];
-
-					// Perform the deletion query (Example, please use prepared statements for security)
-					$sql = "DELETE FROM category WHERE cid = $cid";
-
-					if (mysqli_query($conn, $sql)) {
-						echo "Record deleted successfully";
-					} else {
-						echo "Error deleting record: " . mysqli_error($conn);
-					}
-				}
-				
-				// Delete Category
-				if ($action == "delete_product") {
-					 $product_id = $_POST['product_id'];
-
-					// Perform the deletion query (Example, please use prepared statements for security)
-					$sql = "DELETE FROM product WHERE product_id = $product_id";
-
-					if (mysqli_query($conn, $sql)) {
-						echo "Record deleted successfully";
-					} else {
-						echo "Error deleting record: " . mysqli_error($conn);
-					}
-				}
-				
 				// Delete size
 				
 				if ($action == "delete_size") {
@@ -418,7 +329,7 @@
 								$token = uniqid();
 							
 							  $resetLink = "http://localhost/online-shoping/reset_password/conform_password.php?sid=$sid&email=$email&token=".uniqid();
-								//echo $resetLink; die();
+								echo $resetLink;die();
 							// Send the link to the user's email (use a proper mail library in production)
 							mail($email, "Password Reset", "Click the link to reset your password: $resetLink");
 							
@@ -427,7 +338,7 @@
 							echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 						}
 					}
-					// Delete Category
+					// admin Login
 				
 					  if ($action == "admin_login") {
 						// Get form data
@@ -563,6 +474,182 @@
 				
 				
 				
+				
+				
+				
+				
+				// Admin Data Category Start
+				
+				// Add category 
+				
+				if ($action == "category") {
+					// Get data from AJAX request
+					$cname = $_POST['cname'];
+					
+					$cimg = $_FILES['cimg']['name'];
+					$uploadDir = '../admin/assets/upload_img/';
+					$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
+					move_uploaded_file($_FILES['cimg']['tmp_name'],$uploadedFile);
+					
+					$status = $_POST['status'];
+					// Insert data into the category table
+
+					$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
+
+					if ($conn->query($sql) === TRUE) {
+						echo "success";
+					} else {
+						echo "Error: " . $conn->error;
+					}
+				}
+				
+				// Delete Category
+				
+				if ($action == "delete_category") {
+					 $cid = $_POST['cid'];
+					// Perform the deletion query (Example, please use prepared statements for security)
+					$sql = "DELETE FROM category WHERE cid = $cid";
+
+					if (mysqli_query($conn, $sql)) {
+						echo "Record deleted successfully";
+					} else {
+						echo "Error deleting record: " . mysqli_error($conn);
+					}
+				}
+				
+				// Update Category
+				
+				if ($action == "update_category") {
+					// Get data from AJAX request
+					$cname = $_POST['cname'];
+					$status = $_POST['status'];
+					$cid = $_POST['cid'];
+					// Check if a file is uploaded
+					if (!empty($_FILES['cimg']['name'])) {
+						$cimg = $_FILES['cimg']['name'];
+						$uploadDir = '../admin/assets/upload_img/';
+						$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
+						move_uploaded_file($_FILES['cimg']['tmp_name'], $uploadedFile);
+					} else {
+						// If no file is uploaded, retain the existing image name
+						$folder_img = "SELECT cimg FROM category WHERE cid='$cid'";
+						$res = $conn->query($folder_img);
+						$row = $res->fetch_assoc();
+						$cimg = $row['cimg'];
+					}
+
+					// Use prepared statement to prevent SQL injection
+					$sql = "UPDATE category SET cname=?, cimg=?, status=? WHERE cid=?";
+					$stmt = $conn->prepare($sql);
+					$stmt->bind_param("sssi", $cname, $cimg, $status, $cid);
+
+					if ($stmt->execute()) {
+						echo "success";
+					} else {
+						echo "Error: " . $stmt->error;
+					}
+
+				}
+			
+			// Admin Data Category 
+				
+				
+				
+				// Admin Data Product Start
+				
+				// Add product 
+				
+				if ($action == "add_product") {
+					// Get data from AJAX request
+					$category = $_POST['category'];
+					$product_color = $_POST['product_color'];
+					$product_size = $_POST['product_size'];
+					$price = $_POST['price'];
+					$product_name = $_POST['product_name'];
+					$description = $_POST['description'];
+					$status = $_POST['status'];
+					
+					$product_img = $_FILES['product_img']['name'];
+					$uploadDir = '../admin/assets/upload_img/';
+					$uploadedFile = $uploadDir . basename($_FILES['product_img']['name']);
+					move_uploaded_file($_FILES['product_img']['tmp_name'],$uploadedFile);
+					// Insert data into the category table
+
+					$sql = "INSERT INTO product (category, product_color, product_size, price, product_name, description, product_img, status) VALUES ('$category', '$product_color', '$product_size', '$price', '$product_name', '$description', '$product_img', '$status')";
+
+
+					if ($conn->query($sql) === TRUE) {
+						echo "success";
+					} else {
+						echo "Error: " . $conn->error;
+					}
+				}	
+				
+				
+				// Update Product
+				
+				if ($action == "update_product") {
+					// Get data from AJAX request
+					$product_id = $_POST['product_id'];
+					$category = $_POST['category'];
+					$product_color = $_POST['product_color'];
+					$product_size = $_POST['product_size'];
+					$price = $_POST['price'];
+					$product_name = $_POST['product_name'];
+					$description = $_POST['description'];
+					$status = $_POST['status'];
+
+					// Check if a file is uploaded
+					if (!empty($_FILES['product_img']['name'])) {
+						$product_img = $_FILES['product_img']['name'];
+						$uploadDir = '../admin/assets/upload_img/';
+						$uploadedFile = $uploadDir . basename($_FILES['product_img']['name']);
+						move_uploaded_file($_FILES['product_img']['tmp_name'], $uploadedFile);
+					} else {
+						// If no file is uploaded, retain the existing image name
+						$folder_img = "SELECT product_img FROM product WHERE product_id=?";
+						$stmt_folder = $conn->prepare($folder_img);
+						$stmt_folder->bind_param("i", $product_id);
+						$stmt_folder->execute();
+						$stmt_folder->bind_result($existing_img);
+						$stmt_folder->fetch();
+						$product_img = $existing_img;
+						$stmt_folder->close();
+					}
+
+					// Use prepared statement to prevent SQL injection
+					$sql = "UPDATE product SET category=?, product_color=?, product_size=?, price=?, product_name=?, description=?, product_img=?, status=? WHERE product_id=?";
+					
+					$stmt = $conn->prepare($sql);
+					$stmt->bind_param("ssssssssi", $category, $product_color, $product_size, $price, $product_name, $description, $product_img, $status, $product_id);
+					
+					if ($stmt->execute()) {
+						echo "success";
+					} else {
+						echo "Error: " . $stmt->error;
+					}
+
+					$stmt->close();
+				}
+				
+				
+				// Delete product
+				
+				if ($action == "delete_product") {
+					
+					 $product_id = $_POST['product_id'];
+					// Perform the deletion query (Example, please use prepared statements for security)
+					$sql = "DELETE FROM product WHERE product_id='$product_id'";
+
+					if (mysqli_query($conn,$sql)) {
+						echo "Record deleted successfully";
+					} else {
+						echo "Error deleting record: " . mysqli_error($conn);
+					}
+				}
+				
+				
+			// Admin Data Product End
 				
 		}
 		

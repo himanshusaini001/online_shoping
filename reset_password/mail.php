@@ -147,7 +147,7 @@
 								if (seconds < 0) 
 								{
 									clearInterval(countdownInterval);
-									//window.location.href = "reset_password/conform_password.php"; // Redirect to another page
+									window.location.href = "reset_password/conform_password.php"; // Redirect to another page
 								}
 							}, 1500);
                         }

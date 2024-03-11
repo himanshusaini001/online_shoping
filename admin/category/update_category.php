@@ -60,6 +60,7 @@ $cid = $_GET['cid'];
 					?>
 					   <form class="custom-form shadow p-4" id="addForm" action="#" method="post" enctype="multipart/form-data">
 							<!-- Name Field -->
+							<input type="hidden" class="form-control" name="action" value="update_category" required>
 							<div class="form-group">
 								<label for="cname">Name:</label>
 								<input type="text" class="form-control" id="cname" name="cname" value="<?php echo $row['cname'] ?>" placeholder="Enter name" required>
@@ -69,7 +70,7 @@ $cid = $_GET['cid'];
 							<!-- Image Field -->
 							<div class="form-group">
 								<label for="img">Image URL:</label>
-								<input type="file" class="form-control" id="cimg" name="cimg" value="<?php echo $row['cimg'] ?>" placeholder="Enter image URL" required>
+								<input type="file" class="form-control" id="cimg" name="cimg" value="<?php echo $row['cimg'] ?>" placeholder="Enter image URL" required><img src="../../admin/assets/upload_img/<?php echo $row['cimg'] ?>" width="50px" height="50px" >
 							</div>
 							
 							<!-- Status Field -->
@@ -123,10 +124,6 @@ $cid = $_GET['cid'];
                 if (cname === "") {
                     isValid = false;
                 }
-
-                if (cimg === "") {
-                    isValid = false;
-                }
 				
 				if (status === "") {
                     isValid = false;
@@ -136,16 +133,14 @@ $cid = $_GET['cid'];
                     alert("Name and Image URL are required.");
                 } else {
                     // AJAX to submit form data
+					var form = document.getElementById('addForm');
+					let formdata = new FormData(form);
                     $.ajax({
                         type: "POST",
                         url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                        data: {
-							action:"update_category",
-                            cname: cname,
-                            cimg: cimg,
-							status: status,
-							cid: cid
-                        },
+                        data: formdata,
+						processData: false,
+						contentType: false,
                         success: function (response) {
                             if (response === "success") {
                                 // Redirect to another page after successful insertion

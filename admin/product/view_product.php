@@ -60,8 +60,8 @@ $view_id = $_GET['product_id'];
                                             <th>Product Size</th>
 											<th>Product Description</th>
                                             <th>Product Price</th>
+                                            <th>Product Img</th>
                                             <th>Status</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,6 +82,7 @@ $view_id = $_GET['product_id'];
                                             <td><?php echo $row['product_size'] ?></td>
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
+											<td><img src="../../admin/assets/upload_img/<?php echo  $row['product_img'] ?>" width="50px" height="50px"></td>
                                             <?php
                                                     if ($row['status'] == '0') {
                                                         $status = "Inactive";
@@ -92,12 +93,7 @@ $view_id = $_GET['product_id'];
                                                     }
                                                     ?>
                                             <td><p style="<?php echo $style; ?>"><?php echo $status; ?></p></td>
-                                            <td> <a class='btn '
-                                                    href="update_category.php?product_id=<?php echo $row['product_id'] ?>"><i
-                                                        class="fa fa-edit edit_icon " aria-hidden="true"></i></a><a
-                                                    class='btn '
-                                                    href="delete_category.php?product_id=<?php echo $row['product_id'] ?>"><i
-                                                        class="fa fa-trash delete_icon" aria-hidden="true"></i></a></td>
+                                            
                                         </tr>
                                         <!-- Add more rows as needed -->
                                         <?php

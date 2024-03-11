@@ -64,21 +64,22 @@ include("../include/main_file/main_sidebar.php");
 									<tbody>
 										<?php
 											$sh = 0;
-											$sql = "SELECT product.product_id,category.cname,category.cimg,category.cid,category.status
+											$sql = "SELECT product.category,category.cname,category.cimg,category.cid,category.status
 													FROM category
-													LEFT JOIN product ON category.cid = product.product_id";
+													LEFT JOIN product ON category.cid = product.category";
 											$result = $conn->query($sql);
 											if ($result->num_rows > 0) 
 											{
 												while ($row = $result->fetch_assoc()) 
 												{
+													
 													$sh++;
 										?>
 													<!-- Dummy Data -->
 													<tr>
 													<td><b><?php echo $sh ?></b></td>
 													<td><?php echo $row['cname'] ?></td>
-													<td><?php echo $row['cimg'] ?></td>
+													<td><img src="../../admin/assets/upload_img/<?php echo $row['cimg'] ?>" width="50px" height="50px"></td>
 													<?php 
 														if($row['status'] == '0'){
 															$status = "Inactive";
@@ -92,7 +93,7 @@ include("../include/main_file/main_sidebar.php");
 													<td><p style="<?php echo $style; ?>"><?php echo $status; ?></p></td>
 													<td><a class='btn ' href="update_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-edit edit_icon "  aria-hidden="true"></i></a>
 														<a class='btn ' href="delete_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-trash delete_icon" aria-hidden="true"></i></a>
-														<a class='btn ' href="../product/view_product.php?product_id=<?php echo $row['product_id'] ?>"><i class="fa fa-database blue_icon" aria-hidden="true"></i></a></td>
+														<a class='btn ' href="../product/view_product.php?product_id=<?php echo $row['category'] ?>"><i class="fa fa-database blue_icon" aria-hidden="true"></i></a></td>
 													</tr>
 													<!-- Add more rows as needed -->
 										<?php

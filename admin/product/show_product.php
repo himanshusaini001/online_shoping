@@ -28,6 +28,8 @@ if (!isset($_SESSION['admin_name'])) {
                 </div><!-- /.col -->
                 <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item active"><span><a href="../../admin/category/show_category.php"
+                                    class="btn btn-primary">View Category</a></span></li>
                         <li class="breadcrumb-item active"><span><a href="../../admin/product/add_product.php"
                                     class="btn btn-primary">Add Product</a></span></li>
                         <li class="breadcrumb-item active"><span><a href="../../admin/admin_logout.php"
@@ -58,6 +60,7 @@ if (!isset($_SESSION['admin_name'])) {
                                             <th>Product Size</th>
 											<th>Product Description</th>
                                             <th>Product Price</th>
+											<th>Product Img</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -79,6 +82,7 @@ if (!isset($_SESSION['admin_name'])) {
                                             <td><?php echo $row['product_size'] ?></td>
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
+											<td><img src="../../admin/assets/upload_img/<?php echo  $row['product_img'] ?>" width="50px" height="50px"></td>
                                             <?php
                                                     if ($row['status'] == '0') {
                                                         $status = "Inactive";

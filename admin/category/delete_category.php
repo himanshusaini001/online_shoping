@@ -11,7 +11,11 @@
 $cid = $_GET['cid'];
 
 ?>
-<input type="hidden" id="cid" value="<?php echo $cid ?>">
+
+<form id="addForm">
+<input type="hidden" name="action" value="delete_category">
+<input type="hidden" id="cid" name="cid" value="<?php echo $cid ?>">
+</form>
 
 <!-- Include jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,15 +29,18 @@ $cid = $_GET['cid'];
     // Confirm before deleting
     if (confirm('Are you sure you want to delete this record?')) {
         // AJAX request to delete record
+		var form = document.getElementById('addForm');
+		console.log(form);
+		let formdata = new FormData(form);
         $.ajax({
             url: '../../functions/function_ajax.php',
             type: 'POST',
-            data: { 
-                action: "delete_category",
-                cid: cid 
-            },
+			data: formdata,
+			processData: false,
+			contentType: false,
             success: function (response) {
                 // Redirect after successful deletion
+			
                 window.location.href = 'show_category.php';
             },
             error: function (xhr, status, error) {

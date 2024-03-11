@@ -113,7 +113,7 @@
             if (response.includes("successfully")) {
               // Update the result div
               $("#result").html(response);
-			 window.location.href = "../reset_password/conform_password.php";
+				window.location.href = "../customer_login.php";
             }
           },
         });

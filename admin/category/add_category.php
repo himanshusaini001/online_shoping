@@ -49,8 +49,9 @@ include("../include/main_file/main_sidebar.php");
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-6">
-                    <form class="custom-form shadow p-4" id="addForm" action="#" method="post" enctype="multipart/form-data">
+                    <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data">
                         <!-- Name Field -->
+						<input type="hidden" class="form-control" name="action" value="category" required>
                         <div class="form-group">
                             <label for="cname">Name:</label>
                             <input type="text" class="form-control" id="cname" name="cname" placeholder="Enter name" required>
@@ -59,7 +60,7 @@ include("../include/main_file/main_sidebar.php");
                         <!-- Image Field -->
                         <div class="form-group">
                             <label for="img">Image URL:</label>
-                            <input type="file" class="form-control" id="cimg" name="cimg" placeholder="Enter image URL" accept="image/*" required>
+                            <input type="file" class="form-control" id="cimg" name="cimg" accept=".jpg, .jpeg, .png" placeholder="Enter image URL"  required>
                         </div>
 						<!-- Status Field -->
 						<div class="form-group">
@@ -102,7 +103,6 @@ include("../include/main_file/footer.php");
 			var cimg = $("#cimg").val();
 			var status = $("#status").val();
 			
-
             var isValid = true;
 
             if (cname === "") {
@@ -120,15 +120,14 @@ include("../include/main_file/footer.php");
                 alert("Name and Image URL are required.");
             } else {
                 // AJAX to submit form data
+				var form = document.getElementById('addForm');
+				let formdata = new FormData(form);
                 $.ajax({
                     type: "POST",
                     url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                    data: {
-                        action: "category",
-                        cname: cname,
-                        cimg: cimg,
-						status: status
-                    },
+                    data: formdata,
+					processData: false,
+					contentType: false,
                     success: function (response) {
                         if (response === "success") {
                             // Redirect to another page after successful insertion

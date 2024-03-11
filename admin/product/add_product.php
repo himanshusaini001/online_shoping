@@ -49,8 +49,9 @@ include("../include/main_file/main_sidebar.php");
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-6">
-                    <form class="custom-form shadow p-4" id="addForm" action="#" method="post" enctype="multipart/form-data">
+                    <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data">
                         <!-- Name Field -->
+						<input type="hidden" class="form-control"  name="action" value="add_product" placeholder="Enter image URL" required>
 						<div class="row">
 							<div class=" col-md-6">
 								<div class="form-group">
@@ -211,21 +212,16 @@ include("../include/main_file/footer.php");
             if (!isValid) {
                 alert("Name and Image URL are required.");
             } else {
+				
+				var form = document.getElementById('addForm');
+				let formdata = new FormData(form);
                 // AJAX to submit form data
                 $.ajax({
                     type: "POST",
                     url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                    data: {
-                        action: "product",
-                        category: category,
-                        product_color: product_color,
-						product_size: product_size,
-						price: price,
-						product_name: product_name,
-						description: description,
-						product_img: product_img,
-						status: status
-                    },
+                    data: formdata,
+					processData: false,
+					contentType: false,
                     success: function (response) {
                         if (response === "success") {
                             // Redirect to another page after successful insertion
