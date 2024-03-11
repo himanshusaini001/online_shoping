@@ -15,11 +15,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 	<!-- Font Awesome Icons -->
-	<link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
 	<!-- Your custom styles (for example, custom.css) -->
 	<!-- Theme style -->
-	<link rel="stylesheet" href="../../assets/css/adminlte.min.css">
-	<link rel="stylesheet" href="../../assets/css/style_admin.css">
+	<link rel="stylesheet" href="../assets/css/adminlte.min.css">
+	<link rel="stylesheet" href="../assets/css/style_admin.css">
 	
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">

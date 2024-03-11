@@ -3,11 +3,11 @@
 	
 	if(!isset($_SESSION['admin_name']))
 	{
-			header("location:admin_login.php");
+			header("location:index.php");
 	}
 	
 	session_unset();
 	session_destroy();
 	
-	header("location:admin_login.php");
+	header("location:index.php");
 ?>

@@ -33,7 +33,7 @@
                         </div>
 						<div class="nav-item dropdown">
 						<?php 
-							if(isset($_SESSION['admin']))
+							if(isset($_SESSION['customer_login']))
 								{
 								
 								?>
@@ -49,11 +49,11 @@
 								}
 						?>
 							<div class="dropdown-menu  bg-primary rounded-0 border-0 m-0">
-								<a href="front_admin/registration.php" class="dropdown-item login_btn_link">Register</a>
-								<a href="front_admin/login.php" class="dropdown-item login_btn_link">Login</a>
+								<a href="signup.php" class="dropdown-item login_btn_link">Register</a>
+								<a href="customer_login.php" class="dropdown-item login_btn_link">Login</a>
 								<?php 
 								
-									if(isset($_SESSION['admin']))
+									if(isset($_SESSION['customer_login']))
 									{
 								?>		
 										<style>
@@ -63,7 +63,7 @@
 										
 										</style>
 										<a href="profile.php" class="dropdown-item">Auount</a>
-										<a href="front_admin/logout.php" class="dropdown-item">Logout</a>
+										<a href="customer_logout.php" class="dropdown-item">Logout</a>
 								<?php
 									}
 								?>

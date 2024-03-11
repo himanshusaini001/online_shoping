@@ -88,6 +88,30 @@
 					echo "Error: " . $conn->error;
 				}
 			}
+
+			// Add product 
+				
+			if ($action == "product") {
+				// Get data from AJAX request
+				$category = $_POST['category'];
+				$product_color = $_POST['product_color'];
+				$product_size = $_POST['product_size'];
+				$price = $_POST['price'];
+				$product_name = $_POST['product_name'];
+				$description = $_POST['description'];
+				$product_img = $_POST['product_img'];
+				$status = $_POST['status'];
+				// Insert data into the category table
+
+				$sql = "INSERT INTO product (category, product_color, product_size, price, product_name, description, product_img, status) VALUES ('$category', '$product_color', '$product_size', '$price', '$product_name', '$description', '$product_img', '$status')";
+
+
+				if ($conn->query($sql) === TRUE) {
+					echo "success";
+				} else {
+					echo "Error: " . $conn->error;
+				}
+			}	
 			
 			//Add Size 
 			
@@ -141,7 +165,7 @@
 					
 
 					// Update the user information in the database
-					$sql = "UPDATE registration SET password='$password' WHERE sid='8'";
+					$sql = "UPDATE registration SET password='$password' WHERE sid='14'";
 
 					if ($conn->query($sql) === TRUE) {
 						echo "successfully";
@@ -233,6 +257,20 @@
 					}
 				}
 				
+				// Delete Category
+				if ($action == "delete_product") {
+					 $product_id = $_POST['product_id'];
+
+					// Perform the deletion query (Example, please use prepared statements for security)
+					$sql = "DELETE FROM product WHERE product_id = $product_id";
+
+					if (mysqli_query($conn, $sql)) {
+						echo "Record deleted successfully";
+					} else {
+						echo "Error deleting record: " . mysqli_error($conn);
+					}
+				}
+				
 				// Delete size
 				
 				if ($action == "delete_size") {
@@ -293,7 +331,7 @@
 							$phone = $row['phone'];
 							$username = $row['username'];
 							// SESSION Start
-							$_SESSION['admin'] = $username;
+							$_SESSION['customer_login'] = $username;
 							$_SESSION['fname'] = $fname;
 							$_SESSION['lname'] = $lname;
 							$_SESSION['email'] = $email;
@@ -379,8 +417,8 @@
 								//echo "successfully!";
 								$token = uniqid();
 							
-							  $resetLink = "http://localhost/online-shoping/front_admin/reset_all/conform_pass.php?sid=$sid&email=$email&token=".uniqid();
-								echo $resetLink; die();
+							  $resetLink = "http://localhost/online-shoping/reset_password/conform_password.php?sid=$sid&email=$email&token=".uniqid();
+								//echo $resetLink; die();
 							// Send the link to the user's email (use a proper mail library in production)
 							mail($email, "Password Reset", "Click the link to reset your password: $resetLink");
 							

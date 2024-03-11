@@ -27,11 +27,14 @@ a.category_btn {
 		
 /* main Siderbar link css End */ 
 .edit_icon {
-    margin-left: 10px!important;
+    margin-left: 5px!important;
 	color : green;
 }
 .delete_icon{
 	color : red;
+}
+.blue_icon {
+    color: #007bff;
 }
 
 [class*=sidebar-dark] .brand-link {
@@ -41,4 +44,7 @@ a.category_btn {
     border-bottom: 1px solid #fff;
     margin-top: 11px;
     margin-bottom: 20px;
+}
+a.btn {
+    padding: 5px;
 }

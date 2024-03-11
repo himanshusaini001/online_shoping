@@ -9,9 +9,9 @@
 		
 		// Session Start
 	
-		if(!isset($_SESSION['is_customer_login']))
+		if(!isset($_SESSION['customer_login']))
 		{
-			header("location: front_admin/login.php");
+			header("location: customer_login.php");
 		}
 		
 		// Session End

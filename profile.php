@@ -6,9 +6,9 @@
 		include('include/main_file/topbar.php');
 		include('include/main_file/header.php');
 		
-		if(!isset($_SESSION['admin']))
+		if(!isset($_SESSION['customer_login']))
 		{
-			header("location:front_admin/login.php");
+			header("location: customer_login.php");
 		}
 	?>
 	<!-- header End -->

@@ -3,7 +3,7 @@
 
     <!-- Brand Logo -->
     <a href="../profile/home.php" class="brand-link pt-4">
-      <img src="../../assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 " style="opacity: .8">
+      <img src="../assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 " style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 	<div class="border_bottom"></div>
@@ -38,9 +38,9 @@
                   <p>Manage Colors</p>
                 </a>
               </li>
-			   <li class="nav-item">
-                <a href="../../../admin/admin_logout.php" class="nav-link">
-                  <p>Logout</p>
+			  <li class="nav-item">
+                <a href="../product/show_product.php" class="nav-link">
+                  <p>Manage Product</p>
                 </a>
               </li>
             </ul>
