@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 07, 2024 at 08:18 AM
+-- Generation Time: Mar 12, 2024 at 04:46 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -58,20 +58,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `cname`, `cimg`, `status`) VALUES
-(1, 'sahil', 'C:fakepathyoda.gif', 1),
-(2, 'rohit saini', 'C:fakepathyoda.gif', 1),
-(3, 'kamal', 'C:fakepathavatar2.png', 0),
-(27, 'efew', 'C:fakepathyoda.gif', 0),
-(25, 'ef', 'C:fakepathyoda.gif', 0),
-(26, 'dsfg', 'C:fakepathyoda.gif', 0),
-(20, 'sahil', 'C:fakepathyoda.gif', 0),
-(22, 'sdcs', 'C:fakepathyoda.gif', 0),
-(23, 'sads', 'C:fakepathyoda.gif', 0),
-(28, 'edwf', 'C:fakepathyoda.gif', 0),
-(29, 'sahil', 'C:fakepathyoda.gif', 0),
-(30, 'bunty', 'C:fakepathyoda.gif', 0),
-(31, 'sahil', 'C:fakepathyoda.gif', 0),
-(32, 'sumit', 'C:fakepathyoda.gif', 1);
+(1, 'jeens', 'dark_blue.jpg', 1),
+(2, 'tshirt', 'orange_tshirt.png', 1);
 
 -- --------------------------------------------------------
 
@@ -90,12 +78,8 @@ CREATE TABLE `clothing_sizes` (
 --
 
 INSERT INTO `clothing_sizes` (`sid`, `size`, `status`) VALUES
-(14, 'M', 0),
-(7, 'S', 0),
-(13, 'XL', 0),
-(15, 'XXL', 0),
-(16, 'XXXL', 1),
-(17, 'XS', 1);
+(1, 'XS', 1),
+(2, 'S', 1);
 
 -- --------------------------------------------------------
 
@@ -114,12 +98,8 @@ CREATE TABLE `colors` (
 --
 
 INSERT INTO `colors` (`color_id`, `color_name`, `status`) VALUES
-(7, 'red', 0),
-(12, 'teal', 0),
-(15, 'white', 0),
-(16, 'yellow', 0),
-(17, 'cyan', 0),
-(19, 'olive', 1);
+(1, 'blue', 1),
+(3, 'red', 1);
 
 -- --------------------------------------------------------
 
@@ -133,12 +113,30 @@ CREATE TABLE `login` (
   `password` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `login`
+-- Table structure for table `product`
 --
 
-INSERT INTO `login` (`lid`, `username`, `password`) VALUES
-(1, 'harsh', '123456');
+CREATE TABLE `product` (
+  `product_id` int NOT NULL,
+  `category` varchar(10) NOT NULL,
+  `product_color` varchar(50) NOT NULL,
+  `product_size` varchar(10) NOT NULL,
+  `price` int NOT NULL,
+  `product_name` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `product_img` text NOT NULL,
+  `status` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `category`, `product_color`, `product_size`, `price`, `product_name`, `description`, `product_img`, `status`) VALUES
+(1, '1', 'red', 'XS', 1000, 'black', 'best', 'white_tshirt.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -165,10 +163,7 @@ CREATE TABLE `registration` (
 --
 
 INSERT INTO `registration` (`sid`, `fname`, `lname`, `email`, `phone`, `address`, `username`, `password`, `created_at`, `updated_at`, `otp`) VALUES
-(1, 'himanshu', 'saini', 'himanshusaini26112002@gmail.com', '8699902297', 'mubarikpur', 'admin', 'himanshu123', '2024-02-29 05:27:29', '2024-02-29 05:27:29', '722531'),
-(2, 'harsh', 'saini', 'harshsaini26112002@gmail.com', '7418529630', 'mubarikpur', 'admin', 'harsh123', '2024-02-29 07:39:12', '2024-02-29 07:39:12', '568310'),
-(3, 'kamal', 'saini', 'kamalsaini26112002@gmail.com', '8699902297', 'derabassi', 'admin', 'kamal123', '2024-02-29 11:03:42', '2024-02-29 11:03:42', '411566'),
-(4, 'himanshu', 'saini', 'himanshusaini26112002@gmail.com', '8699902297', 'mubarikpur', 'admin', '123456', '2024-03-01 07:14:36', '2024-03-01 07:14:36', '947074');
+(1, 'anita', 'devi', 'anitadevi@gmail.com', '7412589630', 'derabassi', 'admin', '6a2e2c33086162a2dfb92d0a4decfde8', '2024-03-11 13:11:09', '2024-03-12 04:24:21', '843591');
 
 --
 -- Indexes for dumped tables
@@ -207,6 +202,12 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`lid`);
 
 --
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`product_id`);
+
+--
 -- Indexes for table `registration`
 --
 ALTER TABLE `registration`
@@ -226,31 +227,37 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `clothing_sizes`
 --
 ALTER TABLE `clothing_sizes`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `lid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `lid` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

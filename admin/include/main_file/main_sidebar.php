@@ -40,7 +40,7 @@
               </li>
 			  <li class="nav-item">
                 <a href="../product/show_product.php" class="nav-link">
-                  <p>Manage Product</p>
+                  <p>Manage Products</p>
                 </a>
               </li>
             </ul>

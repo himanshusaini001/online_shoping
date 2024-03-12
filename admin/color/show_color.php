@@ -55,7 +55,7 @@ include("../include/main_file/main_sidebar.php");
 								<table id="dataTable" class="table table-bordered">
 									<thead>
 										<tr>
-											<th>ID</th>
+											<th>Sh:</th>
 											<th>Name</th>
 											<th>Status</th>
 											<th>Action</th>

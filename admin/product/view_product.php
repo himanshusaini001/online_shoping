@@ -54,13 +54,13 @@ $view_id = $_GET['product_id'];
                                 <table id="dataTable" class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Product Name</th>
-                                            <th>Product Color</th>
-                                            <th>Product Size</th>
-											<th>Product Description</th>
-                                            <th>Product Price</th>
-                                            <th>Product Img</th>
+                                            <th>Sh:</th>
+                                            <th>Name</th>
+                                            <th>Color</th>
+                                            <th>Size</th>
+											<th>Description</th>
+                                            <th>Price</th>
+                                            <th>Image</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>

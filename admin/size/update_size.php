@@ -70,8 +70,8 @@ $sid = $_GET['sid'];
 							<div class="form-group">
 								<label for="selectOption" >Select an option:</label>
 								<select type="text" class="form-control"  id="status" name="status" value="<?php echo $row['status'] ?>" placeholder="Enter status URL"  required>
-									<option value="0">0</option>
-									<option value="1"> 1</option>
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
 								<!-- Add more options as needed -->
 								</select>
 							</div>
