@@ -2,7 +2,7 @@
 	
 	
 	<?php 
-		include('include/db_file/config.php');
+		require_once('include/db_file/config.php');
 
 		include('include/main_file/topbar.php');
 		include('include/main_file/header.php');

@@ -1,7 +1,7 @@
 <?php
 
-include('../include/db_file/config.php');
-include("../include/db_file/connection_file.php");
+require_once('../include/db_file/config.php');
+require_once("../include/db_file/connection_file.php");
 
 include("../include/main_file/top_link.php");
 include("../include/main_file/main_sidebar.php");
@@ -75,7 +75,7 @@ $cid = $_GET['cid'];
 							
 							<!-- Status Field -->
 							<div class="form-group">
-								<label for="selectOption" >Select an option:</label>
+								<label for="selectOption" >Status</label>
 								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
 								<option value="0">Inactive</option>
 								<option value="1">Active</option>

@@ -1,8 +1,8 @@
 
 <?php
 
-include('../include/db_file/config.php');
-include("../include/db_file/connection_file.php");
+require_once('../include/db_file/config.php');
+require_once("../include/db_file/connection_file.php");
 
 include("../include/main_file/top_link.php");
 include("../include/main_file/main_sidebar.php");
@@ -52,9 +52,7 @@ include("../include/main_file/main_sidebar.php");
                 </div>
                 <div class="col-md-6">
 				<?php 
-					$sql = "SELECT product.category,category.cname,category.cimg,category.cid,category.status
-													FROM category
-													LEFT JOIN product ON category.cid = product.category";
+					$sql = "SELECT * FROM product";
 					$result = $conn->query($sql);
 					if($result->num_rows > 0)
 					{
@@ -71,7 +69,7 @@ include("../include/main_file/main_sidebar.php");
 								<div class="form-group">
 									<label for="optInSelect">Product Categorys:</label>
 									<select class="form-control" id="category" name="category" placeholder="Enter Categorys" required>
-										 <option><?php echo $data['category'] ?></option>
+										 <option>select Category</option>
 										<?php 
 											$sql="SELECT * FROM category";
 											$result = $conn->query($sql);

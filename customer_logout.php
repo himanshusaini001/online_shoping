@@ -1,5 +1,5 @@
 <?php
-	include('include/db_file/config.php');
+	require_once('include/db_file/config.php');
 	
 	if(!isset($_SESSION['customer_login']))
 	{

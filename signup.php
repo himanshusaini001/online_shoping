@@ -1,6 +1,6 @@
 <?php 
 #harsh 
-	include('include/db_file/config.php');
+	require_once('include/db_file/config.php');
 	if(isset($_SESSION['customer_login']))
 	{
 		header("location: index.php");
@@ -84,32 +84,26 @@
                     <div class="col-md-6">
                         <label for="firstName">First Name:</label>
                         <input type="text" id="fname" name="fname" required>
-						<div id="fnameError" class="error"></div>
 						
                         <label for="lastName">Last Name:</label>
                         <input type="text" id="lname" name="lname" required>
-						<div id="lnameError" class="error"></div>
 
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
-						<div id="emailError" class="error"></div>
                         
                         <label for="phone">Phone:</label>
                         <input type="number" id="phone" name="phone" pattern="[0-9]*" maxlength="10" required>
-						<div id="phoneError" class="error"></div>
-                    </div>
+						</div>
                     <div class="col-md-6">
                         <label for="userAddress">Address:</label>
                         <input type="text" id="address" name="address" required>
-						<div id="addressError" class="error"></div>
 
                         <label for="userUsername">Username:</label>
                         <input type="text" id="username" name="username" required>
-						<div id="usernameError" class="error"></div>
 
                         <label for="userPassword">Password:</label>
                         <input type="text" id="password" name="password" required>
-						<div id="passwordError" class="error"></div>
+						
 
                         <button type="button" id="addUser" class="Register_btn">Register</button>
                     </div>
@@ -127,133 +121,126 @@
 <div id="result" class="result"></div>
 <!-- Script Start -->
 	<script>
-		$(document).ready(function() {
-			$("#addUser").click(function() {
-				// Custom validation logic
+    $(document).ready(function() {
+        $("#addUser").click(function() {
+            // Custom validation logic
 
-				$(".error").text("");
+            // Get input values
+            var fname = $("#fname").val().trim();
+            var lname = $("#lname").val().trim();
+            var email = $("#email").val().trim();
+            var phone = $("#phone").val().trim();
+            var address = $("#address").val().trim();
+            var username = $("#username").val().trim();
+            var password = $("#password").val().trim();
 
-				// Get input values
-				
-				var fname = $("#fname").val();
-				var lname = $("#lname").val();
-				var email = $("#email").val();
-				var phone = $("#phone").val();
-				var address = $("#address").val();
-				var username = $("#username").val();
-				var password = $("#password").val();
+            // Validation for First Name and Last Name (only alphabets)
+            var nameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(fname)) {
+                alert("Please enter valid first and last names (only alphabets).");
+                return;
+            }
+			var lnameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(lname)) {
+                alert("Please enter valid first and last names (only alphabets).");
+                return;
+            }
 
-				// Validation
-				if (!fname) 
-				{
-					$("#fnameError").text("First Name is required");
-				}
-				if (!lname) 
-				{
-					$("#lnameError").text("Last Name is required");
-				}
-				if (!isValidEmail(email)) 
-				{
-					$("#emailError").text("Invalid email format");
-				}
-				if (!isValidPhone(phone)) 
-				{
-					$("#phoneError").text("Invalid phone number");
-				}
-				if (!address) 
-				{
-					$("#addressError").text("Address is required");
-				}
-				if (!username) 
-				{
-					$("#usernameError").text("Username is required");
-				}
-				if (!isValidPassword(password)) 
-				{
-					$("#passwordError").text("Password must be at least 6 characters");
-				}
-				// If no validation errors, submit the form data using AJAX
-				if ($(".error:empty").length === $(".error").length) 
-				{
-					$.ajax({
-						type: "POST",
-						url: "functions/function_ajax.php",
-						data: 
-						{
-							action: "register",
-							fname: fname,
-							lname: lname,
-							email: email,
-							phone: phone,
-							address: address,
-							username: username,
-							password: password
-						},
-					success: function(response) 
+            // Validation for Email (basic format check)
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            // Validation for Phone (only numbers, exactly 10 digits)
+            var phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return;
+            }
+
+            // Validation for Password (at least 6 characters, at least 1 digit)
+            var passwordRegex = /^(?=.*\d).{6,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("Please enter a valid password (at least 6 characters with at least 1 digit).");
+                return;
+            }
+
+            // Validation for Address (non-empty)
+            if (address === "") {
+                alert("Please enter your address.");
+                return;
+            }
+
+            // Validation for Username (non-empty)
+            if (username === "") {
+                alert("Please enter a username.");
+                return;
+            }
+
+            // Send the data if all validations pass
+            $.ajax({
+                type: "POST",
+                url: "functions/function_ajax.php",
+                data: {
+                    action: "register",
+                    fname: fname,
+                    lname: lname,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    username: username,
+                    password: password
+                },
+                success: function(response) {
+                    $("#result");
+
+                    // Check if the response indicates success, then redirect
+					if (response.includes("successful")) 
 					{
-						$("#result");
-
-						// Check if the response indicates success, then redirect
-						if (response.includes("successful")) 
+						// Start the countdown
+						let seconds = 3; // Countdown time in seconds
+						var from = document.getElementById("addUserForm");
+						if (from.style.display === "none" || from.style.display === "") 
 						{
-							// Start the countdown
-							let seconds = 3; // Countdown time in seconds
-							var from = document.getElementById("addUserForm");
-							if (from.style.display === "none" || from.style.display === "") 
-							{
-								from.style.display = "none";
-							} 
-							else 
-							{
-								from.style.display = "block";
-							}
-							var element = document.getElementById("countdown");
-							if (element.style.display === "none" || element.style.display === "") 
-							{
-								element.style.display = "block";
-							} 
-							else 
-							{
-								element.style.display = "block";
-							}
-							const countdownInterval = setInterval(function() 
-							{
-								document.getElementById("countdown").textContent = "Redirecting in " + seconds+ " second...";
-								seconds--;
-								// Show an alert when the countdown reaches 1
-								if (seconds === 3) 
-								{
-									alert("Redirecting in 3 second...");
-								}
-								// Redirect the user after the countdown ends
-								if (seconds < 0) 
-								{
-									clearInterval(countdownInterval);
-									window.location.href = "verify_otp/sign_up_otp.php"; // Redirect to another page
-								}
-							}, 1500);
+							from.style.display = "none";
+						} 
+						else 
+						{
+							from.style.display = "block";
 						}
+						var element = document.getElementById("countdown");
+						if (element.style.display === "none" || element.style.display === "") 
+						{
+							element.style.display = "block";
+						} 
+						else 
+						{
+							element.style.display = "block";
+						}
+						const countdownInterval = setInterval(function() 
+						{
+							document.getElementById("countdown").textContent = "Redirecting in " + seconds+ " second...";
+							seconds--;
+							// Show an alert when the countdown reaches 1
+							if (seconds === 3) 
+							{
+								alert("Redirecting in 3 second...");
+							}
+							// Redirect the user after the countdown ends
+							if (seconds < 0) 
+							{
+								clearInterval(countdownInterval);
+								window.location.href = "verify_otp/sign_up_otp.php"; // Redirect to another page
+							}
+						}, 1500);
 					}
-					});
-				}
-				function isValidEmail(email) 
-				{
-					return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-				}
-				// Function to check if the phone number is in a valid format
-				function isValidPhone(phone) 
-				{
-					return /^\d{10}$/.test(phone);
-				}
-				// Function to check if the password meets the criteria
-				function isValidPassword(password) 
-				{
-					return password.length >= 6;
-				}
-				// Add more custom validation as needed
-			});
-		});
-	</script
+                }
+            });
+        });
+    });
+</script>
 	<!-- Script End -->
 
 </body>

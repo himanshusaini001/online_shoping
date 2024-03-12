@@ -1,7 +1,7 @@
 <?php 
 // Session Start
 
-	include('../include/db_file/config.php');
+	require_once('../include/db_file/config.php');
 
 		if(!isset($_SESSION['admin_name']))
 			{

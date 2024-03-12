@@ -1,7 +1,7 @@
 
 <?php
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+require_once("../include/main_file/top_link.php");
+require_once("../include/main_file/main_sidebar.php");
 if(!isset($_SESSION['admin_name']))
 	{
 			header("location:index.php");

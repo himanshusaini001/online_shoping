@@ -1,8 +1,8 @@
 <?php	
 	// Assuming you have a database connection already established
 	
-		include('../include/db_file/config.php');
-		include('../include/db_file/connection_file.php');
+		require_once('../include/db_file/config.php');
+		require_once('../include/db_file/connection_file.php');
 		
 		// Session Start
 		
@@ -17,66 +17,85 @@
 			
 			// Registration  function
 			 
-			if ($action == "register") 
-			{
-				$fname = $_POST["fname"];
-				$lname = $_POST["lname"];
-				$email = $_POST["email"];
-				$phone = $_POST["phone"];
-				$address = $_POST["address"];
-				$username = $_POST["username"];
-				$password = md5($_POST["password"]);
-				// Session  Start
-				
-				$otp = mt_rand(100000, 999999);
-				// Perform data insertion logic into users table
-				
-				$sql = "INSERT INTO registration (fname, lname, email, phone, address, username, password,otp) VALUES ('$fname', '$lname', '$email', '$phone', '$address', '$username', '$password','$otp')";
-				
-				if (mysqli_query($conn, $sql)) 
-				{
-					echo "";
-						// Send registration email
-						
-						$to = $email;  // Adjust this line based on your actual email field name
-						$subject = "Registration Successful";
-						$message = "Hello $fname $lname,\n\nYour registration is successful.\n\nDetails:\nEmail: $email\nPhone: $phone\nAddress: $address\nUsername: $username";
-						$headers = "From: himanshusaini26112002@gmail.com";
+			function test_input($data) {
+				$data = trim($data);
+				$data = stripslashes($data);
+				$data = htmlspecialchars($data);
+				return $data;
+			}
 
-						if (mail($to, $subject, $message, $headers)) {
-							
-							echo "Registration successful! Data added to the database and registration email sent.";
-							
-							$to = $email; 
-							$subject = "Registration OTP";
-							$message = "Hello Your OTP is \n\nOTP: $otp";
+			if ($action == "register") {
+				// Validate input
+				$fname_c = test_input($_POST["fname"]);
+				$lname_c = test_input($_POST["lname"]);
+				$email = test_input($_POST["email"]);
+				$phone_c = test_input($_POST["phone"]);
+				$address_c = test_input($_POST["address"]);
+				$username = test_input($_POST["username"]);
+				$password = md5(test_input($_POST["password"]));
+				$otp = mt_rand(100000, 999999);
+				//capital character Start
+				
+				$fname = ucfirst($fname_c);
+				$lname = ucfirst($lname_c);
+				$phone = ucfirst($phone_c);
+				$address = ucfirst($address_c);
+				
+				//capital character End
+				
+				// Check for empty fields
+				if (empty($fname) || empty($lname) || empty($email) || empty($phone) || empty($address) || empty($username) || empty($password)) {
+					echo "Please fill in all the required fields.";
+				} else {
+					// Perform data insertion logic into users table using prepared statements
+					$sql = "INSERT INTO registration (fname, lname, email, phone, address, username, password, otp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					$stmt = mysqli_prepare($conn, $sql);
+
+					if ($stmt) {
+						mysqli_stmt_bind_param($stmt, "ssssssss", $fname, $lname, $email, $phone, $address, $username, $password, $otp);
+
+						if (mysqli_stmt_execute($stmt)) {
+							// Send registration email
+							$to = $email;
+							$subject = "Registration Successful";
+							$message = "Hello $fname $lname,\n\nYour registration is successful.\n\nDetails:\nEmail: $email\nPhone: $phone\nAddress: $address\nUsername: $username";
 							$headers = "From: himanshusaini26112002@gmail.com";
-							
-							if (mail($to, $subject, $message, $headers)) 
-							{
-								echo "Registration successful! ";
-							}
-							else {
-								echo "Do not match OTP . Please contact support.";
+
+							if (mail($to, $subject, $message, $headers)) {
+								echo "Registration successful! Data added to the database and registration email sent.";
+
+								// Send OTP
+								$to = $email;
+								$subject = "Registration OTP";
+								$message = "Hello Your OTP is \n\nOTP: $otp";
+								$headers = "From: himanshusaini26112002@gmail.com";
+
+								if (mail($to, $subject, $message, $headers)) {
+									echo "Registration successful! ";
+								} else {
+									echo "Error sending OTP email. Please contact support.";
+								}
+							} else {
+								echo "Error sending registration email. Please contact support.";
 							}
 						} else {
-							echo "Error sending registration email. Please contact support.";
+							echo "Insert Error: " . mysqli_stmt_error($stmt);
 						}
-					
-				} 
-				else 
-				{
-					echo "Insert Error: " . $sql . "<br>" . mysqli_error($conn);
+
+						mysqli_stmt_close($stmt);
+					} else {
+						echo "Prepare statement error: " . mysqli_error($conn);
+					}
 				}
 			}
+
 			
 			//Add Size 
 			
 			if ($action == "add_size") {
 				// Get data from AJAX request
-				$size = $_POST['size'];
-				$status = $_POST['status'];
-
+				$size = test_input($_POST['size']);
+				$status = test_input($_POST['status']);
 				// Insert data into the category table
 
 				$sql = "INSERT INTO clothing_sizes (size,status) VALUES ('$size','$status')";
@@ -92,8 +111,9 @@
 				
 			if ($action == "add_color") {
 				// Get data from AJAX request
-				$color = $_POST['color'];
-				$status = $_POST['status'];
+				$color_c= test_input($_POST['color']);
+				$color = ucfirst($color_c);
+				$status = test_input($_POST['status']);
 				
 
 				// Insert data into the category table
@@ -118,7 +138,7 @@
 			
 				if ($action == "confrom_pass") {
 					// Check if the OTP is provided
-					$password = md5($_POST['password']);
+					$password = test_input(md5($_POST['password']));
 					
 
 					// Update the user information in the database
@@ -130,18 +150,13 @@
 						echo "Error updating record: " . $conn->error;
 					}
 				}
-				
-				
-				
-				
-				
 				// Update size
 				
 				if ($action == "update_size") {
 					// Get data from AJAX request
-					$size = $_POST['size'];
-					$sid = $_POST['sid'];
-					$status = $_POST['status'];
+					$size = test_input($_POST['size']);
+					$sid = test_input($_POST['sid']);
+					$status = test_input($_POST['status']);
 					// Insert data into the category table
 
 					$sql = "UPDATE clothing_sizes SET size='$size',status='$status' where sid='$sid'";
@@ -158,9 +173,11 @@
 				
 				if ($action == "update_color") {
 					// Get data from AJAX request
-					$color_name = $_POST['color_name'];
-					$color_id = $_POST['color_id'];
-					$status = $_POST['status'];
+					$color_name_c = test_input($_POST['color_name']);
+					$color_name = ucfirst($color_name_c);
+					
+					$color_id = test_input($_POST['color_id']);
+					$status = test_input($_POST['status']);
 					// Insert data into the category table
 
 					$sql = "UPDATE colors SET color_name='$color_name',status='$status' where color_id='$color_id'";
@@ -185,7 +202,7 @@
 				// Delete size
 				
 				if ($action == "delete_size") {
-					 $sid = $_POST['sid'];
+					 $sid = test_input($_POST['sid']);
 
 					// Perform the deletion query (Example, please use prepared statements for security)
 					$sql = "DELETE FROM clothing_sizes WHERE sid = $sid";
@@ -201,7 +218,7 @@
 				// Delete color
 				
 				if ($action == "delete_color") {
-					 $color_id = $_POST['color_id'];
+					 $color_id = test_input($_POST['color_id']);
 
 					// Perform the deletion query (Example, please use prepared statements for security)
 					$sql = "DELETE FROM colors WHERE color_id = $color_id";
@@ -224,8 +241,8 @@
 				  if ($action == 'login') {
 						
 						// Retrieve data from POST request
-						$username = $_POST['username'];
-						$password = md5($_POST["password"]);
+						$username = test_input($_POST['username']);
+						$password = test_input(md5($_POST["password"]));
 						// SQL query to check username and password
 						$sql = "SELECT * FROM registration WHERE username = '$username' AND password = '$password'";
 						$result = $conn->query($sql);
@@ -235,12 +252,18 @@
 							$row = $result->fetch_assoc();
 
 							// Fetch additional data
-							$fname = $row['fname'];
-							$lname = $row['lname'];
-							$email = $row['email'];
-							$address = $row['address'];
-							$phone = $row['phone'];
-							$username = $row['username'];
+							$fname_c = test_input($row['fname']);
+							$fname = ucfirst($fname_c);
+							
+							$lname_c = test_input($row['lname']);
+							$lname = ucfirst($lname_c);
+							
+							$email = test_input($row['email']);
+							$address_c = test_input($row['address']);
+							$address = ucfirst($address_c);
+							
+							$phone = test_input($row['phone']);
+							$username = test_input($row['username']);
 							// SESSION Start
 							$_SESSION['customer_login'] = $username;
 							$_SESSION['fname'] = $fname;
@@ -280,7 +303,7 @@
 					 if ($action == "verify_otp") {
 						// Check if the OTP is provided
 						
-						$userInputOTP = $_POST['otp'];
+						$userInputOTP = test_input($_POST['otp']);
 
 						// Prepare and execute the SQL statement using prepared statements
 						$sql = "SELECT otp FROM registration WHERE otp = '$userInputOTP'";
@@ -307,7 +330,7 @@
 					 if ($action == "random_link") 
 					 {
 						// Check if the OTP is provided
-						$email = $_POST["email"];
+						$email = test_input($_POST["email"]);
 
 						// Validate email (you might want to add more robust validation)
 						if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -342,8 +365,8 @@
 				
 					  if ($action == "admin_login") {
 						// Get form data
-						$admin_name = $_POST['admin_name'];
-						$admin_password = $_POST['admin_password'];
+						$admin_name = test_input($_POST['admin_name']);
+						$admin_password = test_input($_POST['admin_password']);
 
 						
 
@@ -484,14 +507,14 @@
 				
 				if ($action == "category") {
 					// Get data from AJAX request
-					$cname = $_POST['cname'];
-					
-					$cimg = $_FILES['cimg']['name'];
+					$cname_c = test_input($_POST['cname']);
+					$cname = ucfirst($cname_c);
+					$cimg = test_input($_FILES['cimg']['name']);
 					$uploadDir = '../admin/assets/upload_img/';
 					$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
 					move_uploaded_file($_FILES['cimg']['tmp_name'],$uploadedFile);
 					
-					$status = $_POST['status'];
+					$status = test_input($_POST['status']);
 					// Insert data into the category table
 
 					$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
@@ -506,7 +529,7 @@
 				// Delete Category
 				
 				if ($action == "delete_category") {
-					 $cid = $_POST['cid'];
+					 $cid = test_input($_POST['cid']);
 					// Perform the deletion query (Example, please use prepared statements for security)
 					$sql = "DELETE FROM category WHERE cid = $cid";
 
@@ -521,12 +544,14 @@
 				
 				if ($action == "update_category") {
 					// Get data from AJAX request
-					$cname = $_POST['cname'];
-					$status = $_POST['status'];
-					$cid = $_POST['cid'];
+					$cname_c = test_input($_POST['cname']);
+					$cname = ucfirst($cname_c);
+					
+					$status = test_input($_POST['status']);
+					$cid = test_input($_POST['cid']);
 					// Check if a file is uploaded
 					if (!empty($_FILES['cimg']['name'])) {
-						$cimg = $_FILES['cimg']['name'];
+						$cimg = test_input($_FILES['cimg']['name']);
 						$uploadDir = '../admin/assets/upload_img/';
 						$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
 						move_uploaded_file($_FILES['cimg']['tmp_name'], $uploadedFile);
@@ -535,7 +560,7 @@
 						$folder_img = "SELECT cimg FROM category WHERE cid='$cid'";
 						$res = $conn->query($folder_img);
 						$row = $res->fetch_assoc();
-						$cimg = $row['cimg'];
+						$cimg = test_input($row['cimg']);
 					}
 
 					// Use prepared statement to prevent SQL injection
@@ -561,15 +586,20 @@
 				
 				if ($action == "add_product") {
 					// Get data from AJAX request
-					$category = $_POST['category'];
-					$product_color = $_POST['product_color'];
-					$product_size = $_POST['product_size'];
-					$price = $_POST['price'];
-					$product_name = $_POST['product_name'];
-					$description = $_POST['description'];
-					$status = $_POST['status'];
+					$category_c = test_input($_POST['category']);
+					$category = ucfirst($category_c);
+					$product_color = test_input($_POST['product_color']);
+					$product_size = test_input($_POST['product_size']);
+					$price = test_input($_POST['price']);
+					$product_name_c = test_input($_POST['product_name']);
+					$product_name = ucfirst($product_name_c);
 					
-					$product_img = $_FILES['product_img']['name'];
+					$description_c = test_input($_POST['description']);
+					$description = ucfirst($description_c);
+					
+					$status = test_input($_POST['status']);
+					
+					$product_img = test_input($_FILES['product_img']['name']);
 					$uploadDir = '../admin/assets/upload_img/';
 					$uploadedFile = $uploadDir . basename($_FILES['product_img']['name']);
 					move_uploaded_file($_FILES['product_img']['tmp_name'],$uploadedFile);
@@ -590,18 +620,18 @@
 				
 				if ($action == "update_product") {
 					// Get data from AJAX request
-					$product_id = $_POST['product_id'];
-					$category = $_POST['category'];
-					$product_color = $_POST['product_color'];
-					$product_size = $_POST['product_size'];
-					$price = $_POST['price'];
-					$product_name = $_POST['product_name'];
-					$description = $_POST['description'];
-					$status = $_POST['status'];
+					$product_id = test_input($_POST['product_id']);
+					$category = test_input($_POST['category']);
+					$product_color = test_input($_POST['product_color']);
+					$product_size = test_input($_POST['product_size']);
+					$price = test_input($_POST['price']);
+					$product_name = test_input($_POST['product_name']);
+					$description = test_input($_POST['description']);
+					$status = test_input($_POST['status']);
 
 					// Check if a file is uploaded
 					if (!empty($_FILES['product_img']['name'])) {
-						$product_img = $_FILES['product_img']['name'];
+						$product_img = test_input($_FILES['product_img']['name']);
 						$uploadDir = '../admin/assets/upload_img/';
 						$uploadedFile = $uploadDir . basename($_FILES['product_img']['name']);
 						move_uploaded_file($_FILES['product_img']['tmp_name'], $uploadedFile);
@@ -637,7 +667,7 @@
 				
 				if ($action == "delete_product") {
 					
-					 $product_id = $_POST['product_id'];
+					 $product_id = test_input($_POST['product_id']);
 					// Perform the deletion query (Example, please use prepared statements for security)
 					$sql = "DELETE FROM product WHERE product_id='$product_id'";
 

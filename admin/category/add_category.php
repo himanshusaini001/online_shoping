@@ -1,7 +1,7 @@
 <?php
 
-include('../include/db_file/config.php');
-include("../include/db_file/connection_file.php");
+require_once('../include/db_file/config.php');
+require_once("../include/db_file/connection_file.php");
 
 include("../include/main_file/top_link.php");
 include("../include/main_file/main_sidebar.php");
@@ -87,60 +87,60 @@ include("../include/main_file/main_sidebar.php");
 		include("../include/main_file/footer.php");
 	?>
 	<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script>
     $(document).ready(function () {
-        // Form validation using jQuery
-        $("#submitBtn").click(function () {
-            // Reset previous error messages
-            $(".error-message").text("");
+    // Form validation using jQuery
+    $("#submitBtn").click(function () {
+        // Reset previous error messages
+        $(".error-message").remove();
 
-			var cname = $("#cname").val();
-			var cimg = $("#cimg").val();
-			var status = $("#status").val();
-			
-            var isValid = true;
+        // Validation and trimming for the name field
+        var cname = $.trim($("#cname").val());
+        if (cname === "" || !/^[a-zA-Z ]+$/.test(cname)) {
+            $("#cname").after('<span class="error-message">Please enter a valid name (only letters and spaces).</span>');
+            return;
+        }
 
-            if (cname === "") {
-                isValid = false;
-            }
+        // Validation for the image field
+        var cimg = $("#cimg").val();
+        if (!cimg) {
+            $("#cimg").after('<span class="error-message">Please select an image.</span>');
+            return;
+        }
 
-            if (cimg === "") {
-                isValid = false;
-            }
-			if (status === "") {
-                isValid = false;
-            }
+        // Validation for the status field
+        var status = $("#status").val();
+        if (!/^[0-1]$/.test(status)) {
+            $("#status").after('<span class="error-message">Please select a valid status.</span>');
+            return;
+        }
 
-            if (!isValid) {
-                alert("Name and Image URL are required.");
-            } else {
-                // AJAX to submit form data
-				var form = document.getElementById('addForm');
-				let formdata = new FormData(form);
-                $.ajax({
-                    type: "POST",
-                    url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                    data: formdata,
-					processData: false,
-					contentType: false,
-                    success: function (response) {
-                        if (response === "success") {
-                            // Redirect to another page after successful insertion
-                            window.location.href = "../category/show_category.php";
-                        } else {
-                            alert("Error: " + response);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        alert("AJAX request failed: " + status + "\nError: " + error);
-                    }
-                });
+        // AJAX to submit form data
+        var form = document.getElementById('addForm');
+        let formdata = new FormData(form);
+        $.ajax({
+            type: "POST",
+            url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response === "success") {
+                    // Redirect to another page after successful insertion
+                    window.location.href = "../category/show_category.php";
+                } else {
+                    alert("Error: " + response);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("AJAX request failed: " + status + "\nError: " + error);
             }
         });
     });
+});
 </script>
 
 </body>

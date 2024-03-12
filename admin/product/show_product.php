@@ -1,6 +1,6 @@
 <?php
-include('../include/db_file/config.php');
-include("../include/db_file/connection_file.php");
+require_once('../include/db_file/config.php');
+require_once("../include/db_file/connection_file.php");
 
 include("../include/main_file/top_link.php");
 include("../include/main_file/main_sidebar.php");
