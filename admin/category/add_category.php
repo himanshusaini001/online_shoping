@@ -1,4 +1,3 @@
-
 <?php
 
 include('../include/db_file/config.php');
@@ -12,13 +11,12 @@ include("../include/main_file/main_sidebar.php");
 			header("location:../index.php");
 	}
 ?>
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
-        <div class="container-fluid">
-            <div class="row mb-2">
+      <div class="container-fluid">
+        <div class="row mb-2">
 			<div class="col-sm-4">
 			   <ul class="navbar-nav">
 				  <li class="nav-item">
@@ -29,16 +27,16 @@ include("../include/main_file/main_sidebar.php");
 				  </li-->
 				</ul>
 			</div>
-                <div class="col-sm-4">
-                    <h1 class="m-0">Add Category Page</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-4">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><span><a href="../../admin/admin_logout.php" class="btn btn-primary">Logout</a></span></li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+          <div class="col-sm-4">
+            <h1 class="m-0">Add Category Page</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-4">
+            <ol class="breadcrumb float-sm-right">
+				<li class="breadcrumb-item active"><span><a href="../../admin/admin_logout.php" class="btn btn-primary">Logout</a></span></li>
+			</ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
@@ -78,17 +76,17 @@ include("../include/main_file/main_sidebar.php");
                 <div class="col-md-3">
                 </div>
             </div>
+		
         </div>
     </div>
+		
     <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-<?php
-include("../include/main_file/footer.php");
-?>
-
-<!-- Bootstrap JS and dependencies -->
+  </div>
+  <!-- /.content-wrapper -->
+	<?php 
+		include("../include/main_file/footer.php");
+	?>
+	<!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -144,5 +142,6 @@ include("../include/main_file/footer.php");
         });
     });
 </script>
+
 </body>
 </html>

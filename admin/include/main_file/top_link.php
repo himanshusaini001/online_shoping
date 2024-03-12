@@ -34,7 +34,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
 </head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
+
 
   <!-- Navbar -->

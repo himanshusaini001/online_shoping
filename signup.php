@@ -1,4 +1,5 @@
 <?php 
+#harsh 
 	include('include/db_file/config.php');
 	if(isset($_SESSION['customer_login']))
 	{

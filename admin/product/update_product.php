@@ -52,7 +52,9 @@ include("../include/main_file/main_sidebar.php");
                 </div>
                 <div class="col-md-6">
 				<?php 
-					$sql = "SELECT * FROM product WHERE product_id=$product_id";
+					$sql = "SELECT product.category,category.cname,category.cimg,category.cid,category.status
+													FROM category
+													LEFT JOIN product ON category.cid = product.category";
 					$result = $conn->query($sql);
 					if($result->num_rows > 0)
 					{
@@ -69,7 +71,7 @@ include("../include/main_file/main_sidebar.php");
 								<div class="form-group">
 									<label for="optInSelect">Product Categorys:</label>
 									<select class="form-control" id="category" name="category" placeholder="Enter Categorys" required>
-										 <option>select category</option>
+										 <option><?php echo $data['category'] ?></option>
 										<?php 
 											$sql="SELECT * FROM category";
 											$result = $conn->query($sql);
