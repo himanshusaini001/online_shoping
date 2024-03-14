@@ -1,19 +1,35 @@
-
 <?php
 
-require_once('../include/db_file/config.php');
-require_once("../include/db_file/connection_file.php");
+// Start Include File 
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+// Start Config File 
+	require_once('../include/db_file/config.php');
+// End Config File 
 
+// Start Connection File 
+	require_once("../include/db_file/connection_file.php");
+// End Connection File 
+
+// Start Session 
 	if(!isset($_SESSION['admin_name']))
 	{
-			header("location:../index.php");
+		header("location:../index.php");
 	}
-?>
+// End Session
 
-<!-- Content Wrapper. Contains page content -->
+// Start Top Link File 
+	include("../include/main_file/top_link.php");
+// End Top Link File 
+
+// Start Top Link File 
+	include("../include/main_file/main_sidebar.php");
+// End Top Link File 
+	
+?>
+<!-- Start body Tag -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+ <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
@@ -49,7 +65,7 @@ include("../include/main_file/main_sidebar.php");
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-6">
-                    <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data">
+                    <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data" style="height: 400px; overflow: auto;">
                         <!-- Name Field -->
 						<input type="hidden" class="form-control"  name="action" value="add_product" placeholder="Enter image URL" required>
 						<div class="row">
@@ -158,11 +174,14 @@ include("../include/main_file/main_sidebar.php");
 </div>
 <!-- /.content-wrapper -->
 
-<?php
-include("../include/main_file/footer.php");
-?>
-
-<!-- Bootstrap JS and dependencies -->
+<!-- Start Footer Tag -->
+	<?php
+		include("../include/main_file/footer.php");
+	?>
+<!-- End Footer Tag -->
+</div>
+<!-- ./wrapper -->
+<!-- Start Script Tag -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -238,5 +257,7 @@ include("../include/main_file/footer.php");
         });
     });
 </script>
+<!-- End Script Tag -->
 </body>
+<!-- End body Tag -->
 </html>

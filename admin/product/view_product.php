@@ -1,18 +1,36 @@
 <?php
 
-require_once('../include/db_file/config.php');
-require_once("../include/db_file/connection_file.php");
+// Start Include File 
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+// Start Config File 
+	require_once('../include/db_file/config.php');
+// End Config File 
 
-if (!isset($_SESSION['admin_name'])) {
-    header("location:../index.php");
-}
-$view_id = $_GET['category'];
+// Start Connection File 
+	require_once("../include/db_file/connection_file.php");
+// End Connection File 
 
+// Start Session 
+	if(!isset($_SESSION['admin_name']))
+	{
+		header("location:../index.php");
+	}
+// End Session
+
+// Start Top Link File 
+	include("../include/main_file/top_link.php");
+// End Top Link File 
+
+// Start Top Link File 
+	include("../include/main_file/main_sidebar.php");
+// End Top Link File 
+	$view_id = $_GET['category'];
 ?>
-<!-- Content Wrapper. Contains page content -->
+<!-- Start Body Tag -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+ <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="overflow-y: scroll; overflow-x: scroll; scrollbar-width: thin; scrollbar-color: #888 #f1f1f1;">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
@@ -50,7 +68,7 @@ $view_id = $_GET['category'];
                 <div class="col-md-10">
                     <div class="container mt-4">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12" style="height: 400px; overflow: auto;">
                                 <table id="dataTable" class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -114,34 +132,17 @@ $view_id = $_GET['category'];
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<?php
 
-include("../include/main_file/footer.php");
+<!-- Start Footer Tag -->
+	<?php
+		include("../include/main_file/footer.php");
+	?>
+	
+<!-- End Footer Tag -->
 
-?>
-
-<!-- Bottom Slide Bar -->
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="dataTables_paginate paging_simple_numbers">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="dataTable_previous">
-                        <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                    </li>
-                    <!-- Add more pages as needed -->
-                    <li class="paginate_button page-item next" id="dataTable_next">
-                        <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">Next</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
-
+<!-- ./wrapper -->
+<!-- Start Script Tag -->
 <script>
     $(document).ready(function () {
         // DataTable Initialization
@@ -158,7 +159,7 @@ include("../include/main_file/footer.php");
         });
     });
 </script>
-
+<!-- End Script Tag -->
 </body>
-
+<!-- End Body Tag -->
 </html>

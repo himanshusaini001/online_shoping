@@ -1,18 +1,35 @@
 <?php
 
-require_once('../include/db_file/config.php');
-require_once("../include/db_file/connection_file.php");
+// Start Include File 
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+// Start Config File 
+	require_once('../include/db_file/config.php');
+// End Config File 
 
+// Start Connection File 
+	require_once("../include/db_file/connection_file.php");
+// End Connection File 
+
+// Start Session 
 	if(!isset($_SESSION['admin_name']))
 	{
-			header("location:../index.php");
+		header("location:../index.php");
 	}
+// End Session
+
+// Start Top Link File 
+	include("../include/main_file/top_link.php");
+// End Top Link File 
+
+// Start Top Link File 
+	include("../include/main_file/main_sidebar.php");
+// End Top Link File 
+	
 ?>
-<body style="overflow: scroll;">
-  <!-- Content Wrapper. Contains page content -->
+<!-- Start Body  Tag -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
@@ -42,7 +59,7 @@ include("../include/main_file/main_sidebar.php");
     </div>
     <!-- /.content-header -->
 
-		<!-- Main content -->
+	<!-- Main content -->
 	<div class="container">
 		<div>
 			<div class="row">
@@ -51,7 +68,7 @@ include("../include/main_file/main_sidebar.php");
 				<div class="col-md-10">
 					<div class="container mt-4">
 						<div class="row">
-							<div class="col-12">
+							<div class="col-12" style="height: 400px; overflow: auto;">
 								<table id="dataTable" class="table table-bordered">
 									<thead>
 										<tr>
@@ -112,13 +129,18 @@ include("../include/main_file/main_sidebar.php");
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
+  <!-- Start Footer  Tag -->
 	<?php 
-
 		include("../include/main_file/footer.php");
-
 	?>
-	
-	<script>
+	<!-- End Footer  Tag -->
+  
+</div>
+<!-- ./wrapper -->
+
+<!-- Start Script  Tag -->
+<script>
     $(document).ready(function() {
         // DataTable Initialization
         var dataTable = $('#dataTable').DataTable();
@@ -134,7 +156,7 @@ include("../include/main_file/main_sidebar.php");
         });
     });
 </script>
-
-
+<!-- End Script  Tag -->
 </body>
+<!-- End Body  Tag -->
 </html>

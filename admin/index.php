@@ -5,7 +5,7 @@ include('../include/db_file/config.php');
 	
 	if(isset($_SESSION['admin_name']))
 	{
-			header("location:pages/category/add_category.php");
+			header("location:category/add_category.php");
 	}
 ?>
 <!DOCTYPE html>

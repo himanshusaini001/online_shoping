@@ -1,18 +1,35 @@
 <?php
 
-require_once('../include/db_file/config.php');
-require_once("../include/db_file/connection_file.php");
+// Start Include File 
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+// Start Config File 
+	require_once('../include/db_file/config.php');
+// End Config File 
 
+// Start Connection File 
+	require_once("../include/db_file/connection_file.php");
+// End Connection File 
+
+// Start Session 
 	if(!isset($_SESSION['admin_name']))
 	{
-			header("location:../index.php");
+		header("location:../index.php");
 	}
+// End Session
+
+// Start Top Link File 
+	include("../include/main_file/top_link.php");
+// End Top Link File 
+
+// Start Top Link File 
+	include("../include/main_file/main_sidebar.php");
+// End Top Link File 
+	
 ?>
-  
-  <!-- Content Wrapper. Contains page content -->
+<!-- Start Body Tag -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
@@ -51,8 +68,8 @@ include("../include/main_file/main_sidebar.php");
 				<div class="col-md-10">
 					<div class="container mt-4">
 						<div class="row">
-							<div class="col-12">
-								<table id="dataTable" class="table table-bordered">
+							<div class="col-12" style="height: 400px; overflow: auto;">
+								<table id="dataTable" class="table table-bordered" >
 									<thead>
 										<tr>
 											<th>Sh:</th>
@@ -108,26 +125,34 @@ include("../include/main_file/main_sidebar.php");
 	<!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+
+ <!-- Start Footer Tag -->
 	<?php 
 		include("../include/main_file/footer.php");
 	?>
-<script>
-    $(document).ready(function() {
-        // DataTable Initialization
-        var dataTable = $('#dataTable').DataTable();
+ <!-- End Footer Tag -->
+</div>
+<!-- ./wrapper -->
 
-        // Search Bar
-        $('#search').on('keyup', function () {
-            dataTable.search(this.value).draw();
-        });
+<!-- Start Script Tag -->
+	<script>
+		$(document).ready(function() {
+			// DataTable Initialization
+			var dataTable = $('#dataTable').DataTable();
 
-        // Entries per page
-        $('#entries').on('change', function () {
-            dataTable.page.len(this.value).draw();
-        });
-    });
-</script>
+			// Search Bar
+			$('#search').on('keyup', function () {
+				dataTable.search(this.value).draw();
+			});
 
+			// Entries per page
+			$('#entries').on('change', function () {
+				dataTable.page.len(this.value).draw();
+			});
+		});
+	</script>
 
+<!-- End Script Tag -->
 </body>
+<!-- End Body Tag -->
 </html>

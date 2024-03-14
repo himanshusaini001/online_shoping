@@ -1,20 +1,34 @@
-
 <?php
 
-require_once('../include/db_file/config.php');
-require_once("../include/db_file/connection_file.php");
+// Start Include File 
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+// Start Config File 
+	require_once('../include/db_file/config.php');
+// End Config File 
 
+// Start Connection File 
+	require_once("../include/db_file/connection_file.php");
+// End Connection File 
+
+// Start Session 
 	if(!isset($_SESSION['admin_name']))
 	{
-			header("location:../index.php");
+		header("location:../index.php");
 	}
-	
-	$product_id = $_GET['product_id'];
-?>
+// End Session
 
+// Start Top Link File 
+	include("../include/main_file/top_link.php");
+// End Top Link File 
+
+// Start Top Link File 
+	include("../include/main_file/main_sidebar.php");
+// End Top Link File 
+$product_id = $_GET['product_id'];
+?>
+<!-- Start Body Tag -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -50,7 +64,7 @@ include("../include/main_file/main_sidebar.php");
             <div class="row">
                 <div class="col-md-3">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" >
 				<?php 
 				$sql1 = "SELECT category.cname,category.cid,product.category,product.product_color,product.product_size,product.price,
 						product.product_name,product.description,product.product_img,product.status FROM category RIGHT JOIN product ON category.cid = product.category WHERE product.product_id = $product_id";
@@ -62,7 +76,7 @@ include("../include/main_file/main_sidebar.php");
 							
 					?>
 					<input type="hidden" class="form-control" name="action" value="update_product" required>
-                    <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data">
+                    <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data" style="height: 400px; overflow: auto;">
                         <!-- Name Field -->
 						<input type="hidden" class="form-control"  name="action" value="update_product" placeholder="Enter image URL" required>
 						<div class="row">
@@ -176,12 +190,16 @@ include("../include/main_file/main_sidebar.php");
 </div>
 <!-- /.content-wrapper -->
 
-<?php
-include("../include/main_file/footer.php");
-?>
+  <!-- Start Footer Tag -->
+	<?php
+		include("../include/main_file/footer.php");
+	?>
+  <!-- End Footer Tag -->
+</div>
+<!-- ./wrapper -->
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- Start Footer Tag -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
@@ -257,5 +275,7 @@ include("../include/main_file/footer.php");
         });
     });
 </script>
+<!-- End Footer Tag -->
 </body>
+<!-- End Body Tag -->
 </html>

@@ -1,19 +1,35 @@
 <?php
 
-require_once('../include/db_file/config.php');
-require_once("../include/db_file/connection_file.php");
+// Start Include File 
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
+// Start Config File 
+	require_once('../include/db_file/config.php');
+// End Config File 
 
+// Start Connection File 
+	require_once("../include/db_file/connection_file.php");
+// End Connection File 
+
+// Start Session 
 	if(!isset($_SESSION['admin_name']))
 	{
-			header("location:../index.php");
+		header("location:../index.php");
 	}
-$sid = $_GET['sid'];
-?>
+// End Session
 
-  <!-- Content Wrapper. Contains page content -->
+// Start Top Link File 
+	include("../include/main_file/top_link.php");
+// End Top Link File 
+
+// Start Top Link File 
+	include("../include/main_file/main_sidebar.php");
+// End Top Link File 
+	$sid = $_GET['sid'];
+?>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+ <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
@@ -90,12 +106,17 @@ $sid = $_GET['sid'];
     </div>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-	<?php 
+ <!-- /.content-wrapper -->
+<!-- Start Footer Tag -->
+  <?php 
 		include("../include/main_file/footer.php");
 	?>
-	<!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</div>
+<!-- Start Footer Tag -->
+<!-- ./wrapper -->
+
+<!-- Start Script Tag -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
@@ -156,6 +177,6 @@ $sid = $_GET['sid'];
         });
     });
 </script>
-
+<!-- End Script Tag -->
 </body>
 </html>
