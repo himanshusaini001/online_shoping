@@ -59,13 +59,13 @@ include("../include/main_file/main_sidebar.php");
 									<select class="form-control" id="category" name="category" placeholder="Enter Categorys" required>
 										 <option>select category</option>
 										<?php 
-											$sql="SELECT * FROM category";
-											$result = $conn->query($sql);
+											$sql1="SELECT * FROM category";
+											$result1 = $conn->query($sql1);
 											// Populate select options with data from the database
-											if ($result->num_rows > 0) {
-												while($row = $result->fetch_assoc()) {
+											if ($result1->num_rows > 0) {
+												while($row1 = $result1->fetch_assoc()) {
 										?>
-											  <option value="<?php echo $row['cid'] ?>"><?php echo $row['cname'] ?></option>
+											  <option value="<?php echo $row1['cid'] ?>"><?php echo $row1['cname'] ?></option>
 										<?php
 												}
 											} else {
@@ -79,13 +79,13 @@ include("../include/main_file/main_sidebar.php");
 									<select class="form-control" id="product_color" name="product_color" placeholder="Enter colors" required>
 									<option>select colors</option>
 										<?php 
-											$sql="SELECT * FROM colors";
-											$result = $conn->query($sql);
+											$sql2="SELECT * FROM colors";
+											$result2 = $conn->query($sql2);
 											// Populate select options with data from the database
-											if ($result->num_rows > 0) {
-												while($row = $result->fetch_assoc()) {
+											if ($result2->num_rows > 0) {
+												while($row2 = $result2->fetch_assoc()) {
 										?>
-											  <option value="<?php echo $row['color_name'] ?>"><?php echo $row['color_name'] ?></option>
+											  <option value="<?php echo $row2['color_name'] ?>"><?php echo $row2['color_name'] ?></option>
 										<?php
 												}
 											} else {
@@ -99,13 +99,13 @@ include("../include/main_file/main_sidebar.php");
 									<select class="form-control" id="product_size" name="product_size" placeholder="Enter sizes" required>
 									<option>select sizes</option>
 										<?php 
-											$sql="SELECT * FROM clothing_sizes";
-											$result = $conn->query($sql);
+											$sql3="SELECT * FROM clothing_sizes";
+											$result3 = $conn->query($sql3);
 											// Populate select options with data from the database
-											if ($result->num_rows > 0) {
-												while($row = $result->fetch_assoc()) {
+											if ($result3->num_rows > 0) {
+												while($row3 = $result3->fetch_assoc()) {
 										?>
-											  <option value="<?php echo $row['size'] ?>"><?php echo $row['size'] ?></option>
+											  <option value="<?php echo $row3['size'] ?>"><?php echo $row3['size'] ?></option>
 										<?php
 												}
 											} else {

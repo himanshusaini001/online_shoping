@@ -2,15 +2,18 @@
 require_once('../include/db_file/config.php');
 require_once("../include/db_file/connection_file.php");
 
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
 
 if (!isset($_SESSION['admin_name'])) {
     header("location:../index.php");
 }
+include("../include/main_file/top_link.php");
+include("../include/main_file/main_sidebar.php");
+
+
 ?>
+<body>
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" style="overflow-y: scroll; overflow-x: scroll; scrollbar-width: thin; scrollbar-color: #888 #f1f1f1;">
+<div class="content-wrapper" >
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
         <div class="container-fluid">
@@ -43,88 +46,87 @@ if (!isset($_SESSION['admin_name'])) {
 
     <!-- Main content -->
     <div class="container">
-        <div>
-            <div class="row">
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-10">
-                    <div class="container mt-4">
-                        <div class="row">
-                            <div class="col-12">
-                                <table id="dataTable" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Sh:</th>
-                                            <th>Name</th>
-                                            <th>Color</th>
-                                            <th>Size</th>
-											<th>Description</th>
-                                            <th>Price</th>
-											<th>Image</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $sh = 0;
-                                        $sql = "SELECT * FROM product";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                            while ($row = $result->fetch_assoc()) {
-                                                $sh++;
-                                        ?>
-                                        <!-- Dummy Data -->
-                                        <tr>
-                                            <td><b><?php echo $sh ?></b></td>
-                                            <td><?php echo $row['product_name'] ?></td>
-                                            <td><?php echo $row['product_color'] ?></td>
-                                            <td><?php echo $row['product_size'] ?></td>
-                                            <td><?php echo $row['price'] ?></td>
-                                            <td><?php echo $row['description'] ?></td>
-											<td><img src="../../admin/assets/upload_img/<?php echo  $row['product_img'] ?>" width="50px" height="50px"></td>
-                                            <?php
-                                                    if ($row['status'] == '0') {
-                                                        $status = "Inactive";
-                                                        $style = "color: red;";
-                                                    } else {
-                                                        $status = "Active";
-                                                        $style = "color: green;";
-                                                    }
-                                                    ?>
-                                            <td><p style="<?php echo $style; ?>"><?php echo $status; ?></p></td>
-                                            <td> <a class='btn '
-                                                    href="update_product.php?product_id=<?php echo $row['product_id'] ?>"><i
-                                                        class="fa fa-edit edit_icon " aria-hidden="true"></i></a><a
-                                                    class='btn '
-                                                    href="delete_product.php?product_id=<?php echo $row['product_id'] ?>"><i
-                                                        class="fa fa-trash delete_icon" aria-hidden="true"></i></a></td>
-                                        </tr>
-                                        <!-- Add more rows as needed -->
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1">
-                </div>
-            </div>
-        </div>
+		<div class="row">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-10">
+				<div class="container mt-4">
+					<div class="row">
+						<div class="col-12"style="height: 400px; overflow: auto;">
+							<table id="dataTable" class="table table-bordered" >
+								<thead>
+									<tr>
+										<th>Sh:</th>
+										<th>Name</th>
+										<th>Color</th>
+										<th>Size</th>
+										<th>Description</th>
+										<th>Price</th>
+										<th>Image</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$sh = 0;
+									$sql = "SELECT * FROM product";
+									$result = $conn->query($sql);
+									if ($result->num_rows > 0) {
+										while ($row = $result->fetch_assoc()) {
+											$sh++;
+									?>
+									<!-- Dummy Data -->
+									<tr>
+										<td><b><?php echo $sh ?></b></td>
+										<td><?php echo $row['product_name'] ?></td>
+										<td><?php echo $row['product_color'] ?></td>
+										<td><?php echo $row['product_size'] ?></td>
+										<td><?php echo $row['price'] ?></td>
+										<td><?php echo $row['description'] ?></td>
+										<td><img src="../../admin/assets/upload_img/<?php echo  $row['product_img'] ?>" width="50px" height="50px"></td>
+										<?php
+												if ($row['status'] == '0') {
+													$status = "Inactive";
+													$style = "color: red;";
+												} else {
+													$status = "Active";
+													$style = "color: green;";
+												}
+												?>
+										<td><p style="<?php echo $style; ?>"><?php echo $status; ?></p></td>
+										<td> <a class='btn '
+												href="update_product.php?product_id=<?php echo $row['product_id'] ?>"><i
+													class="fa fa-edit edit_icon " aria-hidden="true"></i></a><a
+												class='btn '
+												href="delete_product.php?product_id=<?php echo $row['product_id'] ?>"><i
+													class="fa fa-trash delete_icon" aria-hidden="true"></i></a></td>
+									</tr>
+									<!-- Add more rows as needed -->
+									<?php
+										}
+									}
+									?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1">
+			</div>
+		</div>
     </div>
+	
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
 <?php
 
-include("../include/main_file/footer.php");
+		include("../include/main_file/footer.php");
 
-?>
-
+		?>
 <!-- Bottom Slide Bar -->
 <div class="container mt-4">
     <div class="row">

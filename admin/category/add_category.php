@@ -2,14 +2,14 @@
 
 require_once('../include/db_file/config.php');
 require_once("../include/db_file/connection_file.php");
-
-include("../include/main_file/top_link.php");
-include("../include/main_file/main_sidebar.php");
-
-	if(!isset($_SESSION['admin_name']))
+if(!isset($_SESSION['admin_name']))
 	{
 			header("location:../index.php");
 	}
+include("../include/main_file/top_link.php");
+include("../include/main_file/main_sidebar.php");
+
+	
 ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -58,7 +58,7 @@ include("../include/main_file/main_sidebar.php");
                         <!-- Image Field -->
                         <div class="form-group">
                             <label for="img">Image URL:</label>
-                            <input type="file" class="form-control" id="cimg" name="cimg" accept=".jpg, .jpeg, .png" placeholder="Enter image URL"  required>
+                            <input type="file" class="form-control" id="cimg" name="cimg" accept=".jpg, .jpeg, .png"  placeholder="Enter image URL"  required>
                         </div>
 						<!-- Status Field -->
 						<div class="form-group">

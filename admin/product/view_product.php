@@ -9,7 +9,7 @@ include("../include/main_file/main_sidebar.php");
 if (!isset($_SESSION['admin_name'])) {
     header("location:../index.php");
 }
-$view_id = $_GET['product_id'];
+$view_id = $_GET['category'];
 
 ?>
 <!-- Content Wrapper. Contains page content -->

@@ -58,8 +58,8 @@ include("../include/main_file/main_sidebar.php");
 							<div class="form-group">
 								<label for="selectOption" >Select an option:</label>
 								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
-								<option value="0">Active</option>
-								<option value="1">Inactive</option>
+								<option value="0">Inactive</option>
+								<option value="1">Active</option>
 								<!-- Add more options as needed -->
 								</select>
 							</div>

@@ -514,6 +514,7 @@
 					$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
 					move_uploaded_file($_FILES['cimg']['tmp_name'],$uploadedFile);
 					
+					
 					$status = test_input($_POST['status']);
 					// Insert data into the category table
 

@@ -31,9 +31,9 @@
 					<div id="content" >
 					
 					<h5 class="mt-4"><i class="fa fa-align-right mr-4" aria-hidden="true"></i><b>Name :</b> <?php echo  $_SESSION['fname'] ?>  <?php echo  $_SESSION['lname'] ?></h5>
-					<h5 class="mt-4"><i class="fa fa-envelope mr-4" aria-hidden="true"></i><b>E-mail :</b> <?php echo  $_SESSION['email'] ?>  <?php echo  $_SESSION['lname'] ?></h5>
-					<h5 class="mt-4"><i class="fa fa-phone-square mr-4" aria-hidden="true"></i><b>Phone :</b> <?php echo  $_SESSION['phone'] ?>  <?php echo  $_SESSION['lname'] ?></h5>
-					<h5 class="mt-4"><i class="fa fa-map-marker mr-4" aria-hidden="true"></i><b>Address :</b> <?php echo  $_SESSION['address'] ?>  <?php echo  $_SESSION['lname'] ?></h5>
+					<h5 class="mt-4"><i class="fa fa-envelope mr-4" aria-hidden="true"></i><b>E-mail :</b> <?php echo  $_SESSION['email'] ?></h5>
+					<h5 class="mt-4"><i class="fa fa-phone-square mr-4" aria-hidden="true"></i><b>Phone :</b> <?php echo  $_SESSION['phone'] ?></h5>
+					<h5 class="mt-4"><i class="fa fa-map-marker mr-4" aria-hidden="true"></i><b>Address :</b> <?php echo  $_SESSION['address'] ?></h5>
 					
 				
             </div>

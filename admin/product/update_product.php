@@ -52,11 +52,12 @@ include("../include/main_file/main_sidebar.php");
                 </div>
                 <div class="col-md-6">
 				<?php 
-					$sql = "SELECT * FROM product";
-					$result = $conn->query($sql);
-					if($result->num_rows > 0)
+				$sql1 = "SELECT category.cname,category.cid,product.category,product.product_color,product.product_size,product.price,
+						product.product_name,product.description,product.product_img,product.status FROM category RIGHT JOIN product ON category.cid = product.category WHERE product.product_id = $product_id";
+					$result1 = $conn->query($sql1);
+					if($result1->num_rows > 0)
 					{
-						while($data = $result->fetch_assoc())
+						while($row1 = $result1->fetch_assoc())
 						{
 							
 					?>
@@ -69,15 +70,15 @@ include("../include/main_file/main_sidebar.php");
 								<div class="form-group">
 									<label for="optInSelect">Product Categorys:</label>
 									<select class="form-control" id="category" name="category" placeholder="Enter Categorys" required>
-										 <option>select Category</option>
+										 <option value="<?php echo $row1['cid'] ?>"><?php echo $row1['cname'] ?></option>
 										<?php 
-											$sql="SELECT * FROM category";
-											$result = $conn->query($sql);
+											$sql2="SELECT * FROM category";
+											$result2 = $conn->query($sql2);
 											// Populate select options with data from the database
-											if ($result->num_rows > 0) {
-												while($row = $result->fetch_assoc()) {
+											if ($result2->num_rows > 0) {
+												while($row2 = $result2->fetch_assoc()) {
 										?>
-											  <option value="<?php echo $row['cid'] ?>"> <?php echo $row['cname'] ?></option>
+											  <option value="<?php echo $row2['cid'] ?>"> <?php echo $row2['cname'] ?></option>
 										<?php
 												}
 											} else {
@@ -89,15 +90,15 @@ include("../include/main_file/main_sidebar.php");
 								<div class="form-group">
 									<label for="optInSelect">Product Colors:</label>
 									<select class="form-control" id="product_color" name="product_color" placeholder="Enter colors" required>
-									<option>select colors</option>
+									 <option value="<?php echo $row1['product_color'] ?>"><?php echo $row1['product_color'] ?></option>
 										<?php 
-											$sql="SELECT * FROM colors";
-											$result = $conn->query($sql);
+											$sql3="SELECT * FROM colors";
+											$result3 = $conn->query($sql3);
 											// Populate select options with data from the database
-											if ($result->num_rows > 0) {
-												while($row = $result->fetch_assoc()) {
+											if ($result3->num_rows > 0) {
+												while($row3 = $result3->fetch_assoc()) {
 										?>
-											  <option value="<?php echo $row['color_name'] ?>"><?php echo $row['color_name'] ?></option>
+											  <option value="<?php echo $row3['color_name'] ?>"><?php echo $row3['color_name'] ?></option>
 										<?php
 												}
 											} else {
@@ -109,15 +110,15 @@ include("../include/main_file/main_sidebar.php");
 								<div class="form-group">
 									<label for="optInSelect">Product Sizes:</label>
 									<select class="form-control" id="product_size" name="product_size" placeholder="Enter sizes" required>
-									<option>select sizes</option>
+									 <option value="<?php echo $row1['product_size'] ?>"><?php echo $row1['product_size'] ?></option>
 										<?php 
-											$sql="SELECT * FROM clothing_sizes";
-											$result = $conn->query($sql);
+											$sql4="SELECT * FROM clothing_sizes";
+											$result4 = $conn->query($sql4);
 											// Populate select options with data from the database
-											if ($result->num_rows > 0) {
-												while($row = $result->fetch_assoc()) {
+											if ($result4->num_rows > 0) {
+												while($row4 = $result4->fetch_assoc()) {
 										?>
-											  <option value="<?php echo $row['size'] ?>"><?php echo $row['size'] ?></option>
+											  <option value="<?php echo $row4['size'] ?>"><?php echo $row4['size'] ?></option>
 										<?php
 												}
 											} else {
@@ -128,23 +129,23 @@ include("../include/main_file/main_sidebar.php");
 								</div>
 								<div class="form-group">
 									<label for="cname">Product Price:</label>
-									<input type="number" class="form-control" id="price" name="price" value="<?php echo $data['price'] ?>" maxlength="10" placeholder="Enter name" required>
+									<input type="number" class="form-control" id="price" name="price" value="<?php echo $row1['price'] ?>" maxlength="10" placeholder="Enter name" required>
 								</div>
 							</div>
 							<div class=" col-md-6">
 								<div class="form-group">
 									<label for="cname">Product Name:</label>
-									<input type="text" class="form-control"  name="product_name" placeholder="Enter name" id="product_name" value="<?php echo $data['product_name'] ?>" required>
+									<input type="text" class="form-control"  name="product_name" placeholder="Enter name" id="product_name" value="<?php echo $row1['product_name'] ?>" required>
 								</div>
 								<div class="form-group">
 									<label for="cname">Product description:</label>
-									<textarea type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="<?php echo $data['description'] ?>" required><?php echo $data['description'] ?></textarea>
+									<textarea type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="<?php echo $row1['description'] ?>" required><?php echo $row1['description'] ?></textarea>
 								</div>
 
 								<!-- Image Field -->
 								<div class="form-group">
 									<label for="img">Image:</label>
-									<input type="file" class="form-control" id="product_img" name="product_img" placeholder="Enter image URL" value="<?php echo $data['product_img'] ?>" accept="image/*" required><img src="../../admin/assets/upload_img/<?php echo $data['product_img'] ?>" width="50px" height="50px" >
+									<input type="file" class="form-control" id="product_img" name="product_img" placeholder="Enter image URL" value="<?php echo $row1['product_img'] ?>" accept="image/*" required><img src="../../admin/assets/upload_img/<?php echo $row1['product_img'] ?>" width="50px" height="50px" >
 								</div>
 								<!-- Status Field -->
 								<div class="form-group">
