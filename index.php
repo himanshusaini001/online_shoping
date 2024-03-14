@@ -134,7 +134,7 @@
 									   <img class="img-fluid" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row1['cimg'] ?>" alt="">
 									</div>
 									<div class="flex-fill pl-3">
-										<h6><?php echo $row1['cname']; ?></h6>
+										<h6><?php echo $row1['cname']?></h6>
 										<small class="text-body">100 product</small>
 									</div>
 								</div>
@@ -179,7 +179,7 @@
 							</div>
 						</div>
 						<div class="text-center py-4">
-							<a class="h6 text-decoration-none text-truncate" href="../front_page/cart.php"><?php echo $row2['product_name'] ?></a>
+							<a class="h6 text-decoration-none text-truncate" href="detail.php?product_id=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_name'] ?></a>
 							<div class="d-flex align-items-center justify-content-center mt-2">
 								<h5><?php echo $row2['price'] ?></h5><h6 class="text-muted ml-2"><del><i class="fa fa-inr" aria-hidden="true"></i>123.00</del></h6>
 							</div>
