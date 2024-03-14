@@ -32,7 +32,7 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="index.php	">Home</a>
                     <a class="breadcrumb-item text-dark" href="#">Shop</a>
                     <span class="breadcrumb-item active">Shop Detail</span>
                 </nav>
@@ -91,23 +91,49 @@
                     <h3 class="font-weight-semi-bold mb-4"><?php echo $row['price'] ?></h3>
                     <p class="mb-4"><?php echo $row['description'] ?></p>
                     <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">Sizes:</strong>
-                        <form>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-1" name="size">
-                                <label class="custom-control-label" for="size-1"><?php echo $row['product_size'] ?></label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <strong class="text-dark mr-3">Colors:</strong>
-                        <form>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-1" name="color">
-                                <label class="custom-control-label" for="color-1"><?php echo $row['product_color'] ?></label>
-                            </div>
-                        </form>
-                    </div>
+						<strong class="text-dark mr-3">Sizes:</strong>
+						<form>
+							<?php 
+								// Assuming $row['product_size'] contains the size to be checked
+								$sizes = ['XS','S', 'M', 'L', 'XL', 'XXL']; // Add more sizes if needed
+								foreach ($sizes as $size) {
+									$checked = ($row['product_size'] == $size) ? 'checked' : '';
+							?>
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" class="custom-control-input" id="size-<?php echo $size ?>" name="size" <?php echo $checked ?>>
+								<label class="custom-control-label" for=""><?php echo $size ?></label>
+							</div>
+							<?php } ?>
+						</form>
+					</div>
+
+
+                   <div class="d-flex mb-4">
+					<strong class="text-dark mr-3">Colors:</strong>
+					<form>
+						<?php 
+							$sql_color = "SELECT product_color FROM product WHERE product_id = $product_id";
+							$result_color = $conn->query($sql_color);
+							$row_color = $result_color->fetch_assoc();
+							$value = $row_color['product_color'];
+						?>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" class="custom-control-input" id="color-1" name="color" checked>
+							<label class="custom-control-label" for="color-1" >
+								<?php echo $row['product_color'] ?>
+							</label>
+						</div>
+					</form>
+					
+					<style>
+						.custom-control-input:checked ~ .custom-control-label::before {
+							background-color: <?php echo $value; ?>;
+							
+							border-color: <?php echo $value; ?>;
+						}
+					</style>
+				</div>
+				
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
@@ -122,8 +148,7 @@
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                            Cart</button>
+                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                     </div>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
