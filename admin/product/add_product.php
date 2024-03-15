@@ -148,7 +148,7 @@
 								<!-- Image Field -->
 								<div class="form-group">
 									<label for="img">Image:</label>
-									<input type="file" class="form-control" id="product_img" name="product_img" placeholder="Enter image URL" accept="image/*" required>
+									<input type="file" class="form-control" id="product_img[]" name="product_img[]" placeholder="Enter image URL" accept="image/*" multiple  required>
 								</div>
 								<!-- Status Field -->
 								<div class="form-group">
@@ -242,11 +242,13 @@
 					processData: false,
 					contentType: false,
                     success: function (response) {
-                        if (response === "success") {
-                            // Redirect to another page after successful insertion
-                            window.location.href = "../product/show_product.php";
+						
+						var res = JSON.parse(response);
+						
+                        if (res.status) {
+                           window.location = window.location.origin+"/online-shoping/admin/product/show_product.php" ;
                         } else {
-                            alert("Error: " + response);
+                            alert("Error: Not Relocate");
                         }
                     },
                     error: function (xhr, status, error) {

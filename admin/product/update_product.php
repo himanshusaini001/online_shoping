@@ -73,7 +73,7 @@ $product_id = $_GET['product_id'];
 					{
 						while($row1 = $result1->fetch_assoc())
 						{
-							
+						
 					?>
 					<input type="hidden" class="form-control" name="action" value="update_product" required>
                     <form class="custom-form shadow p-4" id="addForm" action="" method="post" enctype="multipart/form-data" style="height: 400px; overflow: auto;">
@@ -155,12 +155,25 @@ $product_id = $_GET['product_id'];
 									<label for="cname">Product description:</label>
 									<textarea type="text" class="form-control" id="description" name="description" placeholder="Enter description" value="<?php echo $row1['description'] ?>" required><?php echo $row1['description'] ?></textarea>
 								</div>
-
 								<!-- Image Field -->
 								<div class="form-group">
 									<label for="img">Image:</label>
-									<input type="file" class="form-control" id="product_img" name="product_img" placeholder="Enter image URL" value="<?php echo $row1['product_img'] ?>" accept="image/*" required><img src="../../admin/assets/upload_img/<?php echo $row1['product_img'] ?>" width="50px" height="50px" >
+									<input type="file" class="form-control" id="product_img[]" name="product_img[]" placeholder="Enter image URL" value="<?php echo $row1['product_img'] ?>" accept="image/*" multiple required>
 								</div>
+								<?php 
+								
+									if(!empty($row1['product_img']))
+									{
+										$images = explode(',',$row1['product_img']);
+										
+										foreach($images as $product_img)
+										{
+											echo  "<img src='../$product_img' width='50px' height='50px' class='mr-4  mt-4' > ";
+										}
+										
+										
+									}
+								?>
 								<!-- Status Field -->
 								<div class="form-group">
 									<label for="selectOption" >Select an option:</label>
@@ -260,14 +273,18 @@ $product_id = $_GET['product_id'];
 					processData: false,
 					contentType: false,
                     success: function (response) {
-                        if (response === "success") {
-                            // Redirect to another page after successful insertion
-                            window.location.href = "../product/show_product.php";
-                        } else {
-                            alert("Error: " + response);
-                        }
-                    },
-                    error: function (xhr, status, error) {
+						let resp = JSON.parse(response);
+						if(resp.status)
+						{
+							
+							window.location = window.location.origin+"/online-shoping/admin/product/show_product.php" ;
+						}
+						else{
+							alert ("Do not Relocate");
+						}
+						
+					},
+                    error: function (xhr, status, error) { 
                         alert("AJAX request failed: " + status + "\nError: " + error);
                     }
                 });

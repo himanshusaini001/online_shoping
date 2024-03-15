@@ -32,7 +32,7 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="index.php	">Home</a>
+                    <a class="breadcrumb-item text-dark" href="index.php">Home</a>
                     <a class="breadcrumb-item text-dark" href="#">Shop</a>
                     <span class="breadcrumb-item active">Shop Detail</span>
                 </nav>
@@ -53,18 +53,30 @@
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
-                        <div class="carousel-item active">
-                            <img class="w-100 h-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row['product_img']?>" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="w-100 h-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row['product_img']?>" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                           <img class="w-100 h-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row['product_img']?>" alt="Image">
-                        </div>
-                        <div class="carousel-item">
-                          <img class="w-100 h-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row['product_img']?>" alt="Image">
-                        </div>
+                        
+                        <?php 
+							// Check if there are images for this product
+							if (!empty($row['product_img'])) {
+								$images = explode(",", $row['product_img']);
+								foreach ($images as $key=>$image) {
+									
+									if($key == '0')
+									{
+										$active = "active";
+
+									}
+									else{
+										$active = "";
+									}
+							?>
+								<div class="carousel-item <?php echo $active ?>">
+									<img class="w-100 h-100" src="<?php echo "online-shoping/".$image ?>" alt="Image">
+								</div>
+							<?php
+									
+								}
+							}
+						?>
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -124,7 +136,6 @@
 							</label>
 						</div>
 					</form>
-					
 					<style>
 						.custom-control-input:checked ~ .custom-control-label::before {
 							background-color: <?php echo $value; ?>;
@@ -280,8 +291,6 @@
         </div>
     </div>
     <!-- Shop Detail End -->
-
-
     <!-- Products Start -->
     <div class="container-fluid py-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
@@ -299,7 +308,21 @@
 					?>
                     <div class="product-item bg-light">
                         <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row2['product_img'] ?>" alt="">
+                           <?php 
+							// Check if there are images for this product
+							if (!empty($row2['product_img'])) {
+								$images = explode(",", $row2['product_img']);
+								foreach ($images as $key=>$image) {
+									if($key == '0')
+									{
+							?>
+								<img class="img-fluid w-100" src="<?php echo "online-shoping/".$image ?>" alt="">
+							<?php
+									}
+									
+								}
+							}
+						?>
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                 <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -308,9 +331,9 @@
                             </div>
                         </div>
                         <div class="text-center py-4">
-                            <a class="h6 text-decoration-none text-truncate" href="detail.php?product_id=<?php echo $row2['product_id'] ?>"><?php echo $row['product_name'] ?></a>
+                            <a class="h6 text-decoration-none text-truncate" href="detail.php?product_id=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_name'] ?></a>
                             <div class="d-flex align-items-center justify-content-center mt-2">
-                                <h5><?php echo  $row['price'] ?></h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                <h5><?php echo  $row2['price'] ?></h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>

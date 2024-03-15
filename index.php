@@ -170,7 +170,22 @@
 				 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
 					<div class="product-item bg-light mb-4">
 						<div class="product-img position-relative overflow-hidden">
-							<img class="img-fluid w-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row2['product_img'] ?>" alt="">
+						<?php 
+							// Check if there are images for this product
+							if (!empty($row2['product_img'])) {
+								$images = explode(",", $row2['product_img']);
+								foreach ($images as $key=>$image) {
+									if($key == '0')
+									{
+							?>
+								<img class="img-fluid w-100" src="<?php echo "online-shoping/".$image ?>" alt="">
+							<?php
+									}
+									
+								}
+							}
+						?>
+							
 							<div class="product-action">
 								<a class="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
 								<a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>

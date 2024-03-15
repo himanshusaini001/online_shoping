@@ -586,36 +586,47 @@
 				// Add product 
 				
 				if ($action == "add_product") {
-					// Get data from AJAX request
-					$category_c = test_input($_POST['category']);
-					$category = ucfirst($category_c);
-					$product_color = test_input($_POST['product_color']);
-					$product_size = test_input($_POST['product_size']);
-					$price = test_input($_POST['price']);
-					$product_name_c = test_input($_POST['product_name']);
-					$product_name = ucfirst($product_name_c);
-					
-					$description_c = test_input($_POST['description']);
-					$description = ucfirst($description_c);
-					
-					$status = test_input($_POST['status']);
-					
-					$product_img = test_input($_FILES['product_img']['name']);
-					$uploadDir = '../admin/assets/upload_img/';
-					$uploadedFile = $uploadDir . basename($_FILES['product_img']['name']);
-					move_uploaded_file($_FILES['product_img']['tmp_name'],$uploadedFile);
-					// Insert data into the category table
-
-					$sql = "INSERT INTO product (category, product_color, product_size, price, product_name, description, product_img, status) VALUES ('$category', '$product_color', '$product_size', '$price', '$product_name', '$description', '$product_img', '$status')";
-
-
-					if ($conn->query($sql) === TRUE) {
-						echo "success";
-					} else {
-						echo "Error: " . $conn->error;
-					}
-				}	
+				// Get data from AJAX request
+				$category_c = test_input($_POST['category']);
+				$category = ucfirst($category_c);
+				$product_color = test_input($_POST['product_color']);
+				$product_size = test_input($_POST['product_size']);
+				$price = test_input($_POST['price']);
+				$product_name_c = test_input($_POST['product_name']);
+				$product_name = ucfirst($product_name_c);
 				
+				$description_c = test_input($_POST['description']);
+				$description = ucfirst($description_c);
+				
+				$status = test_input($_POST['status']);
+				
+				// Array to store uploaded file names
+				$product_imgs = array();
+				
+				// Process multiple file uploads
+				if (!empty($_FILES['product_img']['name'][0])) {
+					$uploadDir = '../admin/assets/upload_img/';
+					foreach ($_FILES['product_img']['name'] as $key => $name) {
+						$tmp_name = $_FILES['product_img']['tmp_name'][$key];
+						$newFileName = $uploadDir . basename($name);
+						if (move_uploaded_file($tmp_name, $newFileName)) {
+							$product_imgs[] = $newFileName;
+						} else {
+							echo "Error uploading file: " . $name;
+						}
+					}
+				}
+				
+				// Insert data into the product table
+				$sql = "INSERT INTO product (category, product_color, product_size, price, product_name, description, product_img, status) VALUES ('$category', '$product_color', '$product_size', '$price', '$product_name', '$description', '" . implode(',', $product_imgs) . "', '$status')";
+				
+				if ($conn->query($sql) === TRUE) {
+					echo json_encode(["status"=>true]);
+				} else {
+					echo json_encode(["status"=>false]);
+				}
+			}
+
 				
 				// Update Product
 				
@@ -630,13 +641,26 @@
 					$description = test_input($_POST['description']);
 					$status = test_input($_POST['status']);
 
-					// Check if a file is uploaded
-					if (!empty($_FILES['product_img']['name'])) {
-						$product_img = test_input($_FILES['product_img']['name']);
+					$product_imgs = array();
+					
+					if(!empty($_FILES['product_img']['name'][0]))
+					{
 						$uploadDir = '../admin/assets/upload_img/';
-						$uploadedFile = $uploadDir . basename($_FILES['product_img']['name']);
-						move_uploaded_file($_FILES['product_img']['tmp_name'], $uploadedFile);
-					} else {
+						foreach($_FILES['product_img']['name'] as $key=>$name)
+						{
+							$tmp_name = $_FILES['product_img']['tmp_name'][$key];
+							$filename = $uploadDir . basename($name);
+							if(move_uploaded_file($tmp_name,$filename))
+							{
+								$product_imgs[] = $filename;
+								$product_img = implode(',',$product_imgs);
+							}else{
+								echo "Error uploading file: " . $name;
+							}
+							
+						}
+					}
+					else {
 						// If no file is uploaded, retain the existing image name
 						$folder_img = "SELECT product_img FROM product WHERE product_id=?";
 						$stmt_folder = $conn->prepare($folder_img);
@@ -649,18 +673,14 @@
 					}
 
 					// Use prepared statement to prevent SQL injection
-					$sql = "UPDATE product SET category=?, product_color=?, product_size=?, price=?, product_name=?, description=?, product_img=?, status=? WHERE product_id=?";
+					$sql = "UPDATE product SET category='$category', product_color='$product_color', product_size='$product_size', price='$price', product_name='$product_name', description='$description', product_img='$product_img', status='$status' WHERE product_id='$product_id'";
 					
-					$stmt = $conn->prepare($sql);
-					$stmt->bind_param("ssssssssi", $category, $product_color, $product_size, $price, $product_name, $description, $product_img, $status, $product_id);
-					
-					if ($stmt->execute()) {
-						echo "success";
+					if ($result = $conn->query($sql) === TRUE) {
+						echo json_encode(["status"=>true]);
 					} else {
-						echo "Error: " . $stmt->error;
+						echo json_encode(["status"=>false]);
 					}
 
-					$stmt->close();
 				}
 				
 				
