@@ -12,7 +12,18 @@
 		}
 	?>
 	<!-- header End -->
-	
+	 <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="index.php">Home</a>
+                    <span class="breadcrumb-item active">Your Profile</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
     <!-- Shop Detail Start -->
     <div class="container-fluid pb-5">
         <div class="row px-xl-5">

@@ -12,8 +12,7 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                    <a class="breadcrumb-item text-dark" href="index.php">Home</a>
                     <span class="breadcrumb-item active">Shop List</span>
                 </nav>
             </div>
@@ -171,13 +170,27 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row3['product_img'] ?>" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
+							<?php 
+								if(!empty($row3['product_img']))
+								{
+									$images = explode(",",$row3['product_img']);
+									foreach($images as $key=>$product_img)
+									{
+										if($key == '0')
+										{
+							?>
+											<img class="img-fluid w-100" src="<?php echo  "online-shoping/".$product_img ?>" alt="">
+							<?php 
+										}
+									}
+								}
+							?>
+							<div class="product-action">
+								<a class="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
+								<a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+								<a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+								<a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+							</div>
                             </div>
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href=""><?php echo $row3['product_name'] ?></a>

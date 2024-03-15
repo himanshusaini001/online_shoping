@@ -33,7 +33,7 @@
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
                     <a class="breadcrumb-item text-dark" href="index.php">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
+                    <a class="breadcrumb-item text-dark" href="shop.php">Shop</a>
                     <span class="breadcrumb-item active">Shop Detail</span>
                 </nav>
             </div>
@@ -298,7 +298,7 @@
             <div class="col">
                 <div class="owl-carousel related-carousel">
 				  <?php 
-						$sql2 = "SELECT * FROM product";
+						$sql2 = "SELECT * FROM product WHERE status = '1'";
 						$result2 = $conn->query($sql2);
 						if($result2->num_rows > 0)
 						{

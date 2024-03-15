@@ -6,7 +6,7 @@
 		include('include/main_file/header.php');
 		
 	?>
-	
+
 	<!-- header End -->
 
     <!-- Breadcrumb Start -->
@@ -14,7 +14,7 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <a class="breadcrumb-item text-dark" href="index.php">Home</a>
                     <span class="breadcrumb-item active">Contact</span>
                 </nav>
             </div>
@@ -30,33 +30,38 @@
             <div class="col-lg-7 mb-5">
                 <div class="contact-form bg-light p-30">
                     <div id="success"></div>
-                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="name" placeholder="Your Name"
-                                required="required" data-validation-required-message="Please enter your name" />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <input type="email" class="form-control" id="email" placeholder="Your Email"
-                                required="required" data-validation-required-message="Please enter your email" />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject"
-                                required="required" data-validation-required-message="Please enter a subject" />
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <textarea class="form-control" rows="8" id="message" placeholder="Message"
-                                required="required"
-                                data-validation-required-message="Please enter your message"></textarea>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
-                                Message</button>
-                        </div>
-                    </form>
+                    <form name="contactForm" onsubmit="return validateForm()" action="" method="post">
+						<h2>Application Form</h2>
+						<div class="row">
+							<label>First Name</label>
+							<input type="text"  class="form-control" name="fname">
+							<div class="error" id="fnameErr"></div>
+						</div>
+						<div class="row">
+							<label>Last Name</label>
+							<input type="text"  class="form-control" name="lname">
+							<div class="error" id="lnameErr"></div>
+						</div>
+						<div class="row">
+							<label>Email Address</label>
+							<input type="text"  class="form-control" name="email">
+							<div class="error" id="emailErr"></div>
+						</div>
+						<div class="row">
+							<label>Mobile Number</label>
+							<input type="text"  class="form-control" name="mobile" maxlength="10">
+							<div class="error" id="mobileErr"></div>
+						</div>
+						<div class="row">
+							<label>message</label>
+							   <textarea class="form-control" rows="8" id="message" name="message" placeholder="Message"></textarea>
+							<div class="error" id="messageErr"></div>
+						</div>
+						<div class="row">
+							<input class="btn btn-primary py-2 px-4" type="submit" value="Submit" >
+							 
+						</div>
+					</form>
                 </div>
             </div>
             <div class="col-lg-5 mb-5">
@@ -84,8 +89,110 @@
 	
 	<!-- Footer End -->
 
+<script>
+ function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
 
-  
+// Defining a function to validate form 
+function validateForm() {
+    // Retrieving the values of form elements 
+    let fname = document.contactForm.fname.value;
+	let lname = document.contactForm.lname.value;
+    let email = document.contactForm.email.value;
+    let mobile = document.contactForm.mobile.value;
+    let message = document.contactForm.message.value;
+    
+	// Defining error variables with a default value
+    let fnameErr = lnameErr = emailErr = mobileErr = messageErr = true;
+    
+    // Validate fname
+    if(fname == "") {
+        printError("fnameErr", "Please enter your fname");
+    } else {
+        let regex = /^[a-zA-Z\s]+$/;                
+        if(regex.test(fname) === false) {
+            printError("fnameErr", "Please enter a valid fname");
+        } else {
+            printError("fnameErr", "");
+            fnameErr = false;
+        }
+    }
+	
+	// Validate lname
+	if(lname == "") {
+        printError("lnameErr", "Please enter your lname");
+    } else {
+        let regex = /^[a-zA-Z\s]+$/;                
+        if(regex.test(lname) === false) {
+            printError("lnameErr", "Please enter a valid lname");
+        } else {
+            printError("lnameErr", "");
+            lnameErr = false;
+        }
+    }
+    
+    // Validate email address
+    if(email == "") {
+        printError("emailErr", "Please enter your email address");
+    } else {
+        // Regular expression for basic email validation
+        let regex = /^\S+@\S+\.\S+$/;
+        if(regex.test(email) === false) {
+            printError("emailErr", "Please enter a valid email address");
+        } else{
+            printError("emailErr", "");
+            emailErr = false;
+        }
+    }
+    
+    // Validate mobile number
+    if(mobile == "") {
+        printError("mobileErr", "Please enter your mobile number");
+    } else {
+		let regex = /^[1-9]\d{9}$/;       
+        if(regex.test(mobile) === false) {
+            printError("mobileErr", "Please enter a valid 10 digit mobile number");
+        } else{
+            printError("mobileErr", "");
+            mobileErr = false;
+        }
+    }
+	
+	// Validate Message
+	if(message == "") {
+        printError("messageErr", "Please enter your message");
+    } else {
+        
+        let regex = /^[a-zA-Z\s]+$/; 
+        if(regex.test(message) === false) {
+            printError("messageErr", "Please enter your  message");
+        } else{
+            printError("messageErr", "");
+            messageErr = false;
+        }
+    }
+    
+    //
+    
+    // Prevent the form from being submitted if there are any errors
+    if((nameErr || lnameErr ||  emailErr || mobileErr || messageErr ) == true) {
+       return false;
+    } else {
+        // Creating a string from input data for preview
+        let dataPreview = "You've entered the following details: \n" +
+                          "Full Name: " + name + "\n" +
+                          "Email Address: " + email + "\n" +
+                          "Mobile Number: " + mobile + "\n" +
+                          "Country: " + country + "\n" +
+                          "Gender: " + gender + "\n";
+        if(hobbies.length) {
+            dataPreview += "Hobbies: " + hobbies.join(", ");
+        }
+        // Display input data in a dialog box before submitting the form
+        alert(dataPreview);
+    }
+};
+</script>
 </body>
 
-</html>

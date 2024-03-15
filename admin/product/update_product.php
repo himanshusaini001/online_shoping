@@ -276,7 +276,6 @@ $product_id = $_GET['product_id'];
 						let resp = JSON.parse(response);
 						if(resp.status)
 						{
-							
 							window.location = window.location.origin+"/online-shoping/admin/product/show_product.php" ;
 						}
 						else{
