@@ -1,7 +1,13 @@
 	<!-- header Start -->
 	<?php 
 		require_once('include/db_file/config.php');
-
+		require_once('include/db_file/connection_file.php');
+		
+		if(!isset($_SESSION['customer_login']))
+		{
+			header("location: customer_login.php");
+		}
+		
 		include('include/main_file/topbar.php');
 		include('include/main_file/header.php');
 		
@@ -63,14 +69,13 @@
                     frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
                 <div class="bg-light p-30 mb-3">
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
+                    <p class="mb-2"><i class="fa fa-map-marker contact_icon mr-3"></i>123 Street, New York, USA</p>
+                    <p class="mb-2"><i class="fa fa-envelope contact_icon mr-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-mobile contact_icon mr-3"></i>+012 345 67890</p>
                 </div>
             </div>
         </div>
     </div>
-	
 	
 	
     <!-- Contact End -->
@@ -131,7 +136,7 @@ $(document).ready(function() {
                 success: function(response) {
                     var res = JSON.parse(response);
 					if (res.status) {
-                           window.location = window.location.origin+"online-shoping/index.php" ;
+                           window.location = window.location.origin+"/online-shoping/index.php" ;
                         } else {
                             alert("Error: Not Relocate");
                         }
