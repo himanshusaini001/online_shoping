@@ -46,11 +46,10 @@
 				</ul>
 			</div>
           <div class="col-sm-4">
-            <h1 class="m-0">Manage Categories</h1>
+            <h1 class="m-0">Manage User</h1>
           </div><!-- /.col -->
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-				<li class="breadcrumb-item active"><span><a href="../../admin/category/add_category.php" class="btn btn-primary">Add Category</a></span></li>
 				<li class="breadcrumb-item active"><span><a href="../../admin/admin_logout.php" class="btn btn-primary">Logout</a></span></li>
 			</ol>
           </div><!-- /.col -->
@@ -74,7 +73,11 @@
 										<tr>
 											<th>Sh:</th>
 											<th>Name</th>
-											<th>Images</th>
+											<th>E-mail</th>
+											<th>Phone</th>
+											<th>Addresss</th>
+											<th>Created_at</th>
+											<th>Update_at</th>
 											<th>Status</th>
 											<th>Action</th>
 										</tr>
@@ -82,7 +85,7 @@
 									<tbody>
 										<?php
 											$sh = 0;
-											$sql = "SELECT * FROM category";
+											$sql = "SELECT * FROM user ORDER BY created_at DESC ";
 											$result = $conn->query($sql);
 											if ($result->num_rows > 0) 
 											{
@@ -93,22 +96,16 @@
 													<!-- Dummy Data -->
 													<tr>
 													<td><b><?php echo $sh ?></b></td>
-													<td><?php echo $row['cname'] ?></td>
-													<td><img src="../../admin/assets/upload_img/<?php echo $row['cimg'] ?>" width="50px" height="50px"></td>
-													<?php 
-														if($row['status'] == '0'){
-															$status = "Inactive";
-															  $style = "color: red;";
-														}
-														else{
-															$status = "Active";
-															 $style = "color: green;";
-														}
-													?>
-													<td><p style="<?php echo $style; ?>"><?php echo $status; ?></p></td>
-													<td><a class='btn ' href="update_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-edit edit_icon "  aria-hidden="true"></i></a>
-														<a class='btn ' href="delete_category.php?cid=<?php echo $row['cid'] ?>"><i class="fa fa-trash delete_icon" aria-hidden="true"></i></a>
-														<a class='btn ' href="../product/view_product.php?category=<?php echo $row['cid'] ?>"><i class="fa fa-database blue_icon" aria-hidden="true"></i></a></td>
+													<td><?php echo $row['fname'] . $row['lname'] ?></td>
+													<td><?php echo $row['email'] ?></td>
+													<td><?php echo $row['phone'] ?></td>
+													<td><?php echo $row['address'] ?></td>
+													<td><?php echo $row['created_at'] ?></td>
+													<td><?php echo $row['updated_at'] ?></td>
+													<td><?php echo $row['status'] ?></td>
+													<td><a class='btn ' href="update_user.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-edit edit_icon "  aria-hidden="true"></i></a>
+														<a class='btn ' href="delete_user.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-trash delete_icon" aria-hidden="true"></i></a>
+														</td>
 													</tr>
 													<!-- Add more rows as needed -->
 										<?php

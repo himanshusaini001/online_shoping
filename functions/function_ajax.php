@@ -48,7 +48,7 @@
 					echo "Please fill in all the required fields.";
 				} else {
 					// Perform data insertion logic into users table using prepared statements
-					$sql = "INSERT INTO registration (fname, lname, email, phone, address, username, password, otp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					$sql = "INSERT INTO user (fname, lname, email, phone, address, username, password, otp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 					$stmt = mysqli_prepare($conn, $sql);
 
 					if ($stmt) {
@@ -193,9 +193,6 @@
 			// Update Query All End ->
 			
 			
-			
-			
-			
 			// Delete Query All Start ->
 			
 			
@@ -239,31 +236,40 @@
 				// Login  function
 				
 				  if ($action == 'login') {
-						
 						// Retrieve data from POST request
 						$username = test_input($_POST['username']);
 						$password = test_input(md5($_POST["password"]));
 						// SQL query to check username and password
-						$sql = "SELECT * FROM registration WHERE username = '$username' AND password = '$password'";
+						$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
 						$result = $conn->query($sql);
 
 						if ($result->num_rows > 0) {
 							// Authentication successful
 							$row = $result->fetch_assoc();
 
+							// Check the status of the user
+							if ($row['status'] == 0) {
+								// User is not active, show alert
+								$response = [
+									'status' => 'error',
+									'message' => 'Your ID is not active'
+								];
+
+								echo json_encode($response);
+								exit; // Stop further execution
+							}
+
 							// Fetch additional data
 							$fname_c = test_input($row['fname']);
 							$fname = ucfirst($fname_c);
-							
 							$lname_c = test_input($row['lname']);
 							$lname = ucfirst($lname_c);
-							
 							$email = test_input($row['email']);
 							$address_c = test_input($row['address']);
 							$address = ucfirst($address_c);
-							
 							$phone = test_input($row['phone']);
 							$username = test_input($row['username']);
+
 							// SESSION Start
 							$_SESSION['customer_login'] = $username;
 							$_SESSION['fname'] = $fname;
@@ -271,7 +277,6 @@
 							$_SESSION['email'] = $email;
 							$_SESSION['phone'] = $phone;
 							$_SESSION['address'] = $address;
-
 							// SESSION End
 
 							// Prepare the response
@@ -296,6 +301,7 @@
 							echo json_encode($response);
 						}
 					}
+
 					
 					
 					// verify_otp  function
@@ -306,7 +312,7 @@
 						$userInputOTP = test_input($_POST['otp']);
 
 						// Prepare and execute the SQL statement using prepared statements
-						$sql = "SELECT otp FROM registration WHERE otp = '$userInputOTP'";
+						$sql = "SELECT otp FROM user WHERE otp = '$userInputOTP'";
 						
 						$result = $conn->query($sql);
 						
@@ -494,12 +500,6 @@
 					}
 			
 			// Fetch Query All End ->
-				
-				
-				
-				
-				
-				
 				
 				// Admin Data Category Start
 				
@@ -713,20 +713,106 @@
 				$phone = $_POST['phone'];
 				$message = $_POST['message'];
 	
+	
+				// Session Start
+				
+				$_SESSION['customer_name'] = $fname;
+				//Session End 
+				
 				// Prepare and bind the SQL statement
 				$sql = "INSERT INTO customer_contact (fname, lname, email, phone, message) VALUES ('$fname','$lname','$email','$phone','$message')";
 				
-				if ($result = $conn->query($sql) === true) {
-					// If insertion is successful, return 'success'
-					echo json_encode(['status'=>true]);
+				 if ($result = $conn->query($sql) === true) {
+					// If insertion is successful, send email and return 'success'
+					$to = "recipient@example.com"; // Change this to your email address
+					$subject = "New Contact Form Submission";
+					$body = "First Name: $fname\nLast Name: $lname\nEmail: $email\nPhone: $phone\nMessage: $message";
+					$headers = "From: $email";
+
+					if (mail($to, $subject, $body, $headers)) {
+						echo json_encode(['status' => true]);
+					} else {
+						// If email sending fails, return an error message
+						echo json_encode(['status' => false, 'message'=>'Error sending email']);
+					}
 				} else {
 					// If insertion fails, return an error message
-					echo json_encode(['status'=>false]);
+					echo json_encode(['status'=>false, 'message'=>'Error inserting into database']);
 				}
 
 				
 			} 
+			
+			// Update Category
 				
+			if ($action == "update_user") {
+				// Get data from AJAX request
+				$email = test_input($_POST['email']);
+				$status = test_input($_POST['status']);
+				$sid = test_input($_POST['sid']);
+				// Use prepared statement to prevent SQL injection
+				if ($status == 1) {
+					// Set up email parameters
+					$to = $email;
+					$subject = "Your account is now active";
+					$message = "Dear user,\n\nYour account is now active. Thank you for joining us!";
+					$headers = "From: himanshusaini26112002@gmail.com";
+
+					// Send the email
+					if (mail($to, $subject, $message, $headers)) {
+						$sql = "UPDATE user SET status=? WHERE sid=?";
+						$stmt = $conn->prepare($sql);
+						$stmt->bind_param("si", $status, $sid);
+						if ($stmt->execute()) {
+							echo json_encode(['status' => true]);
+						} else {
+							echo json_encode(['status' => false, 'error' => $stmt->error]);
+						}
+								
+					} else {
+						echo "<script>alert('Failed to send email.')</script>";
+					}
+				}
+				else{
+					$sql = "UPDATE user SET status=? WHERE sid=?";
+					$stmt = $conn->prepare($sql);
+					$stmt->bind_param("si", $status, $sid);
+					if ($stmt->execute()) {
+						echo json_encode(['status' => true]);
+					} else {
+						echo json_encode(['status' => false, 'error' => $stmt->error]);
+					}
+				}
+		
+			}
+				
+			// Delete product
+			
+			if ($action == "delete_user") {
+				
+				 $sid = test_input($_POST['sid']);
+				 $email = test_input($_POST['email']);
+				// Perform the deletion query (Example, please use prepared statements for security)
+				$sql = "DELETE FROM user WHERE sid='$sid'";
+
+				if (mysqli_query($conn,$sql)) {
+					echo "Record deleted successfully";
+					
+					$to = $email;
+					$subject = "Your account is now active";
+					$message = "Dear user,\n\nYour account is now active. Thank you for joining us!";
+					$headers = "From: himanshusaini26112002@gmail.com";
+
+					// Send the email
+					if (mail($to, $subject, $message, $headers)) {
+						echo "<script>alert('Sand Mail Successful')</script>";
+					} else {
+						echo "<script>alert('Failed to send email.')</script>";
+					}
+				} else {
+					echo "Error deleting record: " . mysqli_error($conn);
+				}
+			}
 		}
 		
 		mysqli_close($conn);

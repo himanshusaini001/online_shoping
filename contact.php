@@ -8,6 +8,11 @@
 			header("location: customer_login.php");
 		}
 		
+		if(isset($_SESSION['customer_name']))
+		{
+		   echo '<script>alert("You are already registered."); window.location.href = "index.php";</script>';
+		}
+		
 		include('include/main_file/topbar.php');
 		include('include/main_file/header.php');
 		
@@ -62,18 +67,16 @@
                 </form>
             </div>
         </div>
-            <div class="col-lg-5 mb-5">
-                <div class="bg-light p-30 mb-30">
-                    <iframe style="width: 100%; height: 250px;"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                    frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                </div>
-                <div class="bg-light p-30 mb-3">
-                    <p class="mb-2"><i class="fa fa-map-marker contact_icon mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope contact_icon mr-3"></i>info@example.com</p>
-                    <p class="mb-2"><i class="fa fa-mobile contact_icon mr-3"></i>+012 345 67890</p>
-                </div>
-            </div>
+		<div class="col-lg-5 mb-5">
+			<div class="bg-light p-30 mb-30">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27451.390202017803!2d76.84326653473477!3d30.6783506847033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390f9371c7ff1253%3A0xd576d663c8e12fda!2s134112!5e0!3m2!1sen!2sin!4v1710741098416!5m2!1sen!2sin" width="430" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</div>
+			<div class="bg-light p-30 mb-3">
+				<p class="mb-2"><i class="fa fa-map-marker contact_icon mr-3"></i>123 Street, Panchkula, Haryana</p>
+				<p class="mb-2"><i class="fa fa-envelope contact_icon mr-3"></i>info@example.com</p>
+				<p class="mb-2"><i class="fa fa-mobile contact_icon mr-3"></i>+012 345 67890</p>
+			</div>
+		</div> 
         </div>
     </div>
 	
@@ -125,17 +128,17 @@ $(document).ready(function() {
 
         if (!error) {
             // If no validation error, proceed with AJAX form submission
-			var form = document.getElementById('addForm');
-			let formdata = new FormData(form);
+            var form = document.getElementById('addForm');
+            let formdata = new FormData(form);
             $.ajax({
                 type: 'POST',
                 url: "functions/function_ajax.php", // Replace with the actual server-side processing script
-				data: formdata,
-				processData: false,
-				contentType: false,
+                data: formdata,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     var res = JSON.parse(response);
-					if (res.status) {
+                    if (res.status) {
                            window.location = window.location.origin+"/online-shoping/index.php" ;
                         } else {
                             alert("Error: Not Relocate");

@@ -46,7 +46,7 @@ $product_id = $_GET['product_id'];
 				</ul>
 			</div>
                 <div class="col-sm-4">
-                    <h1 class="m-0">Add Category Page</h1>
+                    <h1 class="m-0">Update Product</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">

@@ -25,22 +25,27 @@
               </li>
               <li class="nav-item">
                 <a href="../category/show_category.php" class="nav-link">
-                  <p>Manage Categorys</p>
+                  <p>Categories</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="../size/show_size.php" class="nav-link">
-                  <p>Manage Sizes</p>
+                  <p>Sizes</p>
                 </a>
               </li>
 			  <li class="nav-item">
                 <a href="../color/show_color.php" class="nav-link">
-                  <p>Manage Colors</p>
+                  <p>Colors</p>
                 </a>
               </li>
 			  <li class="nav-item">
                 <a href="../product/show_product.php" class="nav-link">
-                  <p>Manage Products</p>
+                  <p>Products</p>
+                </a>
+              </li>
+			  <li class="nav-item">
+                <a href="../user/show_user.php" class="nav-link">
+                  <p>User</p>
                 </a>
               </li>
             </ul>

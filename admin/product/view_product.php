@@ -45,7 +45,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4">
-                    <h1 class="m-0">Manage Categories</h1>
+                    <h1 class="m-0">View Product</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right">
@@ -100,8 +100,22 @@
                                             <td><?php echo $row['product_size'] ?></td>
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
-											<td><img src="../../admin/assets/upload_img/<?php echo  $row['product_img'] ?>" width="50px" height="50px"></td>
-                                            <?php
+											<td>
+												<?php 
+												// Check if there are images for this product
+												if (!empty($row['product_img'])) {
+													$images = explode(",", $row['product_img']);
+													foreach ($images as $key=>$image) {
+														if($key == '0')
+														{
+															echo "<img src='../../upload_img/$image' width='50px' height='50px'>";
+														}
+														
+													}
+												}
+												?>
+											</td>
+											 <?php
                                                     if ($row['status'] == '0') {
                                                         $status = "Inactive";
                                                         $style = "color: red;";

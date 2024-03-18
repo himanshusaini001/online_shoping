@@ -56,7 +56,7 @@ include("../include/main_file/main_sidebar.php");
 							</ul>
 						</div>
 					<div class="col-sm-4">
-						<h1 class="m-0">Add Category Page</h1>
+						<h1 class="m-0">Add Categories Page</h1>
 					</div><!-- /.col -->
 					<div class="col-sm-4">
 						<ol class="breadcrumb float-sm-right">

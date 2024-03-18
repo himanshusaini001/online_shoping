@@ -24,7 +24,7 @@
 // Start Top Link File 
 	include("../include/main_file/main_sidebar.php");
 // End Top Link File 
-$cid = $_GET['cid'];
+$sid = $_GET['sid'];
 ?>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -65,7 +65,7 @@ $cid = $_GET['cid'];
 			   </div>
 				<div class="col-md-6">
 				<?php 
-					$sql = "SELECT * FROM category WHERE cid=$cid";
+					$sql = "SELECT * FROM user WHERE sid=$sid";
 					$result = $conn->query($sql);
 					if($result->num_rows > 0)
 					{
@@ -75,30 +75,19 @@ $cid = $_GET['cid'];
 					?>
 					   <form class="custom-form shadow p-4" id="addForm" action="#" method="post" enctype="multipart/form-data">
 							<!-- Name Field -->
-							<input type="hidden" class="form-control" name="action" value="update_category" required>
+							<input type="hidden" class="form-control" name="action" value="update_user" required>
 							<div class="form-group">
-								<label for="cname">Name:</label>
-								<input type="text" class="form-control" id="cname" name="cname" value="<?php echo $row['cname'] ?>" placeholder="Enter name" required>
-								<input type="hidden" class="form-control" id="cid" name="cid" value="<?php echo $cid ?>" placeholder="Enter name" required>
-							</div>
-
-							<!-- Image Field -->
+								<input type="hidden" class="form-control" id="email" name="email" value="<?php echo $row['email'] ?>" placeholder="Enter name" required>
+								</div>
 							<div class="form-group">
-								<label for="img">Image URL:</label>
-								<input type="file" class="form-control" id="cimg" name="cimg" value="<?php echo $row['cimg'] ?>" placeholder="Enter image URL" required><img src="../../admin/assets/upload_img/<?php echo $row['cimg'] ?>" width="50px" height="50px" >
-							</div>
-							
-							<!-- Status Field -->
-							<div class="form-group">
-								<label for="selectOption" >Status</label>
+								<label for="selectOption" >Select an option:</label>
 								<select type="text" class="form-control"  id="status" name="status" placeholder="Enter status URL"  required>
-								<option value="0">Inactive</option>
-								<option value="1">Active</option>
-								<!-- Add more options as needed -->
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
+									<!-- Add more options as needed -->
 								</select>
 							</div>
-
-						
+							<input type="hidden" class="form-control" id="sid" name="sid" value="<?php echo $sid ?>" placeholder="Enter name" required>
 							<!-- Submit Button -->
 							<button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
 						</form>
@@ -134,13 +123,12 @@ $cid = $_GET['cid'];
             $("#submitBtn").click(function () {
                 // Reset previous error messages
                 $(".error-message").text("");
-				var cid = $("#cid").val();
-                var cname = $("#cname").val();
-                var cimg = $("#cimg").val();
+				var sid = $("#sid").val();
+                var email = $("#email").val();
 				var status = $("#status").val();
                 var isValid = true;
 
-                if (cname === "") {
+                if (email === "") {
                     isValid = false;
                 }
 				
@@ -160,14 +148,15 @@ $cid = $_GET['cid'];
                         data: formdata,
 						processData: false,
 						contentType: false,
-                        success: function (response) {
-                            if (response === "success") {
-                                // Redirect to another page after successful insertion
-                                window.location.href = "../category/show_category.php";
-                            } else {
-                                alert("Error: " + response);
-                            }
-                        },
+                         success: function (response) {
+						
+							var res = JSON.parse(response);
+							if (res.status) {
+							   window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+							} else {
+								alert("Error: Not Relocate");
+							}
+						},
                         error: function (xhr, status, error) {
                             alert("AJAX request failed: " + status + "\nError: " + error);
                         }

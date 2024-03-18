@@ -139,7 +139,7 @@
 								}
 							}, 1400);
 						}else {
-						 alert('Password does not match!');
+						 alert('OTP does not match!');
 					}
 				}
 				
