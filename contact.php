@@ -25,45 +25,37 @@
 
     <!-- Contact Start -->
     <div class="container-fluid">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Contact Us</span></h2>
-        <div class="row px-xl-5">
-            <div class="col-lg-7 mb-5">
-                <div class="contact-form bg-light p-30">
-                    <div id="success"></div>
-                    <form name="contactForm" onsubmit="return validateForm()" action="" method="post">
-						<h2>Application Form</h2>
-						<div class="row">
-							<label>First Name</label>
-							<input type="text"  class="form-control" name="fname">
-							<div class="error" id="fnameErr"></div>
-						</div>
-						<div class="row">
-							<label>Last Name</label>
-							<input type="text"  class="form-control" name="lname">
-							<div class="error" id="lnameErr"></div>
-						</div>
-						<div class="row">
-							<label>Email Address</label>
-							<input type="text"  class="form-control" name="email">
-							<div class="error" id="emailErr"></div>
-						</div>
-						<div class="row">
-							<label>Mobile Number</label>
-							<input type="text"  class="form-control" name="mobile" maxlength="10">
-							<div class="error" id="mobileErr"></div>
-						</div>
-						<div class="row">
-							<label>message</label>
-							   <textarea class="form-control" rows="8" id="message" name="message" placeholder="Message"></textarea>
-							<div class="error" id="messageErr"></div>
-						</div>
-						<div class="row">
-							<input class="btn btn-primary py-2 px-4" type="submit" value="Submit" >
-							 
-						</div>
-					</form>
-                </div>
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Contact Us</span></h2>
+    <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+            <div class="contact-form bg-light p-30">
+                <form action="submit_form.php" method="POST" id="addForm">
+                    <div class="form-group">
+						<input type="hidden" class="form-control" id="fname" name="action" value="contact" required>
+						
+                        <label for="fname">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
+        </div>
             <div class="col-lg-5 mb-5">
                 <div class="bg-light p-30 mb-30">
                     <iframe style="width: 100%; height: 250px;"
@@ -78,6 +70,9 @@
             </div>
         </div>
     </div>
+	
+	
+	
     <!-- Contact End -->
 
 
@@ -86,113 +81,70 @@
 	<?php 
 		include('include/main_file/footer.php');
 	?>
-	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- Footer End -->
-
 <script>
- function printError(elemId, hintMsg) {
-    document.getElementById(elemId).innerHTML = hintMsg;
-}
+$(document).ready(function() {
+    $('form').submit(function(e) {
+        e.preventDefault(); // Prevent default form submission
 
-// Defining a function to validate form 
-function validateForm() {
-    // Retrieving the values of form elements 
-    let fname = document.contactForm.fname.value;
-	let lname = document.contactForm.lname.value;
-    let email = document.contactForm.email.value;
-    let mobile = document.contactForm.mobile.value;
-    let message = document.contactForm.message.value;
-    
-	// Defining error variables with a default value
-    let fnameErr = lnameErr = emailErr = mobileErr = messageErr = true;
-    
-    // Validate fname
-    if(fname == "") {
-        printError("fnameErr", "Please enter your fname");
-    } else {
-        let regex = /^[a-zA-Z\s]+$/;                
-        if(regex.test(fname) === false) {
-            printError("fnameErr", "Please enter a valid fname");
-        } else {
-            printError("fnameErr", "");
-            fnameErr = false;
+        var error = false;
+
+        // First Name and Last Name validation
+        var fname = $('#fname').val();
+        var lname = $('#lname').val();
+        var nameRegex = /^[a-zA-Z\s]*$/; // Allow only alphabets and spaces
+
+        if (!nameRegex.test(fname) || !nameRegex.test(lname)) {
+            alert('Please enter valid first and last names (no numbers or special characters allowed).');
+            error = true;
         }
-    }
-	
-	// Validate lname
-	if(lname == "") {
-        printError("lnameErr", "Please enter your lname");
-    } else {
-        let regex = /^[a-zA-Z\s]+$/;                
-        if(regex.test(lname) === false) {
-            printError("lnameErr", "Please enter a valid lname");
-        } else {
-            printError("lnameErr", "");
-            lnameErr = false;
+
+        // Email validation
+        var email = $('#email').val();
+        var emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+        if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address.');
+            error = true;
         }
-    }
-    
-    // Validate email address
-    if(email == "") {
-        printError("emailErr", "Please enter your email address");
-    } else {
-        // Regular expression for basic email validation
-        let regex = /^\S+@\S+\.\S+$/;
-        if(regex.test(email) === false) {
-            printError("emailErr", "Please enter a valid email address");
-        } else{
-            printError("emailErr", "");
-            emailErr = false;
+
+        // Phone number validation
+        var phone = $('#phone').val();
+        var phoneRegex = /^\d{10}$/; // 10 digits only
+
+        if (!phoneRegex.test(phone)) {
+            alert('Please enter a 10-digit phone number.');
+            error = true;
         }
-    }
-    
-    // Validate mobile number
-    if(mobile == "") {
-        printError("mobileErr", "Please enter your mobile number");
-    } else {
-		let regex = /^[1-9]\d{9}$/;       
-        if(regex.test(mobile) === false) {
-            printError("mobileErr", "Please enter a valid 10 digit mobile number");
-        } else{
-            printError("mobileErr", "");
-            mobileErr = false;
+
+        if (!error) {
+            // If no validation error, proceed with AJAX form submission
+			var form = document.getElementById('addForm');
+			let formdata = new FormData(form);
+            $.ajax({
+                type: 'POST',
+                url: "functions/function_ajax.php", // Replace with the actual server-side processing script
+				data: formdata,
+				processData: false,
+				contentType: false,
+                success: function(response) {
+                    var res = JSON.parse(response);
+					if (res.status) {
+                           window.location = window.location.origin+"online-shoping/index.php" ;
+                        } else {
+                            alert("Error: Not Relocate");
+                        }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    alert('An error occurred while submitting the form. Please try again later.');
+                    console.error(xhr.responseText);
+                }
+            });
         }
-    }
-	
-	// Validate Message
-	if(message == "") {
-        printError("messageErr", "Please enter your message");
-    } else {
-        
-        let regex = /^[a-zA-Z\s]+$/; 
-        if(regex.test(message) === false) {
-            printError("messageErr", "Please enter your  message");
-        } else{
-            printError("messageErr", "");
-            messageErr = false;
-        }
-    }
-    
-    //
-    
-    // Prevent the form from being submitted if there are any errors
-    if((nameErr || lnameErr ||  emailErr || mobileErr || messageErr ) == true) {
-       return false;
-    } else {
-        // Creating a string from input data for preview
-        let dataPreview = "You've entered the following details: \n" +
-                          "Full Name: " + name + "\n" +
-                          "Email Address: " + email + "\n" +
-                          "Mobile Number: " + mobile + "\n" +
-                          "Country: " + country + "\n" +
-                          "Gender: " + gender + "\n";
-        if(hobbies.length) {
-            dataPreview += "Hobbies: " + hobbies.join(", ");
-        }
-        // Display input data in a dialog box before submitting the form
-        alert(dataPreview);
-    }
-};
+    });
+});
 </script>
 </body>
 

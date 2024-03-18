@@ -699,8 +699,33 @@
 					}
 				}
 				
-				
 			// Admin Data Product End
+			
+			
+			// Customer contact
+			
+			if ($action == "contact") {
+				
+				// Set parameters and execute
+				$fname = $_POST['fname'];
+				$lname = $_POST['lname'];
+				$email = $_POST['email'];
+				$phone = $_POST['phone'];
+				$message = $_POST['message'];
+	
+				// Prepare and bind the SQL statement
+				$sql = "INSERT INTO customer_contact (fname, lname, email, phone, message) VALUES ('$fname','$lname','$email','$phone','$message')";
+				
+				if ($result = $conn->query($sql) === true) {
+					// If insertion is successful, return 'success'
+					echo json_encode(['status'=>true]);
+				} else {
+					// If insertion fails, return an error message
+					echo json_encode(['status'=>false]);
+				}
+
+				
+			} 
 				
 		}
 		
