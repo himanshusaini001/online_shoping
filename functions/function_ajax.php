@@ -764,7 +764,7 @@
 						$stmt = $conn->prepare($sql);
 						$stmt->bind_param("si", $status, $sid);
 						if ($stmt->execute()) {
-							echo json_encode(['status' => true]);
+							echo json_encode(['status' => '1']);
 						} else {
 							echo json_encode(['status' => false, 'error' => $stmt->error]);
 						}
@@ -778,7 +778,7 @@
 					$stmt = $conn->prepare($sql);
 					$stmt->bind_param("si", $status, $sid);
 					if ($stmt->execute()) {
-						echo json_encode(['status' => true]);
+						echo json_encode(['status' => '0']);
 					} else {
 						echo json_encode(['status' => false, 'error' => $stmt->error]);
 					}
@@ -786,33 +786,6 @@
 		
 			}
 				
-			// Delete product
-			
-			if ($action == "delete_user") {
-				
-				 $sid = test_input($_POST['sid']);
-				 $email = test_input($_POST['email']);
-				// Perform the deletion query (Example, please use prepared statements for security)
-				$sql = "DELETE FROM user WHERE sid='$sid'";
-
-				if (mysqli_query($conn,$sql)) {
-					echo "Record deleted successfully";
-					
-					$to = $email;
-					$subject = "Your account is now active";
-					$message = "Dear user,\n\nYour account is now active. Thank you for joining us!";
-					$headers = "From: himanshusaini26112002@gmail.com";
-
-					// Send the email
-					if (mail($to, $subject, $message, $headers)) {
-						echo "<script>alert('Sand Mail Successful')</script>";
-					} else {
-						echo "<script>alert('Failed to send email.')</script>";
-					}
-				} else {
-					echo "Error deleting record: " . mysqli_error($conn);
-				}
-			}
 		}
 		
 		mysqli_close($conn);

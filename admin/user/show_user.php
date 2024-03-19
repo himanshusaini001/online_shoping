@@ -79,7 +79,6 @@
 											<th>Created_at</th>
 											<th>Update_at</th>
 											<th>Status</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -103,9 +102,12 @@
 													<td><?php echo $row['created_at'] ?></td>
 													<td><?php echo $row['updated_at'] ?></td>
 													<td><?php echo $row['status'] ?></td>
-													<td><a class='btn ' href="update_user.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-edit edit_icon "  aria-hidden="true"></i></a>
-														<a class='btn ' href="delete_user.php?sid=<?php echo $row['sid'] ?>"><i class="fa fa-trash delete_icon" aria-hidden="true"></i></a>
-														</td>
+													<td>
+														<div class="status-switch" data-userid="<?php echo $row['sid']; ?>" data-email="<?php echo $row['email']; ?>" data-status="<?php echo $row['status']; ?>">
+															<input type="checkbox" <?php echo ($row['status'] == '1') ? 'checked' : ''; ?> />
+															<span class="slider"></span>
+														</div>
+													</td>
 													</tr>
 													<!-- Add more rows as needed -->
 										<?php
@@ -135,24 +137,61 @@
   
 </div>
 <!-- ./wrapper -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Start Script  Tag -->
 <script>
+ 
+
+
     $(document).ready(function() {
-        // DataTable Initialization
-        var dataTable = $('#dataTable').DataTable();
+        // Toggle status switch
+        $('.status-switch').on('click', function() {
+            var userId = $(this).data('userid');
+			var email = $(this).data('email');
+            var currentStatus = $(this).data('status');
+            if(currentStatus == 1)
+			{
+				var status = currentStatus - 1;
+			}
+			else
+			{
+				var status = currentStatus + 1;
+			}
 
-        // Search Bar
-        $('#search').on('keyup', function () {
-            dataTable.search(this.value).draw();
-        });
-
-        // Entries per page
-        $('#entries').on('change', function () {
-            dataTable.page.len(this.value).draw();
+            $.ajax({
+                type: 'POST',
+                url: '../../functions/function_ajax.php', // Update this with the file handling the status update
+                data: { action:"update_user",email:email, sid: userId, status: status },
+                 success: function (response) {
+						let resp = JSON.parse(response);
+						if(resp.status)
+						{
+							if(resp.status == '1')
+							{
+								alert("your ID is Active!");
+								window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+							}
+							else{
+								alert("your ID is Inactive!");
+								window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+							}
+							
+							 
+						}
+						else{
+							alert ("Do not Relocate");
+						}
+						
+					},
+                    error: function (xhr, status, error) { 
+                        alert("AJAX request failed: " + status + "\nError: " + error);
+                    }
+            });
         });
     });
 </script>
+
 <!-- End Script  Tag -->
 </body>
 <!-- End Body  Tag -->
