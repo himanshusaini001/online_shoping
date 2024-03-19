@@ -141,9 +141,6 @@
 
 <!-- Start Script  Tag -->
 <script>
- 
-
-
     $(document).ready(function() {
         // Toggle status switch
         $('.status-switch').on('click', function() {
