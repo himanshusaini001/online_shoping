@@ -26,6 +26,18 @@
 // End Top Link File 
 	
 ?>
+<style>
+.active_id {
+	background-color: #a4e9a4;
+	padding: 10px;
+	color:#000;
+}
+.Inactive_id {
+	background-color: #ed6060;
+	padding: 10px;
+	color:#fff;
+}
+</style>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
@@ -66,6 +78,9 @@
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col-12" style="height: 400px; overflow: auto;">
+								<?php 
+									include("../include/main_file/flash_message.php");
+								?>
                                 <table id="dataTable" class="table table-bordered">
                                     <thead>
                                         <tr>

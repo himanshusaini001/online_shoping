@@ -159,7 +159,8 @@ include("../include/main_file/main_sidebar.php");
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response === "success") {
+				var resp = JSON.parse(response);
+                if (resp.status) {
                     // Redirect to another page after successful insertion
                     window.location.href = "../category/show_category.php";
                 } else {

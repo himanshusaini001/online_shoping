@@ -152,7 +152,8 @@
 								status: status
 							},
 							success: function (response) {
-								if (response === "success") {
+								var resp = JSON.parse(response);
+								if (resp.status) {
 									// Redirect to another page after successful insertion
 									window.location.href = "../color/show_color.php";
 								} else {
@@ -168,7 +169,7 @@
 				
 			}
 			if (found == false) {
-				alert("Please Don't Correct Value  ");
+				alert("Please Chouse Color red, blue, green, yellow, orange, purple, pink,brown, gray, black, white, cyan, magenta, turquoise,gold, silver, indigo, maroon, olive, teal  ");
 			} 
 			
 			

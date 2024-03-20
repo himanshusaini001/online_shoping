@@ -169,7 +169,8 @@ $color_id = $_GET['color_id'];
 								status: status
 							},
 							success: function (response) {
-								if (response === "success") {
+								var resp = JSON.parse(response);
+								if (resp.status) {
 									// Redirect to another page after successful insertion
 									window.location.href = "../color/show_color.php";
 								} else {
@@ -185,7 +186,7 @@ $color_id = $_GET['color_id'];
 				
 			}
 			if (found == false) {
-				alert("Please Don't Correct Color  ");
+				alert("Please Chouse Other Color red, blue, green, yellow, orange, purple, pink,brown, gray, black, white, cyan, magenta, turquoise,gold, silver, indigo, maroon, olive, teal  ");
 			} 
 			
 			

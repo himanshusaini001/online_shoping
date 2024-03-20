@@ -48,3 +48,13 @@ a.category_btn {
 a.btn {
     padding: 5px;
 }
+.active_id {
+	background-color: #a4e9a4;
+	padding: 10px;
+	color:#000;
+}
+.Inactive_id {
+	background-color: #ed6060;
+	padding: 10px;
+	color:#fff;
+}
