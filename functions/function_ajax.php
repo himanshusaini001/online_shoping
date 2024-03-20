@@ -101,9 +101,11 @@
 				$sql = "INSERT INTO clothing_sizes (size,status) VALUES ('$size','$status')";
 
 				if ($conn->query($sql) === TRUE) {
-					echo "success";
+					echo json_encode(['status' => true]);
+					$_SESSION['msg'] = "Add Size successfully";
 				} else {
-					echo "Error: " . $conn->error;
+					echo json_encode(['status' => false]);
+					$_SESSION['msg'] = "Do not Add Size ";
 				}
 			}
 			
@@ -121,9 +123,11 @@
 				$sql = "INSERT INTO colors (color_name,status) VALUES ('$color','$status')";
 
 				if ($conn->query($sql) === TRUE) {
-					echo "success";
+					echo json_encode(['status' => true]);
+					$_SESSION['msg'] = "Add Color successfully";
 				} else {
-					echo "Error: " . $conn->error;
+					echo json_encode(['status' => false]);
+					$_SESSION['msg'] = "Do Not Add Color ";
 				}
 			}
 			
@@ -162,9 +166,11 @@
 					$sql = "UPDATE clothing_sizes SET size='$size',status='$status' where sid='$sid'";
 
 					if ($conn->query($sql) === TRUE) {
-						echo "success";
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Update Size successfully";
 					} else {
-						echo "Error: " . $conn->error;
+						echo json_encode(['status' => false]);
+						$_SESSION['msg'] = "Do not Update Size";
 					}
 				}
 				
@@ -183,9 +189,11 @@
 					$sql = "UPDATE colors SET color_name='$color_name',status='$status' where color_id='$color_id'";
 					
 					if ($conn->query($sql) === TRUE) {
-						echo "success";
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Update Color successfully";
 					} else {
-						echo "Error: " . $conn->error;
+						echo json_encode(['status' => false]);
+						$_SESSION['msg'] = "Do not Update color";
 					}
 				}
 				
@@ -206,8 +214,10 @@
 
 					if (mysqli_query($conn, $sql)) {
 						echo "Record deleted successfully";
+						$_SESSION['msg'] = "Delete Size successfully";
 					} else {
 						echo "Error deleting record: " . mysqli_error($conn);
+						$_SESSION['msg'] = "Do Not Delete Size ";
 					}
 				}
 				
@@ -222,8 +232,10 @@
 
 					if (mysqli_query($conn, $sql)) {
 						echo "Record deleted successfully";
+						$_SESSION['msg'] = "Delete Color successfully";
 					} else {
 						echo "Error deleting record: " . mysqli_error($conn);
+						$_SESSION['msg'] = " Do not Delete Color";
 					}
 				}
 				
@@ -521,9 +533,11 @@
 					$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
 
 					if ($conn->query($sql) === TRUE) {
-						echo "success";
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Add Categories successfully";
 					} else {
-						echo "Error: " . $conn->error;
+						echo json_encode(['status' => false]);
+						$_SESSION['msg'] = "Do Not Add Categories ";
 					}
 				}
 				
@@ -536,8 +550,10 @@
 
 					if (mysqli_query($conn, $sql)) {
 						echo "Record deleted successfully";
+						$_SESSION['msg'] = "Delete Categories successfully";
 					} else {
 						echo "Error deleting record: " . mysqli_error($conn);
+						$_SESSION['msg'] = "Do Not Delete Categories ";
 					}
 				}
 				
@@ -570,9 +586,11 @@
 					$stmt->bind_param("sssi", $cname, $cimg, $status, $cid);
 
 					if ($stmt->execute()) {
-						echo "success";
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Update Categories successfully";
 					} else {
-						echo "Error: " . $stmt->error;
+						echo json_encode(['status' => false]);
+						$_SESSION['msg'] = "Do Not Update Categories";
 					}
 
 				}
@@ -622,8 +640,10 @@
 				
 				if ($conn->query($sql) === TRUE) {
 					echo json_encode(["status"=>true]);
+					$_SESSION['msg'] = "Add Data Successfully";
 				} else {
 					echo json_encode(["status"=>false]);
+					$_SESSION['msg'] = "Do not Add Data ";
 				}
 			}
 
@@ -676,9 +696,12 @@
 					$sql = "UPDATE product SET category='$category', product_color='$product_color', product_size='$product_size', price='$price', product_name='$product_name', description='$description', product_img='$product_img', status='$status' WHERE product_id='$product_id'";
 					
 					if ($result = $conn->query($sql) === TRUE) {
+						
 						echo json_encode(["status"=>true]);
+						$_SESSION['msg'] = "Update Data Successfully";
 					} else {
 						echo json_encode(["status"=>false]);
+						$_SESSION['msg'] = "Do not Update Product";
 					}
 
 				}
@@ -694,8 +717,10 @@
 
 					if (mysqli_query($conn,$sql)) {
 						echo "Record deleted successfully";
+						$_SESSION['msg'] = "Delete Data Successfully";
 					} else {
 						echo "Error deleting record: " . mysqli_error($conn);
+						$_SESSION['msg'] = "Do Not Delete Product";
 					}
 				}
 				
@@ -765,6 +790,13 @@
 						$stmt->bind_param("si", $status, $sid);
 						if ($stmt->execute()) {
 							echo json_encode(['status' => '1']);
+							if($status == '1')
+							{
+								$_SESSION['msg'] = "Active Id successfully";
+							}
+							else{
+								$_SESSION['msg'] = " Do not Active Id";
+							}
 						} else {
 							echo json_encode(['status' => false, 'error' => $stmt->error]);
 						}
@@ -779,6 +811,13 @@
 					$stmt->bind_param("si", $status, $sid);
 					if ($stmt->execute()) {
 						echo json_encode(['status' => '0']);
+						if($status == '0')
+							{
+								$_SESSION['msg'] = "Inactive Id successfully";
+							}
+							else{
+								$_SESSION['msg'] = "Do Not Inactive Id ";
+							}
 					} else {
 						echo json_encode(['status' => false, 'error' => $stmt->error]);
 					}
