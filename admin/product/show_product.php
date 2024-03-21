@@ -88,6 +88,7 @@
                                             <th>Name</th>
                                             <th>Color</th>
                                             <th>Size</th>
+											<th>Stock</th>
                                             <th>Price</th>
                                             <th>Description</th>
                                             <th>Image</th>
@@ -110,6 +111,7 @@
                                                     <td><?php echo $row['product_name'] ?></td>
                                                     <td><?php echo $row['product_color'] ?></td>
                                                     <td><?php echo $row['product_size'] ?></td>
+													<td><?php echo $row['stock'] ?></td>
                                                     <td><?php echo $row['price'] ?></td>
                                                     <td><?php echo $row['description'] ?></td>
 													<?php 

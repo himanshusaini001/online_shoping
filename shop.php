@@ -193,7 +193,7 @@
 							</div>
                             </div>
                             <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href=""><?php echo $row3['product_name'] ?></a>
+                                <a class="h6 text-decoration-none text-truncate" href="detail.php?product_id=<?php echo $row3['product_id'] ?>"><?php echo $row3['product_name'] ?></a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
                                     <h5><?php echo $row3['price'] ?></h5><h6 class="text-muted ml-2"><del><i class="fa fa-inr" aria-hidden="true"></i>1500.00</del></h6>
                                 </div>

@@ -11,10 +11,7 @@
 // End Connection File 
 
 // Start Session 
-	if(!isset($_SESSION['admin_name']))
-	{
-		header("location:../index.php");
-	}
+	
 // End Session
 
 // Start Top Link File 
@@ -152,14 +149,17 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                            <input type="text" id="qut" name="qut" class="form-control bg-secondary border-0 text-center" value="1">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+						
+							<input type="hidden" id="stock" name="stock" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['stock'] ?>">
+							<input type="hidden" id="product_id" name="product_id" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['product_id'] ?>">
+                        <a href="#" onclick="cart_call()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</a>
                     </div>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
@@ -364,7 +364,26 @@
 	
 	<!-- Footer End -->
 
+<script>
 
+	function cart_call()
+	{
+		var qut = document.getElementById('qut').value;
+		var stock = document.getElementById('stock').value;
+		var product_id = document.getElementById('product_id').value;
+		if(stock<qut)
+		{
+			alert("Ablable shock "+ stock);
+		}
+		 else{
+			 if(confirm("Successfully added to cart")){
+			window.location = "cart.php?product_id=" + encodeURIComponent(product_id) + "&qut=" + encodeURIComponent(qut) ;
+			 }
+		 }
+		 
+	}
+	
+</script>
    
 </body>
 

@@ -54,7 +54,7 @@ if(isset($_SESSION['customer_login']))
 						<label for="passwordField">Password:</label>
 						<input type="password" class="form-control" id="passwordField" name="password">
 					</div>
-					<span>Don't Register <a href="signup.php">Sign Up</a></span>
+					<span>Create an Account<a href="signup.php">Sign Up</a></span>
 					<button type="button" 	 class="btn btn-primary login_btn" id="submitButton">Submit</button>
 				</form>
 

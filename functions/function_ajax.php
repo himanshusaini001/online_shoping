@@ -272,6 +272,7 @@
 							}
 
 							// Fetch additional data
+							$customer_id = test_input($row['sid']);
 							$fname_c = test_input($row['fname']);
 							$fname = ucfirst($fname_c);
 							$lname_c = test_input($row['lname']);
@@ -283,6 +284,7 @@
 							$username = test_input($row['username']);
 
 							// SESSION Start
+							$_SESSION['customer_id'] = $customer_id;
 							$_SESSION['customer_login'] = $username;
 							$_SESSION['fname'] = $fname;
 							$_SESSION['lname'] = $lname;
@@ -609,6 +611,7 @@
 				$category = ucfirst($category_c);
 				$product_color = test_input($_POST['product_color']);
 				$product_size = test_input($_POST['product_size']);
+				$product_stock = test_input($_POST['product_stock']);
 				$price = test_input($_POST['price']);
 				$product_name_c = test_input($_POST['product_name']);
 				$product_name = ucfirst($product_name_c);
@@ -636,7 +639,7 @@
 				}
 				
 				// Insert data into the product table
-				$sql = "INSERT INTO product (category, product_color, product_size, price, product_name, description, product_img, status) VALUES ('$category', '$product_color', '$product_size', '$price', '$product_name', '$description', '" . implode(',', $product_imgs) . "', '$status')";
+				$sql = "INSERT INTO product (category,product_color,product_size,stock,price,product_name,description,product_img,status) VALUES ('$category','$product_color','$product_size','$product_stock','$price','$product_name','$description','" . implode(',', $product_imgs) . "','$status')";
 				
 				if ($conn->query($sql) === TRUE) {
 					echo json_encode(["status"=>true]);
@@ -768,7 +771,7 @@
 				
 			} 
 			
-			// Update Category
+			// Update User
 				
 			if ($action == "update_user") {
 				// Get data from AJAX request
@@ -824,6 +827,55 @@
 				}
 		
 			}
+			
+			// Add  billing Address
+			
+			if ($action == "billing_address") {
+					// Get data from AJAX request
+					$first_name_c = test_input($_POST['first_name']);
+					$first_name = ucfirst($first_name_c);
+					
+					$last_name_c = test_input($_POST['last_name']);
+					$last_name = ucfirst($last_name_c);
+					
+					$email_c = test_input($_POST['email']);
+					$email = ucfirst($email_c);
+					
+					$phone_c = test_input($_POST['phone']);
+					$phone = ucfirst($phone_c);
+					
+					$address_line_1_c = test_input($_POST['address_line_1']);
+					$address_line_1 = ucfirst($address_line_1_c);
+					
+					$address_line_2_c = test_input($_POST['address_line_2']);
+					$address_line_2 = ucfirst($address_line_2_c);
+
+					$country_c = test_input($_POST['country']);
+					$country = ucfirst($country_c);
+					
+					$city_c = test_input($_POST['city']);
+					$city = ucfirst($city_c);
+					
+					$state_c = test_input($_POST['state']);
+					$state = ucfirst($state_c);
+					
+					$pin_code_c = test_input($_POST['pin_code']);
+					$pin_code = ucfirst($pin_code_c);
+					
+					
+					// Insert data into the category table
+
+					$sql = "INSERT INTO billingaddress (first_name,last_name,email,phone,address_line_1,address_line_2,country,city,state,pin_code) VALUES ('$first_name','$last_name','$email','$phone','$address_line_1','$address_line_2','$country','$city','$state','$pin_code')";
+					
+					if ($conn->query($sql) === TRUE) {
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Add billing_Address successfully";
+					} else {
+						echo json_encode(['status' => false]);
+						$_SESSION['msg'] = "Do Not Add billing_Address ";
+					}
+				}
+				
 				
 		}
 		

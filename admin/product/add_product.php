@@ -131,6 +131,10 @@
 									</select>
 								</div>
 								<div class="form-group">
+									<label for="cname">Product Stock:</label>
+									<input type="number" class="form-control" id="product_stock" name="product_stock"  placeholder="Enter Stock" required>
+								</div>
+								<div class="form-group">
 									<label for="cname">Product Price:</label>
 									<input type="number" class="form-control" id="price" name="price" maxlength="10" placeholder="Enter name" required>
 								</div>
@@ -195,14 +199,18 @@
 			var category = $("#category").val();
 			var product_color = $("#product_color").val();
 			var product_size = $("#product_size").val();
+			var product_stock = $("#product_stock").val();
 			var price = $("#price").val();
 			var product_name = $("#product_name").val();
 			var description = $("#description").val();
 			var product_img = $("#product_img").val();
 			var status = $("#status").val();
 			
-
-            var isValid = true;
+			if (!/^[a-zA-Z]+$/.test(product_name)) {
+				alert("Check name field, add only characters." );
+			}
+			else{
+				 var isValid = true;
 
             if (category === "") {
                 isValid = false;
@@ -212,6 +220,9 @@
                 isValid = false;
             }
 			if (product_size === "") {
+                isValid = false;
+            }
+			if (product_stock === "") {
                 isValid = false;
             }
 			if (price === "") {
@@ -242,9 +253,7 @@
 					processData: false,
 					contentType: false,
                     success: function (response) {
-						
 						var res = JSON.parse(response);
-						
                         if (res.status) {
                            window.location = window.location.origin+"/online-shoping/admin/product/show_product.php" ;
                         } else {
@@ -256,6 +265,7 @@
                     }
                 });
             }
+			}
         });
     });
 </script>

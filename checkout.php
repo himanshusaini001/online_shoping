@@ -1,171 +1,145 @@
-	<!-- header Start -->
+<!-- header Start -->
+<?php 
+    require_once('include/db_file/config.php');
+	require_once('include/db_file/connection_file.php');
+    include('include/main_file/topbar.php');
+    include('include/main_file/header.php');
+    
+    if(!isset($_SESSION['customer_login'])) {
+        header("location: customer_login.php");
+        exit; // It's a good practice to exit after redirecting
+    }
 	
-	<?php 
-		require_once('include/db_file/config.php');
+	$qut = $_GET['qut'];
+	$product_name = $_GET['product_name'];
+	$all_amount = $_GET['all_amount'];
+	
+?>
+<!-- header End -->
 
-		include('include/main_file/topbar.php');
-		include('include/main_file/header.php');
-		
-		if(!isset($_SESSION['customer_login']))
-		{
-			header("location: customer_login.php");
-		}
-	?>
-	<!-- header End -->
-	
-    <!-- Breadcrumb Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-12">
-                <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="index.php">Home</a>
-                    <a class="breadcrumb-item text-dark" href="shop.php">Shop</a>
-                    <span class="breadcrumb-item active">Checkout</span>
-                </nav>
-            </div>
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="index.php">Home</a>
+                <a class="breadcrumb-item text-dark" href="shop.php">Shop</a>
+                <span class="breadcrumb-item active">Checkout</span>
+            </nav>
         </div>
     </div>
-    <!-- Breadcrumb End -->
+</div>
+<!-- Breadcrumb End -->
 
+<!-- Checkout Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+            <?php 
+				$user_id = $_SESSION['customer_id'];
+				
+				$sql = "SELECT * FROM user  WHERE sid = '$user_id'";
+				
+				$result =  $conn->query($sql);
+				if($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+					{
+					?>
+						<div class="bg-light p-30 mb-5">
+							<form id="addUserForm" action="#" method="post">
+								<div class="form-group">
+									<label for="first_name">First Name:</label>
+									<input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo  $row['fname'] ?>" required>
+									<div class="error"></div>
+								</div>
 
-    <!-- Checkout Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="newaccount">
-                                <label class="custom-control-label" for="newaccount">Create an account</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="shipto">
-                                <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="collapse mb-5" id="shipping-address">
-                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
-                    <div class="bg-light p-30">
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>First Name</label>
-                                <input class="form-control" type="text" placeholder="John">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Last Name</label>
-                                <input class="form-control" type="text" placeholder="Doe">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>E-mail</label>
-                                <input class="form-control" type="text" placeholder="example@email.com">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Mobile No</label>
-                                <input class="form-control" type="text" placeholder="+123 456 789">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address Line 1</label>
-                                <input class="form-control" type="text" placeholder="123 Street">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Address Line 2</label>
-                                <input class="form-control" type="text" placeholder="123 Street">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>Country</label>
-                                <select class="custom-select">
-                                    <option selected>United States</option>
-                                    <option>Afghanistan</option>
-                                    <option>Albania</option>
-                                    <option>Algeria</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>City</label>
-                                <input class="form-control" type="text" placeholder="New York">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>State</label>
-                                <input class="form-control" type="text" placeholder="New York">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label>ZIP Code</label>
-                                <input class="form-control" type="text" placeholder="123">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
+								<div class="form-group">
+									<label for="last_name">Last Name:</label>
+									<input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo  $row['lname'] ?>" required>
+									<div class="error"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="email">Email:</label>
+									<input type="email" class="form-control" id="email" name="email" value="<?php echo  $row['email'] ?>" required>
+									<div class="error"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="phone">Phone:</label>
+									<input type="number" class="form-control" id="phone" name="phone" value="<?php echo  $row['phone'] ?>" required>
+									<div class="error"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="address_line_1">Address Line 1:</label>
+									<input type="text" class="form-control" id="address_line_1" name="address_line_1" value="<?php echo  $row['address'] ?>" required>
+									<div class="error"></div>
+								</div>
+
+								<div class="form-group">
+									<label for="address_line_2">Address Line 2:</label>
+									<input type="text" class="form-control" id="address_line_2" name="address_line_2">
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="country">Country:</label>
+										<select class="form-control" id="country" name="country" required>
+											<option value="">Select Country</option>
+											<option value="USA">india</option>
+											<option value="Canada">Canada</option>
+											<option value="UK">United Kingdom</option>
+											<!-- Add more options as needed -->
+										</select>
+										<div class="error"></div>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="city">City:</label>
+										<input type="text" class="form-control" id="city" name="city" required>
+										<div class="error"></div>
+									</div>
+									<div class="form-group col-md-4">
+										<label for="state">State:</label>
+										<select class="form-control" id="state" name="state" required>
+											<option value="">Select State</option>
+											<option value="NY">punjab</option>
+											<option value="CA">haryana</option>
+											<option value="TX">himachal</option>
+											<!-- Add more options as needed -->
+										</select>
+										<div class="error"></div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="pin_code">Pin Code:</label>
+									<input type="number" class="form-control" id="pin_code" name="pin_code" required>
+									<div class="error"></div>
+								</div>
+								<input type="hidden" class="form-control"  name="action" value="billing_address" required>
+							</form>
+						</div>
+					<?php
+					}
+				}
+			
+			?>
+			
+        </div>
+        <div class="col-lg-4">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
                         <h6 class="mb-3">Products</h6>
                         <div class="d-flex justify-content-between">
-                            <p>Product Name 1</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 2</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name 3</p>
-                            <p>$150</p>
+                            <p>Product Name (<?php echo $qut ?> items)</p>
+                            <p><?php echo $product_name ?></p>
                         </div>
                     </div>
-                    <div class="border-bottom pt-3 pb-2">
+                    <!--div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
                             <h6>$150</h6>
@@ -174,54 +148,149 @@
                             <h6 class="font-weight-medium">Shipping</h6>
                             <h6 class="font-weight-medium">$10</h6>
                         </div>
-                    </div>
+                    </div-->
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5>$160</h5>
+                            <h5><?php echo  $all_amount ?></h5>
                         </div>
                     </div>
                 </div>
                 <div class="mb-5">
                     <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
                     <div class="bg-light p-30">
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                                <label class="custom-control-label" for="paypal">Paypal</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                                <label class="custom-control-label" for="directcheck">Direct Check</label>
-                            </div>
-                        </div>
                         <div class="form-group mb-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                                <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
+                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer" checked>
+                                <label class="custom-control-label" for="banktransfer">Cash on Delivery</label>
                             </div>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
+                        <button onclick="place_order()" class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
-    <!-- Checkout End -->
+</div>
+<!-- Checkout End -->
 
+<!-- Footer Start -->
+<?php 
+    include('include/main_file/footer.php');
+?>
+<!-- Footer End -->
 
-   <!-- Footer Start -->
-	 
-	<?php 
-		include('include/main_file/footer.php');
-	?>
-	
-	<!-- Footer End -->
+<script>
+    function place_order() {
+         var errors = [];
 
+        var firstName = document.getElementById('first_name').value.trim();
+        var lastName = document.getElementById('last_name').value.trim();
+        var city = document.getElementById('city').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var addressLine1 = document.getElementById('address_line_1').value.trim();
+        var addressLine2 = document.getElementById('address_line_2').value.trim();
+        var country = document.getElementById('country').value.trim();
+        var state = document.getElementById('state').value.trim();
+        var pinCode = document.getElementById('pin_code').value.trim();
 
-    
+        var nameRegex = /^[a-zA-Z]+$/;
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phoneRegex = /^[0-9]+$/;
+        var addressRegex = /^[a-zA-Z0-9\s,.'-]*$/;
+
+        if (firstName === "") {
+            errors.push("Please enter your first name.");
+        } else if (!nameRegex.test(firstName)) {
+            errors.push("Please enter a valid first name with only letters.");
+        }
+
+        if (lastName === "") {
+            errors.push("Please enter your last name.");
+        } else if (!nameRegex.test(lastName)) {
+            errors.push("Please enter a valid last name with only letters.");
+        }
+
+        if (city === "") {
+            errors.push("Please enter your city name.");
+        } else if (!nameRegex.test(city)) {
+            errors.push("Please enter a valid city name with only letters.");
+        }
+
+        if (email === "") {
+            errors.push("Please enter your email address.");
+        } else if (!emailRegex.test(email)) {
+            errors.push("Please enter a valid email address.");
+        }
+
+        if (phone === "") {
+            errors.push("Please enter your phone number.");
+        } else if (!phoneRegex.test(phone)) {
+            errors.push("Please enter a valid phone number with only digits.");
+        }
+
+        if (addressLine1 === "") {
+            errors.push("Please enter your address line 1.");
+        } else if (!addressRegex.test(addressLine1)) {
+            errors.push("Please enter a valid address line 1.");
+        }
+		
+		if (addressLine2 === "") {
+            errors.push("Please enter your address line 2.");
+        } else if (!addressRegex.test(addressLine1)) {
+            errors.push("Please enter a valid address line 2.");
+        }
+		
+		if (country === "") {
+            errors.push("Please enter your country .");
+        } else if (!addressRegex.test(addressLine1)) {
+            errors.push("Please enter a valid country .");
+        }
+		
+		if (state === "") {
+            errors.push("Please enter your state .");
+        } else if (!addressRegex.test(addressLine1)) {
+            errors.push("Please enter a valid state .");
+        }
+		if (pinCode === "") {
+            errors.push("Please enter your pinCode .");
+        } else if (!addressRegex.test(addressLine1)) {
+            errors.push("Please enter a valid pinCode .");
+        }
+
+        // Repeat the same pattern for other fields
+
+        if (errors.length > 0) {
+            event.preventDefault();
+            alert(errors.join("\n"));
+        }
+		else{
+			// AJAX to submit form data
+        var form = document.getElementById('addUserForm');
+        let formdata = new FormData(form);
+        $.ajax({
+            type: "POST",
+            url: "functions/function_ajax.php", // Replace with the actual server-side processing script
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+				var resp = JSON.parse(response);
+                if (resp.status) {
+                    // Redirect to another page after successful insertion
+					alert("data insert ok");
+                    //window.location.href = "../category/show_category.php";
+                } else {
+                    alert("Error: " + response);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("AJAX request failed: " + status + "\nError: " + error);
+            }
+        });
+		}
+    }
+
+</script>
 </body>
-
 </html>

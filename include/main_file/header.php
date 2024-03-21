@@ -44,7 +44,7 @@
 								{
 									
 							?>
-									<a href="#" class="nav-link dropdown-toggle logout_btn_none" data-toggle="dropdown">Register/Login<i class="fa fa-angle-down arrow_right1 mt-1"></i></a>
+									<a href="#" class="nav-link dropdown-toggle logout_btn_none" data-toggle="dropdown">Account<i class="fa fa-angle-down arrow_right1 mt-1"></i></a>
 							<?php 
 								}
 						?>

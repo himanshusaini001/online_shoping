@@ -66,7 +66,7 @@ $product_id = $_GET['product_id'];
                 </div>
                 <div class="col-md-6" >
 				<?php 
-				$sql1 = "SELECT category.cname,category.cid,product.category,product.product_color,product.product_size,product.price,
+				$sql1 = "SELECT category.cname,category.cid,product.category,product.product_color,product.product_size,product.stock,product.price,
 						product.product_name,product.description,product.product_img,product.status FROM category RIGHT JOIN product ON category.cid = product.category WHERE product.product_id = $product_id";
 					$result1 = $conn->query($sql1);
 					if($result1->num_rows > 0)
@@ -142,8 +142,12 @@ $product_id = $_GET['product_id'];
 									</select>
 								</div>
 								<div class="form-group">
+									<label for="cname">Product Stock:</label>
+									<input type="number" class="form-control" id="product_stock" name="product_stock" value="<?php echo $row1['stock'] ?>" maxlength="10" placeholder="Enter stock" required>
+								</div>
+								<div class="form-group">
 									<label for="cname">Product Price:</label>
-									<input type="number" class="form-control" id="price" name="price" value="<?php echo $row1['price'] ?>" maxlength="10" placeholder="Enter name" required>
+									<input type="number" class="form-control" id="price" name="price" value="<?php echo $row1['price'] ?>" maxlength="10" placeholder="Enter price" required>
 								</div>
 							</div>
 							<div class=" col-md-6">
@@ -225,6 +229,7 @@ $product_id = $_GET['product_id'];
 			var category = $("#category").val();
 			var product_color = $("#product_color").val();
 			var product_size = $("#product_size").val();
+			var product_stock = $("#product_stock").val();
 			var price = $("#price").val();
 			var product_name = $("#product_name").val();
 			var description = $("#description").val();
@@ -232,8 +237,11 @@ $product_id = $_GET['product_id'];
 			var status = $("#status").val();
 			var product_id = $("#product_id").val();
 			
-
-            var isValid = true;
+			if (!/^[a-zA-Z]+$/.test(product_name)) {
+				alert("Check name field, add only characters." );
+			}
+			else{
+				 var isValid = true;
 
             if (category === "") {
                 isValid = false;
@@ -243,6 +251,9 @@ $product_id = $_GET['product_id'];
                 isValid = false;
             }
 			if (product_size === "") {
+                isValid = false;
+            }
+			if (product_stock === "") {
                 isValid = false;
             }
 			if (price === "") {
@@ -288,6 +299,7 @@ $product_id = $_GET['product_id'];
                     }
                 });
             }
+			}
         });
     });
 </script>
