@@ -39,4 +39,18 @@ element.style {
 .btn {
     padding: 5px;
 }
-
+span.place_order_text {
+    font-size: 45px;
+    color: #000;
+    font-weight: 500;
+}
+.border_bottom {
+    border-bottom: 1px solid #000;
+    width: 100%;
+  
+}
+.shop_button {
+    float: right;
+    margin-top: 20px;
+    padding: 10px 40px;
+}

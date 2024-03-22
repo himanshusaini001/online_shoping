@@ -539,7 +539,7 @@
 						$_SESSION['msg'] = "Add Categories successfully";
 					} else {
 						echo json_encode(['status' => false]);
-						$_SESSION['msg'] = "Do Not Add Categories ";
+						$_SESSION['msg_error'] = "Do Not Add Categories ";
 					}
 				}
 				
@@ -555,7 +555,7 @@
 						$_SESSION['msg'] = "Delete Categories successfully";
 					} else {
 						echo "Error deleting record: " . mysqli_error($conn);
-						$_SESSION['msg'] = "Do Not Delete Categories ";
+						$_SESSION['msg_error'] = "Do Not Delete Categories ";
 					}
 				}
 				
@@ -592,7 +592,7 @@
 						$_SESSION['msg'] = "Update Categories successfully";
 					} else {
 						echo json_encode(['status' => false]);
-						$_SESSION['msg'] = "Do Not Update Categories";
+						$_SESSION['msg_error'] = "Do Not Update Categories";
 					}
 
 				}
@@ -646,7 +646,7 @@
 					$_SESSION['msg'] = "Add Data Successfully";
 				} else {
 					echo json_encode(["status"=>false]);
-					$_SESSION['msg'] = "Do not Add Data ";
+					$_SESSION['msg_error'] = "Do not Add Data ";
 				}
 			}
 
@@ -704,7 +704,7 @@
 						$_SESSION['msg'] = "Update Data Successfully";
 					} else {
 						echo json_encode(["status"=>false]);
-						$_SESSION['msg'] = "Do not Update Product";
+						$_SESSION['msg_error'] = "Do not Update Product";
 					}
 
 				}
@@ -723,7 +723,7 @@
 						$_SESSION['msg'] = "Delete Data Successfully";
 					} else {
 						echo "Error deleting record: " . mysqli_error($conn);
-						$_SESSION['msg'] = "Do Not Delete Product";
+						$_SESSION['msg_error'] = "Do Not Delete Product";
 					}
 				}
 				
@@ -766,6 +766,7 @@
 				} else {
 					// If insertion fails, return an error message
 					echo json_encode(['status'=>false, 'message'=>'Error inserting into database']);
+					$_SESSION['msg_error'] = "Error";
 				}
 
 				
@@ -806,6 +807,7 @@
 								
 					} else {
 						echo "<script>alert('Failed to send email.')</script>";
+						$_SESSION['msg_error'] = "Error";
 					}
 				}
 				else{
@@ -823,6 +825,7 @@
 							}
 					} else {
 						echo json_encode(['status' => false, 'error' => $stmt->error]);
+						$_SESSION['msg_error'] = "Error";
 					}
 				}
 		
@@ -872,7 +875,7 @@
 						$_SESSION['msg'] = "Add billing_Address successfully";
 					} else {
 						echo json_encode(['status' => false]);
-						$_SESSION['msg'] = "Do Not Add billing_Address ";
+						$_SESSION['msg_error'] = "Do Not Add billing_Address ";
 					}
 				}
 				

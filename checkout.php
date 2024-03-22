@@ -2,17 +2,19 @@
 <?php 
     require_once('include/db_file/config.php');
 	require_once('include/db_file/connection_file.php');
-    include('include/main_file/topbar.php');
-    include('include/main_file/header.php');
-    
-    if(!isset($_SESSION['customer_login'])) {
+	 if(!isset($_SESSION['customer_login'])) {
         header("location: customer_login.php");
         exit; // It's a good practice to exit after redirecting
     }
+    include('include/main_file/topbar.php');
+    include('include/main_file/header.php');
+    
+   
 	
 	$qut = $_GET['qut'];
 	$product_name = $_GET['product_name'];
 	$all_amount = $_GET['all_amount'];
+	$product_id = $_GET['product_id'];
 	
 ?>
 <!-- header End -->
@@ -120,6 +122,9 @@
 									<div class="error"></div>
 								</div>
 								<input type="hidden" class="form-control"  name="action" value="billing_address" required>
+								<input type="hidden" class="form-control" id="product_id"  name="product_id" value="<?php echo  $product_id ?>" required>
+								<input type="hidden" class="form-control" id="all_amount"  name="all_amount" value="<?php echo  $all_amount ?>" required>
+								<input type="hidden" class="form-control" id="qut"  name="qut" value="<?php echo  $qut ?>" required>
 							</form>
 						</div>
 					<?php
@@ -161,7 +166,7 @@
                     <div class="bg-light p-30">
                         <div class="form-group mb-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer" checked>
+                                <input type="radio" id="order_type" name="order_type"  class="custom-control-input" value="cash" checked>
                                 <label class="custom-control-label" for="banktransfer">Cash on Delivery</label>
                             </div>
                         </div>
@@ -277,9 +282,15 @@
             success: function (response) {
 				var resp = JSON.parse(response);
                 if (resp.status) {
+					var product_id = document.getElementById('product_id').value;
+					var all_amount = document.getElementById('all_amount').value;
+					var qut = document.getElementById('qut').value;
+					var order_type = document.getElementById('order_type').value;
+					console.log(order_type);
+					
                     // Redirect to another page after successful insertion
-					alert("data insert ok");
-                    //window.location.href = "../category/show_category.php";
+					//alert("data insert ok");
+                    window.location.href = "place_order.php?product_id=" + encodeURIComponent(product_id) + "&all_amount=" +  encodeURIComponent(all_amount)  + "&qut=" +  encodeURIComponent(qut) + "&order_type=" +  encodeURIComponent(order_type);
                 } else {
                     alert("Error: " + response);
                 }

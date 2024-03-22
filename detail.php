@@ -156,7 +156,6 @@
                                 </button>
                             </div>
                         </div>
-						
 							<input type="hidden" id="stock" name="stock" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['stock'] ?>">
 							<input type="hidden" id="product_id" name="product_id" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['product_id'] ?>">
                         <a href="#" onclick="cart_call()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</a>
@@ -370,6 +369,8 @@
 	{
 		var qut = document.getElementById('qut').value;
 		var stock = document.getElementById('stock').value;
+		
+		
 		var product_id = document.getElementById('product_id').value;
 		if(stock<qut)
 		{

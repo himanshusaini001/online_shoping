@@ -69,7 +69,8 @@
                         
 						<input type="hidden" id="price" name="price" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['price'] ?>">
 						<input type="hidden" id="stock"  name="stock" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['stock'] ?>">
-                       <input type="hidden" id="product_name"  name="product_name" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_name'] ?>">
+						<input type="hidden" id="product_name"  name="product_name" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_name'] ?>">
+					   <input type="hidden" id="product_id"  name="product_id" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_id'] ?>">
 					   
 					   <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
                     </tr>
@@ -190,10 +191,11 @@ function checkout()
 {
 	var qut = document.getElementById('qut_change').value;
 	var product_name = document.getElementById('product_name').value;
+	var product_id = document.getElementById('product_id').value;
 	var all_amount = document.getElementById('all_amount').textContent;
 	
 	//window.location = "checkouts.php";
-	window.location = "checkout.php?product_name=" + encodeURIComponent(product_name) + "&qut=" + encodeURIComponent(qut)  + "&all_amount=" + encodeURIComponent(all_amount) ;
+	window.location = "checkout.php?product_name=" + encodeURIComponent(product_name) + "&qut=" + encodeURIComponent(qut)  + "&all_amount=" + encodeURIComponent(all_amount)  + "&product_id=" + encodeURIComponent(product_id) ;
 }
 </script>
 </body>
