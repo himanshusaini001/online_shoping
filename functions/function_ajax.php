@@ -880,6 +880,53 @@
 				}
 				
 				
+				// Update Socail Media 
+				
+				if ($action == "social_media_update") {
+					// Get data from AJAX request
+					$website_name_c = test_input($_POST['website_name']);
+					$website_name = ucfirst($website_name_c);
+					
+					$email_c = test_input($_POST['email']);
+					$email = ucfirst($email_c);
+					
+					$location_c = test_input($_POST['location']);
+					$location = ucfirst($location_c);
+					
+					$phone_c = test_input($_POST['phone']);
+					$phone = ucfirst($phone_c);
+					
+					$twitter_link_c = test_input($_POST['twitter_link']);
+					$twitter_link = ucfirst($twitter_link_c);
+					
+					$facebook_link_c = test_input($_POST['facebook_link']);
+					$facebook_link = ucfirst($facebook_link_c);
+					
+					$linkedin_link_c = test_input($_POST['linkedin_link']);
+					$linkedin_link = ucfirst($linkedin_link_c);
+					
+					$instagram_link_c = test_input($_POST['instagram_link']);
+					$instagram_link = ucfirst($instagram_link_c);
+					
+					$google_map_link_c = test_input($_POST['google_map_link']);
+					$google_map_link = ucfirst($google_map_link_c);
+					
+				
+					
+				
+					// Insert data into the category table
+
+					$sql = "UPDATE site_settings SET website_name='$website_name',email='$email', location='$location',phone='$phone',twitter_link='$twitter_link',facebook_link='$facebook_link', linkedin_link='$linkedin_link',instagram_link='$instagram_link',google_map_link='$google_map_link'";
+					
+					if ($conn->query($sql) === TRUE) {
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "successfully Update social Media Data";
+					} else {
+						echo json_encode(['status' => false]);
+						$_SESSION['msg_error'] = "failed Update social Media Data";
+					}
+				}
+				
 		}
 		
 		mysqli_close($conn);

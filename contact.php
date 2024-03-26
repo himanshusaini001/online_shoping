@@ -71,10 +71,16 @@
 			<div class="bg-light p-30 mb-30">
 			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27451.390202017803!2d76.84326653473477!3d30.6783506847033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390f9371c7ff1253%3A0xd576d663c8e12fda!2s134112!5e0!3m2!1sen!2sin!4v1710741098416!5m2!1sen!2sin" width="430" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 			</div>
+			<?php 
+				$site_setting = "SELECT * FROM site_settings";
+				$site_row = $conn->query($site_setting);
+				$site_result = $site_row->fetch_assoc();
+			
+			?>
 			<div class="bg-light p-30 mb-3">
-				<p class="mb-2"><i class="fa fa-map-marker contact_icon mr-3"></i>123 Street, Panchkula, Haryana</p>
-				<p class="mb-2"><i class="fa fa-envelope contact_icon mr-3"></i>info@example.com</p>
-				<p class="mb-2"><i class="fa fa-mobile contact_icon mr-3"></i>+012 345 67890</p>
+				<p class="mb-2"><i class="fa fa-map-marker contact_icon mr-3"></i><?php echo $site_result['location'] ?></p>
+				<p class="mb-2"><i class="fa fa-envelope contact_icon mr-3"></i><?php echo $site_result['email'] ?></p>
+				<p class="mb-2"><i class="fa fa-mobile contact_icon mr-3"></i>+91 <?php echo $site_result['phone'] ?></p>
 			</div>
 		</div> 
         </div>

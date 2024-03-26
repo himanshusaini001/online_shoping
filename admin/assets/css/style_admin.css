@@ -58,3 +58,27 @@ a.btn {
 	padding: 10px;
 	color:#fff;
 }
+.custom-form {
+   max-width:100%; 
+    
+}
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      padding: 10px 20px;
+      color: black;
+    }
+
+    nav ul li a.active {
+      color: yellow; /* Change text color for active link */
+    }

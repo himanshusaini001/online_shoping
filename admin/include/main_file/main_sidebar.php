@@ -48,6 +48,11 @@
                   <p>User</p>
                 </a>
               </li>
+			   <li class="nav-item">
+                <a href="../site_settings/site_settings.php" class="nav-link">
+                  <p>Site Settings</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
