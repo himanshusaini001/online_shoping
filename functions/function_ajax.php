@@ -927,6 +927,61 @@
 					}
 				}
 				
+				
+				// Add address 
+				
+				if ($action == "add_address") {
+					// Get data from AJAX request
+					
+					$customer_id = $_SESSION['customer_id'];
+					
+					$country_c = test_input($_POST['country']);
+					$country = ucfirst($country_c);
+					
+					$fullname_c = test_input($_POST['fullname']);
+					$fullname = ucfirst($fullname_c);
+					
+					$phone_c = test_input($_POST['phone']);
+					$phone = ucfirst($phone_c);
+					
+					$pincode_c = test_input($_POST['pincode']);
+					$pincode = ucfirst($pincode_c);
+					
+					$house_c = test_input($_POST['house']);
+					$house = ucfirst($house_c);
+					
+					
+					$street_c = test_input($_POST['street']);
+					$street = ucfirst($street_c);
+					
+					$landmark_c = test_input($_POST['landmark']);
+					$landmark = ucfirst($landmark_c);
+					
+					$twon_c = test_input($_POST['town']);
+					$town = ucfirst($twon_c);
+					
+					
+					$state_c = test_input($_POST['state']);
+					$state = ucfirst($state_c);
+					
+					$delivery_c = test_input($_POST['delivery']);
+					$delivery = ucfirst($delivery_c);
+				
+					
+					// Insert data into the category table
+
+					$sql = "INSERT INTO customer_address (customer_id,country,full_name,phone,pincode,house_no,street,landmark,town,state,delivery_instructions	) VALUES ('$customer_id','$country','$fullname','$phone','$pincode','$house','$street','$landmark','$town','$state','$delivery')";
+
+					if ($conn->query($sql) === TRUE) {
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Successfully Add Address";
+						
+
+					} else {
+						echo json_encode(['status' => false]);
+						$_SESSION['msg_error'] = "Do Not Add Categories ";
+					}
+				}
 		}
 		
 		mysqli_close($conn);

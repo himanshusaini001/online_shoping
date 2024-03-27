@@ -13,7 +13,9 @@
 	 // Get Data Start
     
 	$product_id = $_GET['product_id'];
-	
+	$all_amount = $_GET['all_amount'];
+	$_SESSION['customer_order_history_id'] = $product_id;
+	$_SESSION['customer_order_amount'] = $all_amount;
 	 // Get Data End
 	 
 	 // Select Command Start

@@ -14,6 +14,7 @@
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $total = $qut * $row['price'];
+	$stock = $row['stock'];
 ?>
 <!-- header End -->
 
@@ -53,16 +54,31 @@
                         <td class="align-middle">
                             <div class="input-group quantity mx-auto" style="width: 100px;">
                                 <div class="input-group-btn" >
-                                    <button class="btn btn-sm btn-primary btn-minus" onclick="auto_change_qut_1()" >
+                                    <button class="btn btn-sm btn-primary btn-minus" id="block_function1" onclick="auto_change_qut_1()" >
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
+								
+								
 								<input type="number" id="qut_change"  name="qut_change" min="1" max="5" class="form-control form-control-sm bg-secondary border-0 text-center qut_change" value="<?php echo $qut; ?>">
+								<?php 
+									if($stock <= $qut)
+									{
+										echo '
+											<style>
+												.btn-plus{
+													cursor: not-allowed;
+													 pointer-events: none;
+												}
+											</style>
+										';
+									}
+								?>
 								<div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus" id="block_function" onclick="auto_change_qut_2()">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
+									<button class="btn btn-sm btn-primary btn-plus" id="block_function" onclick="auto_change_qut_2()">
+										<i class="fa fa-plus"></i>
+									</button>
+								</div>
                             </div>
                         </td>
                         <td class="align-middle total_amount" id="total_amount_p"><?php echo $total ?></td>
@@ -131,60 +147,73 @@ function auto_change_qut_1()
 {
 	var qut = document.getElementById('qut_change').value;
 	var total_qut = parseInt(qut) - 1;
-	var stock = document.getElementById('stock').value;
+	
 	var price = document.getElementById('price').value;
-	if(total_qut !== stock)
+	
+	
+	if(stock > qut)
 	{
-		 var button = document.getElementById("block_function");
-		// Disable the button
-		button.disabled = false;
+		var btn_plus = document.getElementById('block_function');
+			btn_plus.style.pointerEvents = "auto";
+			var total_amount = total_qut * price;
+			document.getElementById('all_amount').innerText = total_amount;
+			document.getElementById('amount').innerText = total_amount;
+			document.getElementById('total_amount_p').innerText = total_amount;
+
 	}
-	if(total_qut == "0")
+	else
 	{
-		var total_amount = "0";
+		if(total_qut == '0')
+		{
+			console.log(total_qut);
+			var btn_plus = document.getElementById('block_function1');
+			btn_plus.style.pointerEvents = "none";
+			
+			total_amount = '0';
+			document.getElementById('all_amount').innerText = total_amount;
+			document.getElementById('amount').innerText = total_amount;
+			document.getElementById('total_amount_p').innerText = total_amount;
+		}
+		else{
+			console.log(stock);
+			var total_amount = total_qut * price;
+			console.log(total_amount);
+			document.getElementById('all_amount').innerText = total_amount;
+			document.getElementById('amount').innerText = total_amount;
+			document.getElementById('total_amount_p').innerText = total_amount;
+		}
 	}
-	else{
-		var total_amount = total_qut * price;
-	}
-	document.getElementById('total_amount').innerText = total_amount;
-	document.getElementById('amount').innerText = total_amount;
-	document.getElementById('all_amount').innerText = total_amount;
+	
+	
+		
+	
 }
 
 function auto_change_qut_2() {
 	
 	var qut = document.getElementById('qut_change').value;
 	var total_qut = parseInt(qut) + 1;
+    var price = document.getElementById('price').value;
 	var stock = document.getElementById('stock').value;
-	if(total_qut == stock)
-	{
-		alert("Only Available Stock " + stock);
-		 var button = document.getElementById("block_function");
-		// Disable the button
-		button.disabled = true;
-	}
-	if(total_qut > stock)
-	{
-		alert("Only Available Stock " + stock);
-		
-		
-		document.getElementById('qut_change').value = stock; 
 	
-		
+	
+	if(stock <= total_qut)
+	{
+		var total_amount = total_qut * price;
+		document.getElementById('all_amount').innerText = total_amount;
+		document.getElementById('amount').innerText = total_amount;
+		document.getElementById('total_amount_p').innerText = total_amount;
+		var btn_plus = document.getElementById("block_function");
+		// Disable the button
+		btn_plus.style.pointerEvents = "none";
 	}
 	else{
-		
-		var price = document.getElementById('price').value;
-		
 		var total_amount = total_qut * price;
-
-		document.getElementById('total_amount_p').innerText = total_amount;
-		document.getElementById('amount').innerText = total_amount;
 		document.getElementById('all_amount').innerText = total_amount;
-		
+		document.getElementById('amount').innerText = total_amount;
+		document.getElementById('total_amount_p').innerText = total_amount;
 	}
-    
-   
+	
 }
 
 function checkout()

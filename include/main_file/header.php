@@ -62,7 +62,7 @@
 										}
 										
 										</style>
-										<a href="profile.php" class="dropdown-item">Auount</a>
+										<a href="customer_orders.php" class="dropdown-item">Auount</a>
 										<a href="customer_logout.php" class="dropdown-item">Logout</a>
 								<?php
 									}

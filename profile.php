@@ -2,7 +2,7 @@
 	
 	<?php 
 		require_once('include/db_file/config.php');
-
+		require_once('include/db_file/connection_file.php');
 		include('include/main_file/topbar.php');
 		include('include/main_file/header.php');
 		
@@ -38,27 +38,20 @@
             </div>
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30 profile_border">
-                    <h1>Your Account</h1>
-					<div id="content" >
-					
-					<h5 class="mt-4"><i class="fa fa-align-right mr-4" aria-hidden="true"></i><b>Name :</b> <?php echo  $_SESSION['fname'] ?>  <?php echo  $_SESSION['lname'] ?></h5>
-					<h5 class="mt-4"><i class="fa fa-envelope mr-4" aria-hidden="true"></i><b>E-mail :</b> <?php echo  $_SESSION['email'] ?></h5>
-					<h5 class="mt-4"><i class="fa fa-phone-square mr-4" aria-hidden="true"></i><b>Phone :</b> <?php echo  $_SESSION['phone'] ?></h5>
-					<h5 class="mt-4"><i class="fa fa-map-marker mr-4" aria-hidden="true"></i><b>Address :</b> <?php echo  $_SESSION['address'] ?></h5>
-					
-				
-            </div>
+                    <h1>My Account</h1>
+					<div id="content">
+						<h5 class="mt-4"><i class="fa fa-align-right mr-4" aria-hidden="true"></i><b>Name :</b> <?php echo  $_SESSION['fname'] ?>  <?php echo  $_SESSION['lname'] ?></h5>
+						<h5 class="mt-4"><i class="fa fa-envelope mr-4" aria-hidden="true"></i><b>E-mail :</b> <?php echo  $_SESSION['email'] ?></h5>
+						<h5 class="mt-4"><i class="fa fa-phone-square mr-4" aria-hidden="true"></i><b>Phone :</b> <?php echo  $_SESSION['phone'] ?></h5>
+						<h5 class="mt-4"><i class="fa fa-map-marker mr-4" aria-hidden="true"></i><b>Address :</b> <?php echo  $_SESSION['address'] ?></h5>
+					</div>
                 </div>
             </div>
         </div>
         
     </div>
     <!-- Shop Detail End -->
-
-
-
-<!-- Footer Start -->
-	 
+	<!-- Footer Start -->
 	<?php 
 		include('include/main_file/footer.php');
 	?>
