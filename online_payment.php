@@ -2,10 +2,6 @@
 <?php 
     require_once('include/db_file/config.php');
     require_once('include/db_file/connection_file.php');
-	if(!isset($_SESSION['customer_login'])) {
-        header("location: customer_login.php");
-        exit; // Add exit after header redirect to stop further execution
-    }
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 
@@ -40,72 +36,12 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-lg-8 table-responsive mb-5">
-            <table class="table table-light table-borderless table-hover text-center mb-0">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Products</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Remove</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle">
-                    <tr>
-                        <td class="align-middle"><img src="<?php echo DTS_WS_SITE_IMG ?>product-1.jpg" alt="" style="width: 50px;"> <?php echo $row['product_name'] ?></td>
-                        <td class="align-middle"><?php echo $row['price'] ?></td>
-                        <input type="hidden" class="form-control" id="price" name="price" value="<?php echo $row['price'] ?>">
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn" >
-                                    <button class="btn btn-sm btn-primary btn-minus" id="block_function1" onclick="auto_change_qut_1()" >
-                                    <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-								
-								
-								<input type="number" id="qut_change"  name="qut_change" min="1" max="5" class="form-control form-control-sm bg-secondary border-0 text-center qut_change" value="<?php echo $qut; ?>">
-								<?php 
-									if($stock <= $qut)
-									{
-										echo '
-											<style>
-												.btn-plus{
-													cursor: not-allowed;
-													 pointer-events: none;
-												}
-											</style>
-										';
-									}
-								?>
-								<div class="input-group-btn">
-									<button class="btn btn-sm btn-primary btn-plus" id="block_function" onclick="auto_change_qut_2()">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-                            </div>
-                        </td>
-                        <td class="align-middle total_amount" id="total_amount_p"><?php echo $total ?></td>
-                        
-						<input type="hidden" id="price" name="price" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['price'] ?>">
-						<input type="hidden" id="stock"  name="stock" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['stock'] ?>">
-						<input type="hidden" id="product_name"  name="product_name" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_name'] ?>">
-					   <input type="hidden" id="product_id"  name="product_id" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_id'] ?>">
-					   
-					   <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <h4 style="color:#ffd333"><b>Select a payment method</b></h4>
+			<div class="payment_method_box">
+				
+			</div>
         </div>
         <div class="col-lg-4">
-            <form class="mb-30" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary">Apply Coupon</button>
-                    </div>
-                </div>
-            </form>
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
             <div class="bg-light p-30 mb-5">
                 <div class="border-bottom pb-2">
@@ -132,7 +68,7 @@
                         <h5>Total</h5>
                         <h5 class="font-weight-medium all_amount" id="all_amount"><?php echo $total ?></h5>
                     </div>
-                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="checkout()">Proceed To Checkout</button>
+                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="checkout()">Add To Cart</button>
                 </div>
             </div>
         </div>
@@ -210,6 +146,7 @@ function auto_change_qut_2() {
 		var btn_plus = document.getElementById("block_function");
 		// Disable the button
 		btn_plus.style.pointerEvents = "none";
+		alert("Only Available Stock" + stcok);
 	}
 	else{
 		var total_amount = total_qut * price;

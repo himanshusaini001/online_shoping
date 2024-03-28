@@ -40,8 +40,8 @@ element.style {
     padding: 5px;
 }
 span.place_order_text {
-    font-size: 45px;
-    color: #000;
+    font-size: 25px;
+    color: #00a912;
     font-weight: 500;
 }
 .border_bottom {
@@ -127,4 +127,112 @@ a.customer_history_button {
     background: #FFD333;
     color: #fff;
     border-radius: 5px;
+}
+.product_box {
+    background: #fff;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+	box-shadow: 0px 4px 5px 0px #978b8b;
+	padding:20px;
+}
+.card {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+	align-items: center;
+	 border:none;
+}
+a.loop_product {
+    border: 1px solid #ffd333;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: #ffd333;
+	transition: .4s ease-in-out;
+    color: #fff;
+    text-decoration: none;
+}
+a.arrow-link {
+    text-decoration: none;
+}
+a.loop_product:hover {
+    border: 1px solid #ffd333;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: #fff;
+    color: #ffd333;
+    text-decoration: none;
+}
+.card:hover {
+    box-shadow: 0px 4px 6px 0px #afafaf;
+}
+/* Styles for the anchor tag */
+  .arrow-link {
+    position: relative;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    display: inline-block;
+  }
+  /* Styles for the arrow icon */
+  .arrow-link::after {
+    content: '\f054'; /* Font Awesome arrow-right icon */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: -80px;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+  }
+  /* Keyframe animation */
+  @keyframes slideLeft {
+    0% {
+      right: -20px;
+      opacity: 0;
+      visibility: hidden;
+    }
+    100% {
+      right: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  /* Hover effect */
+  .arrow-link:hover::after {
+    animation: slideLeft 0.5s forwards;
+	    margin-right: -20px;
+  }
+  
+  .payment_method_box {
+    background: #fff;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+img.payment_img {
+    width: 15%;
+}
+
+a.home_button {
+    float: right;
+    border: 1px solid #ffd333;
+    background: #ffd333;
+    padding: 10px 19px;
+    border-radius: 5px;
+    color: #fff !important;
+	transition:.4s ease-in-out;
+}
+a.home_button:hover{
+    float: right;
+    border: 1px solid #ffd333;
+    background: #fff;
+    padding: 10px 19px;
+    border-radius: 5px;
+    color: #ffd333 !important;
 }

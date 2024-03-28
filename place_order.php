@@ -129,80 +129,37 @@
 <!-- Checkout Start -->
 <div class="container-fluid block_out_off_stock">
     <div class="row px-xl-5">
-        <div class="col-lg-8  "   >
+        <div class="col-lg-8">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-           
 			<div class="bg-light p-30 mb-5  border_bottom">
-				 <img src="assets/img/place_order.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 100px;"><span class="place_order_text">Place your Order</span>
-			</div>
-			<div class="bg-light p-5 ">
-				<h2>Your Order</h2>
 				<div class="row">
 					<div class="col-md-6">
-						<div class="mt-5">
-							 <?php 
-								// Check if there are images for this product
-								if (!empty($row['product_img'])) {
-									$images = explode(",", $row['product_img']);
-									foreach ($images as $key=>$image) {
-										if($key == '0')
-										{
-											echo "<img src='upload_img/$image' width='250px' height='250px'>";
-										}
-										
-									}
-								}
-								?>
-						</div>
+						 <img src="assets/img/place_order.png" alt="Image" class="img-fluid mr-3 mt-1" style="width:70px;"><span class="place_order_text"><b>Order placed, thank you!</b></span>
+						<p class="mt-3"><b>Shipping To :- </b> <?php echo $product_name ?></p>
+						<p class=""><b>Color :- </b> <?php echo $product_color ?></p>
+						<p class=""><b>Size :-</b> <?php echo $product_size ?></p>
+						<p class=""><b>Total Amount :- </b> <?php echo $all_amount ?></p>
 					</div>
 					<div class="col-md-6">
-						<h5>Order Id : <?php echo  $row['product_id'] ?></h5>
-						<h5>Name : <?php echo  $row['product_name'] ?></h5>
-						<h5>color : <?php echo $row['product_color'] ?></h5>
-						<h5>Size : <?php echo  $row['product_size'] ?></h5>
+						<?php 
+							// Check if there are images for this product
+							if (!empty($row['product_img'])) {
+								$images = explode(",", $row['product_img']);
+								foreach ($images as $key=>$image) {
+									if($key == '0')
+									{
+										echo "<img src='upload_img/$image' width='250px' height='250px'>";
+									}
+									
+								}
+							}
+						?>
 					</div>
 				</div>
 			</div>
         </div>
-        <div class="col-lg-4">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
-                <div class="bg-light p-30 mb-5">
-                    <!--div class="border-bottom">
-                        <h6 class="mb-3">Products</h6>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name (<?php echo $qut ?> items)</p>
-                            <p><?php echo $product_name ?></p>
-                        </div>
-                    </div-->
-                    <!--div class="border-bottom pt-3 pb-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
-                            <h6>$150</h6>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
-                        </div>
-                    </div-->
-                    <div class="pt-2">
-                        <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
-                            <h5><?php echo  $all_amount ?></h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-5">
-                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
-                    <div class="bg-light p-30">
-                        <div class="form-group mb-4">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer" checked>
-                                <label class="custom-control-label" for="banktransfer">Cash on Delivery</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
+		<div class="col-md-4">
+		</div>
     </div>
 </div>
 <!-- Checkout End -->
@@ -225,6 +182,70 @@
 		</div>
 	</div>
 </div>
+
+<!-- Products Start -->
+    <div class="container-fluid py-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel related-carousel">
+				  <?php 
+						$sql2 = "SELECT * FROM product WHERE status = '1'";
+						$result2 = $conn->query($sql2);
+						if($result2->num_rows > 0)
+						{
+							while($row2 = $result2->fetch_assoc())
+							{
+							
+					?>
+                    <div class="product-item bg-light">
+                        <div class="product-img position-relative overflow-hidden">
+                           <?php 
+							// Check if there are images for this product
+							if (!empty($row2['product_img'])) {
+								$images = explode(",", $row2['product_img']);
+								foreach ($images as $key=>$image) {
+									if($key == '0')
+									{
+							?>
+								<img class="img-fluid w-100" src="<?php echo "online-shoping/".$image ?>" alt="">
+							<?php
+									}
+									
+								}
+							}
+						?>
+                            <div class="product-action">
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate" href="detail.php?product_id=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_name'] ?></a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5><?php echo  $row2['price'] ?></h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small class="fa fa-star text-primary mr-1"></small>
+                                <small>(99)</small>
+                            </div>
+                        </div>
+                    </div>
+					<?php 
+							}
+						}
+					?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
 <!-- Footer Start -->
 <?php 
     include('include/main_file/footer.php');
