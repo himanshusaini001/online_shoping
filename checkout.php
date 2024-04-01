@@ -8,14 +8,12 @@
     }
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
-    
+
+    	$product_id = $_GET['product_id'];
    
-	
-	$qut = $_GET['qut'];
-	$product_name = $_GET['product_name'];
-	$all_amount = $_GET['all_amount'];
-	$product_id = $_GET['product_id'];
-	
+	$cart_sql = "SELECT * FROM add_to_cart WHERE product_id = '$product_id'";
+	$cart_row = $conn->query($cart_sql);
+	$cart_result = $cart_row->fetch_assoc();
 ?>
 <!-- header End -->
 
@@ -140,8 +138,8 @@
                     <div class="border-bottom">
                         <h6 class="mb-3">Products</h6>
                         <div class="d-flex justify-content-between">
-                            <p>Product Name (<?php echo $qut ?> items)</p>
-                            <p><?php echo $product_name ?></p>
+                            <p>Product Name (<?php echo $cart_result['cart_qty'] ?> items)</p>
+                            <p><?php echo $cart_result['cart_name'] ?></p>
                         </div>
                     </div>
                     <!--div class="border-bottom pt-3 pb-2">
@@ -157,7 +155,7 @@
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5><?php echo  $all_amount ?></h5>
+                            <h5><?php echo  $cart_result['total_price'] ?></h5>
                         </div>
                     </div>
                 </div>
@@ -283,14 +281,13 @@
 				var resp = JSON.parse(response);
                 if (resp.status) {
 					var product_id = document.getElementById('product_id').value;
-					var all_amount = document.getElementById('all_amount').value;
 					var qut = document.getElementById('qut').value;
 					var order_type = document.getElementById('order_type').value;
 					console.log(order_type);
 					
                     // Redirect to another page after successful insertion
 					//alert("data insert ok");
-                    window.location.href = "place_order.php?product_id=" + encodeURIComponent(product_id) + "&all_amount=" +  encodeURIComponent(all_amount)  + "&qut=" +  encodeURIComponent(qut) + "&order_type=" +  encodeURIComponent(order_type);
+                    window.location.href = "place_order.php?product_id=" + encodeURIComponent(product_id) + "&order_type=" +  encodeURIComponent(order_type);
                 } else {
                     alert("Error: " + response);
                 }

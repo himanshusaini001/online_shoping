@@ -1,3 +1,19 @@
+<?php 
+if(isset($_SESSION['customer_id']) && $_SESSION['customer_id'] !='' )
+{
+$customer_id = $_SESSION['customer_id'];
+$cart_data_sql = "SELECT * FROM add_to_cart WHERE customer_id = '$customer_id'";
+$cart_data = $conn->query($cart_data_sql);
+$cart_data_row = $cart_data->num_rows;
+}
+else
+{
+$cart_data_row = 0;
+}
+
+?>
+
+
 <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
         <div class="row px-xl-5">
@@ -30,11 +46,14 @@
                                 </div>
                             </div-->
                             <a href="contact.php" class="nav-item nav-link">Contact</a>
-                        </div>
+                        </div>  
+						<img class="add_to_cart" onclick="cart_page()" style="width:4%;" src="assets/img/add_to_cart.png" >
+						<h4 style="color:#fff"><?php echo $cart_data_row ?></h4>
 						<div class="nav-item dropdown">
+
 						<?php 
 							if(isset($_SESSION['customer_login']))
-								{
+							{
 								
 								?>
 									<a href="#" class="nav-link logout_btn_none" data-toggle="dropdown"><i class="fa fa-user arrow_right" aria-hidden="true"></i></a>
@@ -75,3 +94,9 @@
         </div>
     </div>
     <!-- Navbar End -->
+	<script>
+		function cart_page()
+		{
+			   window.location.href = "cart.php";
+		}
+	</script>

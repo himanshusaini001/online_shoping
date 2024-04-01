@@ -982,7 +982,127 @@
 						$_SESSION['msg_error'] = "Do Not Add Categories ";
 					}
 				}
-		}
+				
+				
+				// place_order_list
+				if ($action == "add_to_cart") {
+					// Get data from AJAX request
+					$customer_id = $_SESSION['customer_id'];
+					
+					$product_id_c = test_input($_POST['product_id']);
+					$product_id = ucfirst($product_id_c);
+					
+					$total_price_c = test_input($_POST['total_price']);
+					$total_price = ucfirst($total_price_c);
+					
+					$stock_c = test_input($_POST['stock']);
+					$stock = ucfirst($stock_c);
+					
+					$qut_c = test_input($_POST['qut']);
+					$qut = ucfirst($qut_c);
+					
+				
+					if($qut > 0 )
+					{
+						$sql = "SELECT * FROM product WHERE product_id ='$product_id'";
+						
+						$row  = $conn->query($sql);
+						$result = $row->fetch_assoc();
+						$product_name = $result['product_name'];
+						$product_id_1 = $result['product_id'];
+						$product_price = $result['price'];
+						$description = $result['description'];
+						$product_color = $result['product_color'];
+						$product_size = $result['product_size'];
+						
+						
+						if (mysqli_query($conn, $sql)) {
+								$sql_cart_id = "SELECT * FROM add_to_cart WHERE product_id ='$product_id'";
+								$row_cart  = $conn->query($sql_cart_id);
+								$result_cart = $row_cart->fetch_assoc();
+								$cart_id = $result_cart['product_id'];
+							if($product_id == $cart_id)
+							{
+								
+									$sql = "UPDATE add_to_cart SET cart_qty='$qut' WHERE product_id = '$product_id'";
+
+									if ($conn->query($sql) === TRUE) {
+										echo json_encode(['status' => true]);
+										$_SESSION['msg'] = "Successfully Add Quantity";
+									} else {
+										echo json_encode(['status' => true]);
+										$_SESSION['msg'] = "Not Update Data";
+									}
+							}
+							else{
+									$cart_insert = "INSERT INTO add_to_cart(product_id, customer_id,cart_name,cart_qty,cart_price,description,cart_color,cart_size,total_price,stock) VALUES('$product_id','$customer_id','$product_name','$qut','$product_price','$description','$product_color','$product_size','$total_price','$stock')";
+								
+									if($conn->query($cart_insert) === TRUE )
+									{
+										echo json_encode(['status' => true]);
+										$_SESSION['msg'] = "Successfully Add Quantity";
+									}
+									else{
+										echo json_encode(['status' => true]);
+										$_SESSION['msg'] = "Not Insert Data";
+									}
+								}
+								
+						} else {
+							echo json_encode(['status' => false]);
+							$_SESSION['msg_error'] = "Do Not Metch Product Id ";
+						}
+						
+					}
+					else {
+						echo json_encode(['status' => false]);
+						$_SESSION['msg_error'] = "Please Add Quantity";
+					}
+				}
+				
+				
+				// Delete Add To Cart
+				
+				if ($action == "add_to_cart_delete") {
+					
+					 $cart_id = test_input($_POST['cart_id']);
+					// Perform the deletion query (Example, please use prepared statements for security)
+					$sql = "DELETE FROM add_to_cart WHERE cart_id='$cart_id'";
+
+					if (mysqli_query($conn,$sql)) {
+						echo json_encode(['status' => true]);
+							$_SESSION['msg'] = "Delete Data Successfully";
+					} else {
+						echo json_encode(['status' => false]);
+							$_SESSION['msg_error'] = "Do Not Metch Product Id ";
+					}
+				}
+				
+				// Update Add To Cart
+				
+				if ($action == "update_add_to_cart") {
+					// Get data from AJAX request and sanitize
+					$qut = test_input($_POST['qut']);
+					$total_price = test_input($_POST['total_price']);
+					$product_id = test_input($_POST['product_id']);
+					
+					// Use prepared statement to prevent SQL injection
+					$sql = "UPDATE add_to_cart SET cart_qty=?, total_price=? WHERE product_id=?";
+					
+					// Prepare and execute the statement
+					$stmt = $conn->prepare($sql);
+					$stmt->bind_param("sss", $qut, $total_price, $product_id);
+					
+					if ($stmt->execute()) {
+						echo json_encode(['status' => true]);
+						$_SESSION['msg'] = "Update Add To Cart successfully";
+					} else {
+						echo json_encode(['status' => false]);
+						$_SESSION['msg_error'] = "Failed to Update Add To Cart";
+					}
+				}
+				
+		}	
 		
 		mysqli_close($conn);
 ?>

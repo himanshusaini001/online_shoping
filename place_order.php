@@ -8,45 +8,39 @@
     }
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
-	
-	
 	 // Get Data Start
     
 	$product_id = $_GET['product_id'];
-	$all_amount = $_GET['all_amount'];
+
 	$_SESSION['customer_order_history_id'] = $product_id;
-	$_SESSION['customer_order_amount'] = $all_amount;
+	
 	 // Get Data End
 	 
 	 // Select Command Start
-	 if($product_id != "")
-	 {
-		$sql = "SELECT * FROM product WHERE product_id = '$product_id'";
-		
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();	
+	if ($product_id != "") {
+    $sql = "SELECT * FROM add_to_cart WHERE product_id = '$product_id'";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $product_id = $row['product_id'];
 		$stock = $row['stock'];
-		$product_id1 = $row['product_id'];	
-		$product_color = $row['product_color'];	
-		$product_size = $row['product_size'];	
-		$product_name = $row['product_name'];	
-		$all_amount = $_GET['all_amount'];
-		$product_qut = $_GET['qut'];
-		$order_type = $_GET['order_type'];
-		
-		if($product_id == $product_id1 )
-		{
-			
-			$place_order_sql = "INSERT INTO place_order_list(order_id, order_name, order_color,order_size,order_qut,order_amount,order_type) VALUE('$product_id1','$product_name','$product_color','$product_size','$product_qut','$all_amount','$order_type')";
-			
-			if ($conn->query($place_order_sql) === TRUE) {
-				
-					if($product_qut <= $stock)
+        $cart_name = $row['cart_name'];
+        $cart_qty = $row['cart_qty'];
+        $cart_price = $row['cart_price'];
+        $description = $row['description'];
+        $cart_color = $row['cart_color'];
+        $cart_size = $row['cart_size'];
+        $total_price = $row['total_price'];
+        $order_type = $_GET['order_type'];
+
+        $place_order_sql = "INSERT INTO place_order_list (order_id, order_name, order_color, order_size, order_qut, order_amount, total_price, order_type) VALUES ('$product_id', '$cart_name', '$cart_color', '$cart_size', '$cart_qty', '$cart_price', '$total_price', '$order_type')";
+        
+        if ($conn->query($place_order_sql) === TRUE) {
+         	if($cart_qty <= $stock)
 					{
-							if(isset($_GET['qut']) == true)
-							{
-								
-								$update_stock = $stock - $product_qut;
+							
+								$update_stock = $stock - $cart_qty;
 								$sql_update = "	UPDATE product SET stock = '$update_stock' WHERE product_id = '$product_id'";
 								
 									if ($conn->query($sql_update) === TRUE) {
@@ -59,13 +53,7 @@
 									  echo "Error updating record: " . $conn->error;
 									}
 
-							}
-							$sql = "SELECT * FROM product WHERE product_id = '$product_id'";
 							
-							$result = $conn->query($sql);
-							
-							$row = $result->fetch_assoc();	
-							$_SESSION['msg'] = "Successfull Your order";
 					}
 					else{
 							echo '<style>
@@ -75,25 +63,17 @@
 							</style>';
 							$_SESSION['msg_error'] = "Opps ! This product is out off stock ";
 					}
-					// Check shock Condation End
-						} else {
-						  echo "ok insert not";exit;
-						}
-
-		
-		}
-		else{
-			echo "Do not ID Same";
-		}
-		// Select Command End
-		
-		// Check shock Condation start
-		
-	 }
-	 else
-	 {
+        } else {
+            echo "Error: " . $place_order_sql . "<br>" . $conn->error;
+        }
+    } else {
+        echo "No product found with this ID.";
+    }
+}
+	else
+	{
 		echo "<script>alert('Do Not fetch id'); window.location.href = 'index.php';</script>";
-	 }
+	}
 	
 	
 	
@@ -129,18 +109,16 @@
 <!-- Checkout Start -->
 <div class="container-fluid block_out_off_stock">
     <div class="row px-xl-5">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
 			<div class="bg-light p-30 mb-5  border_bottom">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						 <img src="assets/img/place_order.png" alt="Image" class="img-fluid mr-3 mt-1" style="width:70px;"><span class="place_order_text"><b>Order placed, thank you!</b></span>
-						<p class="mt-3"><b>Shipping To :- </b> <?php echo $product_name ?></p>
-						<p class=""><b>Color :- </b> <?php echo $product_color ?></p>
-						<p class=""><b>Size :-</b> <?php echo $product_size ?></p>
-						<p class=""><b>Total Amount :- </b> <?php echo $all_amount ?></p>
-					</div>
-					<div class="col-md-6">
+						<p class="mt-3"><b>Shipping To :- </b> <?php echo $cart_name ?></p>
+						<p class=""><b>Color :- </b> <?php echo $cart_color ?></p>
+						<p class=""><b>Size :-</b> <?php echo $cart_size ?></p>
+						<p class=""><b>Total Amount :- </b> <?php echo $total_price ?></p>
 						<?php 
 							// Check if there are images for this product
 							if (!empty($row['product_img'])) {
@@ -148,12 +126,40 @@
 								foreach ($images as $key=>$image) {
 									if($key == '0')
 									{
-										echo "<img src='upload_img/$image' width='250px' height='250px'>";
+										echo "<img class='show_img_after_place' src='upload_img/$image' width='150px' height='150px'>";
 									}
 									
 								}
 							}
 						?>
+					</div>
+					<div class="col-md-8">
+					<!-- Vendor Start -->
+						<div class="container-fluid py-5">
+							<div class="row px-xl-5">
+								<div class="col">
+									<div class="owl-carousel vendor-carousel">
+										<?php
+											$category_product = "SELECT * FROM product";
+											$category_product_row = $conn->query($category_product);
+												if($category_product_row->num_rows > 0)
+												{
+													while($category_product_result = $category_product_row->fetch_assoc())
+													{
+														
+													?>
+														<div class="bg-light p-4">
+															<img src="<?php echo $category_product_result['product_img'] ?>" alt="">
+														</div>
+													<?php
+													}
+												}
+										?>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- Vendor End -->
 					</div>
 				</div>
 			</div>

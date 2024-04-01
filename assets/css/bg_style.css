@@ -40,7 +40,7 @@ element.style {
     padding: 5px;
 }
 span.place_order_text {
-    font-size: 25px;
+    font-size: 20px;
     color: #00a912;
     font-weight: 500;
 }
@@ -235,4 +235,9 @@ a.home_button:hover{
     padding: 10px 19px;
     border-radius: 5px;
     color: #ffd333 !important;
+}
+img.show_img_after_place {
+    position: absolute;
+    bottom: 20px;
+    left: 260px;
 }

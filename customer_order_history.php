@@ -15,8 +15,7 @@
     } else {
        
 		 $product_id = $_SESSION['customer_order_history_id'];
-        $customer_order_amount = $_SESSION['customer_order_amount'];
-        $customer_histor = "SELECT * FROM product WHERE product_id='$product_id' ";
+        $customer_histor = "SELECT * FROM add_to_cart WHERE product_id='$product_id' ";
 		
 		$customer_histor_row = $conn->query($customer_histor);
 		
@@ -107,10 +106,10 @@ if($order == "No Order") {
             <div class="order_history_box">
 					<div class="row">
 						<div class="col-md-4">
-							<h6><b>Total Amount : </b><?php echo $customer_order_amount  ?><h6>
+							<h6><b>Total Amount : </b><?php echo $customer_histor_result['total_price']  ?><h6>
 						</div>
 						<div class="col-md-4">
-							<h6><b>Ship To : </b><?php echo $customer_histor_result['product_name']  ?><h6>
+							<h6><b>Ship To : </b><?php echo $customer_histor_result['cart_name']  ?><h6>
 						</div>
 						<div class="col-md-4">
 							<h6><b>Order Id : </b><?php echo $customer_histor_result['product_id']  ?><h6>

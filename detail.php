@@ -42,6 +42,9 @@
     <!-- Shop Detail Start -->
     <div class="container-fluid pb-5">
 		<?php 
+			include("admin/include/main_file/flash_message.php");
+		?>
+		<?php 
 			$sql="SELECT * FROM product WHERE product_id = $product_id";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
@@ -145,20 +148,21 @@
                     <div class="d-flex align-items-center mb-4 pt-2">
                         <div class="input-group quantity mr-3" style="width: 130px;">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus">
+                                <button class="btn btn-primary btn-minus" id="btn_minus" >
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
                             <input type="text" id="qut" name="qut" class="form-control bg-secondary border-0 text-center" value="1">
                             <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
+                                <button class="btn btn-primary btn-plus" id="btn_plus">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
                         </div>
 							<input type="hidden" id="stock" name="stock" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['stock'] ?>">
+							<input type="hidden" id="price" name="price" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['price'] ?>">
 							<input type="hidden" id="product_id" name="product_id" class="form-control bg-secondary border-0 text-center" value="<?php echo $row['product_id'] ?>">
-                        <a href="#" onclick="cart_call()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</a>
+                        <button onclick="cart_call()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                     </div>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
@@ -364,28 +368,52 @@
 	<!-- Footer End -->
 
 <script>
-
-	function cart_call()
-	{
-		var qut = document.getElementById('qut').value;
-		var stock = document.getElementById('stock').value;
+	function cart_call() {
+		var qut = parseInt(document.getElementById('qut').value);
+		var stock = parseInt(document.getElementById('stock').value);
+		var product_id = parseInt(document.getElementById('product_id').value);
+		var price = parseInt(document.getElementById('price').value);
+		var total_price = qut * price;
 		
-		
-		var product_id = document.getElementById('product_id').value;
-		if(stock<qut)
-		{
-			alert("Ablable shock "+ stock);
+		if (stock > qut) {
+			
+			if (qut <= 0) {
+				alert("Please Add Stock");
+				return false;
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "functions/function_ajax.php",
+					data: {
+						action: "add_to_cart",
+						qut: qut,
+						stock: stock,
+						total_price:total_price,
+						product_id: product_id
+					},
+					// specify the expected data type of the response
+					success: function(response) {
+							var resp = JSON.parse(response);
+						if (resp.status) {
+							alert("Successfully Added To Cart");
+							window.location.href = "detail.php?product_id= " +encodeURIComponent(product_id);
+						} else {
+							alert("Error: " + response.message); // Assuming there's a message field in the response
+						}
+					},
+					error: function(xhr, status, error) {
+						// Function to be called if the request fails
+						console.error("Error loading data: " + error);
+					}
+				});
+			}
+		} else {
+			alert("Available Stock " + stock);
+			return false;
+			
 		}
-		 else{
-			 if(confirm("Successfully added to cart")){
-			window.location = "cart.php?product_id=" + encodeURIComponent(product_id) + "&qut=" + encodeURIComponent(qut) ;
-			 }
-		 }
-		 
 	}
-	
 </script>
-   
 </body>
 
 </html>

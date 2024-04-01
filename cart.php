@@ -1,4 +1,3 @@
-<!-- header Start -->
 <?php 
     require_once('include/db_file/config.php');
     require_once('include/db_file/connection_file.php');
@@ -6,20 +5,16 @@
         header("location: customer_login.php");
         exit; // Add exit after header redirect to stop further execution
     }
+	$customer_id = $_SESSION['customer_id'];
+	
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
-
-    // Initialize variables from GET parameters
-    $qut = isset($_GET['qut']) ? $_GET['qut'] : 1;
-    $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : 0;
-
-    // Fetch product details based on product_id
-    $sql = "SELECT * FROM product WHERE product_id = '$product_id'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $total = $qut * $row['price'];
-	$stock = $row['stock'];
+	 
+	 // Initialize total_price variable
+	
 ?>
+<!-- header Start -->
+
 <!-- header End -->
 
 <!-- Breadcrumb Start -->
@@ -46,91 +41,80 @@
                         <th>Products</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Total</th>
                         <th>Remove</th>
                     </tr>
+				
                 </thead>
                 <tbody class="align-middle">
+					<?php 
+					
+						$sql = "SELECT * FROM add_to_cart WHERE customer_id='$customer_id'";
+						$result = $conn->query($sql);
+						$total_amount = 0;
+						if($result->num_rows > 0)
+						{
+							while($row = $result->fetch_assoc())
+							{
+									$total_amount = $row['total_price'];
+					?>
                     <tr>
-                        <td class="align-middle"><img src="<?php echo DTS_WS_SITE_IMG ?>product-1.jpg" alt="" style="width: 50px;"> <?php echo $row['product_name'] ?></td>
-                        <td class="align-middle"><?php echo $row['price'] ?></td>
-                        <input type="hidden" class="form-control" id="price" name="price" value="<?php echo $row['price'] ?>">
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn" >
-                                    <button class="btn btn-sm btn-primary btn-minus" id="block_function1" onclick="auto_change_qut_1()" >
-                                    <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-								
-								
-								<input type="number" id="qut_change"  name="qut_change" min="1" max="5" class="form-control form-control-sm bg-secondary border-0 text-center qut_change" value="<?php echo $qut; ?>">
-								<?php 
-									if($stock <= $qut)
-									{
-										echo '
-											<style>
-												.btn-plus{
-													cursor: not-allowed;
-													 pointer-events: none;
-												}
-											</style>
-										';
-									}
-								?>
+                        <td class="align-middle"><img src="<?php echo DTS_WS_SITE_IMG ?>product-1.jpg" alt="" style="width: 50px;"> <?php echo $row['cart_name'] ?></td>
+                        <td class="align-middle"><?php echo $row['cart_price'] ?></td>
+							
+						
+						<td class="align-middle">
+							<div class="input-group quantity mx-auto" style="width: 100px;">
 								<div class="input-group-btn">
-									<button class="btn btn-sm btn-primary btn-plus" id="block_function" onclick="auto_change_qut_2()">
+									<button class="btn btn-sm btn-primary btn-minus link1" id="btn_minus"
+									data-productid="<?php echo $row['product_id'] ?>"
+									data-price="<?php echo $row['cart_price'] ?>"
+									data-stock="<?php echo $row['stock'] ?>"
+									data-totalamount="<?php echo $total_amount ?>"
+									>
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+								<input type="number" id="qut_change"  name="qut_change" min="1" max="5" class="form-control form-control-sm bg-secondary border-0 text-center qut_change" value="<?php echo $row['cart_qty'] ?>">
+								<div class="input-group-btn">
+									<button class="btn btn-sm btn-primary btn-plus link2"  id="btn_plus" 
+									data-productid="<?php echo $row['product_id'] ?>"
+									data-price="<?php echo $row['cart_price'] ?>"
+									data-stock="<?php echo $row['stock'] ?>"
+									data-totalamount="<?php echo $total_amount ?>"
+									>
 										<i class="fa fa-plus"></i>
 									</button>
 								</div>
-                            </div>
-                        </td>
-                        <td class="align-middle total_amount" id="total_amount_p"><?php echo $total ?></td>
-                        
-						<input type="hidden" id="price" name="price" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['price'] ?>">
-						<input type="hidden" id="stock"  name="stock" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['stock'] ?>">
-						<input type="hidden" id="product_name"  name="product_name" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_name'] ?>">
-					   <input type="hidden" id="product_id"  name="product_id" class="form-control form-control-sm bg-secondary border-0 text-center" value="<?php echo $row['product_id'] ?>">
-					   
-					   <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+							</div>
+						</td>
+					
+						
+						<input type="hidden" id="price" name="price" value="<?php echo $row['cart_price'] ?>">
+						<input type="hidden" id="product_id" name="product_id" value="<?php echo $row['product_id'] ?>">
+						<input type="hidden" id="stock" name="stock" value="<?php echo $row['stock'] ?>">
+					
+					   <td class="align-middle" ><button class="btn btn-sm btn-danger" onclick="delete_cart_items(<?php echo $row['cart_id'] ?>)"><i class="fa fa-times"></i></button></td>
                     </tr>
+					
+		<?php	}
+						}
+					?>
                 </tbody>
             </table>
         </div>
         <div class="col-lg-4">
-            <form class="mb-30" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary">Apply Coupon</button>
-                    </div>
-                </div>
-            </form>
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
             <div class="bg-light p-30 mb-5">
                 <div class="border-bottom pb-2">
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Amount</h6>
-                        <h6 class="font-weight-medium total_amount" id="amount"><?php echo $total ?></h6>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Delivery Charges</h6>
-                        <?php 
-                            if($total < '3000' ) {
-                                $total += 40;
-                        ?>
-                                <h6 class="font-weight-medium">40</h6>
-                        <?php } else { ?>
-                                <h6 class="font-weight-medium">0</h6>
-                        <?php 
-							} 
-						?>
+                        <h6 class="font-weight-medium total_amount" id="amount"><?php echo $total_amount ?></h6>
                     </div>
                 </div>
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Total</h5>
-                        <h5 class="font-weight-medium all_amount" id="all_amount"><?php echo $total ?></h5>
+                        <h5 class="font-weight-medium all_amount" id="all_amount" ><?php echo $total_amount ?></h5>
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="checkout()">Proceed To Checkout</button>
                 </div>
@@ -145,90 +129,132 @@
     include('include/main_file/footer.php');
 ?>
 <!-- Footer End -->
-
 <script>
-function auto_change_qut_1() 
+$(document).ready(function() {
+    $('.btn-minus').click(function() {
+        var productId = $(this).data('productid');
+		var price = parseInt($(this).data('price'));
+        var stock = parseInt($(this).data('stock'));
+		 var totalamount = parseInt($(this).data('totalamount'));
+        var qut = parseInt($(this).closest('tr').find('.qut_change').val());
+		//var price = parseInt($(this).closest('tr').find('input[name="price"]').val());		
+		//var stock = parseInt($(this).closest('tr').find('input[name="stock"]').val());
+		// Get price from table cell
+		if(qut == 0)
+			{
+				
+				var total = qut * price;
+				 $('#all_amount').text(total);
+				$('#amount').text(total);
+				$('#total_amount_p').text(total);
+				return false;
+			}
+			else{
+				var btn_plus = document.getElementById("btn_plus");
+				// Disable the button
+				btn_plus.style.pointerEvents = "auto";
+				
+				var total = qut * price;
+				console.log(total);
+				$('#all_amount').text(total);
+				$('#amount').text(total);
+				$('#total_amount_p').text(total);
+			}
+	  
+    });
+
+    $('.btn-plus').click(function() {
+        var productId = $(this).data('productid');
+        var price =parseInt($(this).data('price'));
+        var stock = parseInt($(this).data('stock'));
+		var totalamount = parseInt($(this).data('totalamount'));
+        var qut = parseInt($(this).closest('tr').find('.qut_change').val());
+        //var price = parseInt($(this).closest('tr').find('input[name="price"]').val());		
+		//var stock = parseInt($(this).closest('tr').find('input[name="stock"]').val());
+		// Get price from table cell
+        if(qut >= stock)
+			{
+				alert("Only Available Stock" + stock);
+				
+				var btn_plus = document.getElementById("btn_plus");
+				// Disable the button
+				btn_plus.style.pointerEvents = "none";
+				
+				var total_ = qut * price;
+				console.log(total);
+				 $('#all_amount').text(total);
+				$('#amount').text(total);
+				$('#total_amount_p').text(total);
+				return false;
+			}
+			else{
+				var total = qut * price;
+				console.log(total);
+				console.log(totalamount);
+				var total_c = totalamount - total;	
+				console.log(total_c);
+				 $('#all_amount').text(total);
+				$('#amount').text(total);
+				$('#total_amount_p').text(total);
+			}
+    });
+});
+
+function delete_cart_items(cart_id)
 {
-	var qut = document.getElementById('qut_change').value;
-	var total_qut = parseInt(qut) - 1;
-	
-	var price = document.getElementById('price').value;
-	
-	
-	if(stock > qut)
-	{
-		var btn_plus = document.getElementById('block_function');
-			btn_plus.style.pointerEvents = "auto";
-			var total_amount = total_qut * price;
-			document.getElementById('all_amount').innerText = total_amount;
-			document.getElementById('amount').innerText = total_amount;
-			document.getElementById('total_amount_p').innerText = total_amount;
-
-	}
-	else
-	{
-		if(total_qut == '0')
-		{
-			console.log(total_qut);
-			var btn_plus = document.getElementById('block_function1');
-			btn_plus.style.pointerEvents = "none";
-			
-			total_amount = '0';
-			document.getElementById('all_amount').innerText = total_amount;
-			document.getElementById('amount').innerText = total_amount;
-			document.getElementById('total_amount_p').innerText = total_amount;
+	var cart_id = cart_id;
+	$.ajax({
+		type: "POST",
+		url: "functions/function_ajax.php",
+		data: {
+			action: "add_to_cart_delete",
+			cart_id: cart_id
+		},
+		// specify the expected data type of the response
+		success: function(response) {
+				var resp = JSON.parse(response);
+			if (resp.status) {
+				window.location.href = "cart.php";
+			} else {
+				alert("Error: " + response.message); // Assuming there's a message field in the response
+			}
+		},
+		error: function(xhr, status, error) {
+			// Function to be called if the request fails
+			console.error("Error loading data: " + error);
 		}
-		else{
-			console.log(stock);
-			var total_amount = total_qut * price;
-			console.log(total_amount);
-			document.getElementById('all_amount').innerText = total_amount;
-			document.getElementById('amount').innerText = total_amount;
-			document.getElementById('total_amount_p').innerText = total_amount;
-		}
-	}
-	
-	
-		
-	
-}
-
-function auto_change_qut_2() {
-	
-	var qut = document.getElementById('qut_change').value;
-	var total_qut = parseInt(qut) + 1;
-    var price = document.getElementById('price').value;
-	var stock = document.getElementById('stock').value;
-	
-	
-	if(stock <= total_qut)
-	{
-		var total_amount = total_qut * price;
-		document.getElementById('all_amount').innerText = total_amount;
-		document.getElementById('amount').innerText = total_amount;
-		document.getElementById('total_amount_p').innerText = total_amount;
-		var btn_plus = document.getElementById("block_function");
-		// Disable the button
-		btn_plus.style.pointerEvents = "none";
-	}
-	else{
-		var total_amount = total_qut * price;
-		document.getElementById('all_amount').innerText = total_amount;
-		document.getElementById('amount').innerText = total_amount;
-		document.getElementById('total_amount_p').innerText = total_amount;
-	}
-	
+	});
 }
 
 function checkout()
 {
 	var qut = document.getElementById('qut_change').value;
-	var product_name = document.getElementById('product_name').value;
 	var product_id = document.getElementById('product_id').value;
-	var all_amount = document.getElementById('all_amount').textContent;
-	
-	//window.location = "checkouts.php";
-	window.location = "checkout.php?product_name=" + encodeURIComponent(product_name) + "&qut=" + encodeURIComponent(qut)  + "&all_amount=" + encodeURIComponent(all_amount)  + "&product_id=" + encodeURIComponent(product_id) ;
+	var total_price = document.getElementById('all_amount').textContent;
+	$.ajax({
+		type: "POST",
+		url: "functions/function_ajax.php",
+		data: {
+			action: "update_add_to_cart",
+			qut:qut,
+			product_id:product_id,
+			total_price:total_price
+			
+		},
+		// specify the expected data type of the response
+		success: function(response) {
+			var resp = JSON.parse(response);
+			if (resp.status) {
+				window.location.href = "checkout.php?product_id=" + encodeURIComponent(product_id);
+			} else {
+				alert("Error: " + response.message); // Assuming there's a message field in the response
+			}
+		},
+		error: function(xhr, status, error) {
+			// Function to be called if the request fails
+			console.error("Error loading data: " + error);
+		}
+	});
 }
 </script>
 </body>
