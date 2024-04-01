@@ -133,73 +133,53 @@
 $(document).ready(function() {
     $('.btn-minus').click(function() {
         var productId = $(this).data('productid');
-		var price = parseInt($(this).data('price'));
+        var price = parseInt($(this).data('price'));
         var stock = parseInt($(this).data('stock'));
-		 var totalamount = parseInt($(this).data('totalamount'));
+        var totalamount = parseInt($(this).data('totalamount'));
         var qut = parseInt($(this).closest('tr').find('.qut_change').val());
-		//var price = parseInt($(this).closest('tr').find('input[name="price"]').val());		
-		//var stock = parseInt($(this).closest('tr').find('input[name="stock"]').val());
-		// Get price from table cell
-		if(qut == 0)
-			{
-				
-				var total = qut * price;
-				 $('#all_amount').text(total);
-				$('#amount').text(total);
-				$('#total_amount_p').text(total);
-				return false;
-			}
-			else{
-				var btn_plus = document.getElementById("btn_plus");
-				// Disable the button
-				btn_plus.style.pointerEvents = "auto";
-				
-				var total = qut * price;
-				console.log(total);
-				$('#all_amount').text(total);
-				$('#amount').text(total);
-				$('#total_amount_p').text(total);
-			}
-	  
+
+        if (qut === 0) {
+            $(this).prop('disabled', true).removeAttr('btn_minus'); // Remove custom attribute
+            var total = qut * price;
+            $('#all_amount').text(total);
+            $('#amount').text(total);
+            $('#total_amount_p').text(total);
+            return false;
+        } else {
+            $(this).prop('disabled', false).removeAttr('btn_plus'); // Remove custom attribute
+            var total = qut * price;
+            console.log(total);
+            $('#all_amount').text(total);
+            $('#amount').text(total);
+            $('#total_amount_p').text(total);
+        }
     });
 
     $('.btn-plus').click(function() {
         var productId = $(this).data('productid');
-        var price =parseInt($(this).data('price'));
+        var price = parseInt($(this).data('price'));
         var stock = parseInt($(this).data('stock'));
-		var totalamount = parseInt($(this).data('totalamount'));
+        var totalamount = parseInt($(this).data('totalamount'));
         var qut = parseInt($(this).closest('tr').find('.qut_change').val());
-        //var price = parseInt($(this).closest('tr').find('input[name="price"]').val());		
-		//var stock = parseInt($(this).closest('tr').find('input[name="stock"]').val());
-		// Get price from table cell
-        if(qut >= stock)
-			{
-				alert("Only Available Stock" + stock);
-				
-				var btn_plus = document.getElementById("btn_plus");
-				// Disable the button
-				btn_plus.style.pointerEvents = "none";
-				
-				var total_ = qut * price;
-				console.log(total);
-				 $('#all_amount').text(total);
-				$('#amount').text(total);
-				$('#total_amount_p').text(total);
-				return false;
-			}
-			else{
-				var total = qut * price;
-				console.log(total);
-				console.log(totalamount);
-				var total_c = totalamount - total;	
-				console.log(total_c);
-				 $('#all_amount').text(total);
-				$('#amount').text(total);
-				$('#total_amount_p').text(total);
-			}
+
+        if (qut >= stock) {
+            alert("Only Available Stock: " + stock);
+            $(this).prop('disabled', true).removeAttr('btn_plus'); // Remove custom attribute
+
+            var total = qut * price;
+            $('#all_amount').text(total);
+            $('#amount').text(total);
+            $('#total_amount_p').text(total);
+            return false;
+        } else {
+            $(this).prop('disabled', false).removeAttr('btn_minus'); // Remove custom attribute
+            var total = qut * price;
+            $('#all_amount').text(total);
+            $('#amount').text(total);
+            $('#total_amount_p').text(total);
+        }
     });
 });
-
 function delete_cart_items(cart_id)
 {
 	var cart_id = cart_id;
