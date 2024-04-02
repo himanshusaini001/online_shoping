@@ -116,7 +116,16 @@
 													<td><?php echo $row['address'] ?></td>
 													<td><?php echo $row['created_at'] ?></td>
 													<td><?php echo $row['updated_at'] ?></td>
-													<td><?php echo $row['status'] ?></td>
+													<td><?php 
+															if( $row['status'] == '1')
+															{
+																echo "Active";
+															}
+															else{
+																echo "Inactive";
+															}
+	
+													?></td>
 													<td>
 														<div class="status-switch" data-userid="<?php echo $row['sid']; ?>" data-email="<?php echo $row['email']; ?>" data-status="<?php echo $row['status']; ?>">
 															<input type="checkbox" <?php echo ($row['status'] == '1') ? 'checked' : ''; ?> />

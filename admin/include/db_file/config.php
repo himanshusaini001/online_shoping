@@ -1,5 +1,6 @@
 <?php
 	
+
 session_start();
 
 define('DTS_WS','http://localhost/');
@@ -16,6 +17,5 @@ define('DTS_WS_SITE_IMG',DTS_WS_SITE_ASSETS.'img/');
 
 define('DTS_FS_SITE_ASSETS',DTS_FS_SITE.'assets/');
 define('DTS_FS_SITE_CSS',DTS_FS_SITE.'css/');
-
 
 ?>
