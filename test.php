@@ -1,21 +1,15 @@
+if ($action == "update_size") {
+	// Get data from AJAX request
+	$size = test_input($_POST['size']);
+	$sid = test_input($_POST['sid']);
+	$status = test_input($_POST['status']);
+	// Insert data into the category table
 
+	$sql = "UPDATE clothing_sizes SET size='$size',status='$status' where sid='$sid'";
 
-<script>
-function myFunction() {
-    console.log("This is my function.");
+	if ($conn->query($sql) === TRUE) {
+		echo "ok";
+	} else {
+		echo "Not Ok";
+	}
 }
-function automaticCall(func) {
-    return function(...args) {
-        const result = func(...args);
-        console.log(`Function '${func.name}' was automatically called.`);
-        return result;
-    };
-}
-
-// Create a named function that automatically calls myFunction
-const myFunctionAutomatic = automaticCall(myFunction);
-
-// Now, calling myFunctionAutomatic will automatically print a message.
-myFunctionAutomatic();
-</script>
-

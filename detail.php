@@ -11,7 +11,10 @@
 // End Connection File 
 
 // Start Session 
-	
+	if(!isset($_SESSION['customer_id']))
+	{
+		header("customer_login");
+	}		
 // End Session
 
 // Start Top Link File 
