@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 01, 2024 at 11:50 AM
+-- Generation Time: Apr 02, 2024 at 08:07 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -46,8 +46,9 @@ CREATE TABLE `add_to_cart` (
 --
 
 INSERT INTO `add_to_cart` (`cart_id`, `customer_id`, `product_id`, `cart_name`, `cart_qty`, `cart_price`, `description`, `cart_color`, `cart_size`, `total_price`, `stock`) VALUES
-(28, 4, 38, 'Owl', 4, '750.00', 'Best tshirt owl brand', 'Blue', 'S', '3000', 10),
-(29, 4, 40, 'Nike', 5, '1150.00', 'Best nike shoes', 'Black', 'S', '5750', 15);
+(28, 4, 38, 'Owl', 4, '750.00', 'Best tshirt owl brand', 'Blue', 'S', '9600', 10),
+(29, 4, 40, 'Nike', 5, '1150.00', 'Best nike shoes', 'Black', 'S', '5750', 15),
+(30, 4, 39, 'Funny tshirt', 1, '850.00', 'Best tshirt', 'Blue', 'XL', '850', 12);
 
 -- --------------------------------------------------------
 
@@ -179,7 +180,8 @@ INSERT INTO `billingaddress` (`billing_address_id`, `first_name`, `last_name`, `
 (84, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
 (85, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
 (86, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(87, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435');
+(87, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
+(88, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435');
 
 -- --------------------------------------------------------
 
@@ -371,7 +373,8 @@ INSERT INTO `place_order_list` (`place_order_id`, `order_id`, `order_name`, `ord
 (203, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
 (204, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999'),
 (205, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999'),
-(206, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999');
+(206, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999'),
+(207, 38, 'Owl', 'Blue', 'S', '4', '750.00', 'cash', '9600');
 
 -- --------------------------------------------------------
 
@@ -399,7 +402,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `category`, `product_color`, `product_size`, `stock`, `price`, `product_name`, `description`, `product_img`, `status`) VALUES
 (35, '4', 'Black', 'S', '10', 1000, 'Blue star', 'Best watch', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
 (37, '4', 'Black', 'S', '13', 1999, 'Blue star', 'Best diamond watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1),
-(38, '1', 'Blue', 'S', '10', 750, 'Owl', 'Best tshirt owl brand', '../admin/assets/upload_img/blue_tshirt.jpg,../admin/assets/upload_img/blue_tshirt_2.png,../admin/assets/upload_img/blue_tshirt_3.png,../admin/assets/upload_img/blue_tshirt_4.png,../admin/assets/upload_img/blue_tshirt_5.png', 1),
+(38, '1', 'Blue', 'S', '6', 750, 'Owl', 'Best tshirt owl brand', '../admin/assets/upload_img/blue_tshirt.jpg,../admin/assets/upload_img/blue_tshirt_2.png,../admin/assets/upload_img/blue_tshirt_3.png,../admin/assets/upload_img/blue_tshirt_4.png,../admin/assets/upload_img/blue_tshirt_5.png', 1),
 (39, '1', 'Blue', 'XL', '12', 850, 'Funny tshirt', 'Best tshirt', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
 (40, '3', 'Black', 'S', '15', 1150, 'Nike', 'Best nike shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1);
 
@@ -455,7 +458,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`sid`, `fname`, `lname`, `email`, `phone`, `address`, `username`, `password`, `created_at`, `updated_at`, `otp`, `status`) VALUES
-(5, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-03-27 11:01:15', '2024-03-27 11:03:27', '297410', '1'),
+(5, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-03-27 11:01:15', '2024-04-02 08:03:56', '297410', '1'),
 (3, 'Anita', 'Devi', 'anitadevi@gmail.com', '7412589630', 'Derabassi', 'admin', '6a2e2c33086162a2dfb92d0a4decfde8', '2024-03-13 12:39:44', '2024-03-19 13:11:20', '851222', '0'),
 (4, 'Satpal', 'Singh', 'satpalsingh12@gmail.com', '7418529635', 'kabmit clonay , mubarikpur nera goldan plam ', 'admin', '7a8a81d85dd319e11600a19f6602fc3d', '2024-03-18 07:41:03', '2024-03-27 07:09:26', '519505', '1');
 
@@ -557,7 +560,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `add_to_cart`
 --
 ALTER TABLE `add_to_cart`
-  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -569,7 +572,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `billingaddress`
 --
 ALTER TABLE `billingaddress`
-  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -617,7 +620,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `place_order_list`
 --
 ALTER TABLE `place_order_list`
-  MODIFY `place_order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
+  MODIFY `place_order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT for table `product`
