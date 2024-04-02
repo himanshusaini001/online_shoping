@@ -55,7 +55,7 @@
 						{
 							while($row = $result->fetch_assoc())
 							{
-									$total_amount = $row['total_price'];
+									$total_amount += $row['total_price'];
 					?>
                     <tr>
                         <td class="align-middle"><img src="<?php echo DTS_WS_SITE_IMG ?>product-1.jpg" alt="" style="width: 50px;"> <?php echo $row['cart_name'] ?></td>
@@ -69,7 +69,6 @@
 									data-productid="<?php echo $row['product_id'] ?>"
 									data-price="<?php echo $row['cart_price'] ?>"
 									data-stock="<?php echo $row['stock'] ?>"
-									data-totalamount="<?php echo $total_amount ?>"
 									>
 										<i class="fa fa-minus"></i>
 									</button>
@@ -80,7 +79,6 @@
 									data-productid="<?php echo $row['product_id'] ?>"
 									data-price="<?php echo $row['cart_price'] ?>"
 									data-stock="<?php echo $row['stock'] ?>"
-									data-totalamount="<?php echo $total_amount ?>"
 									>
 										<i class="fa fa-plus"></i>
 									</button>
@@ -92,7 +90,6 @@
 						<input type="hidden" id="price" name="price" value="<?php echo $row['cart_price'] ?>">
 						<input type="hidden" id="product_id" name="product_id" value="<?php echo $row['product_id'] ?>">
 						<input type="hidden" id="stock" name="stock" value="<?php echo $row['stock'] ?>">
-					
 					   <td class="align-middle" ><button class="btn btn-sm btn-danger" onclick="delete_cart_items(<?php echo $row['cart_id'] ?>)"><i class="fa fa-times"></i></button></td>
                     </tr>
 					
@@ -115,6 +112,7 @@
                     <div class="d-flex justify-content-between mt-2">
                         <h5>Total</h5>
                         <h5 class="font-weight-medium all_amount" id="all_amount" ><?php echo $total_amount ?></h5>
+						<input type="hidden" id="total_price" name="total_price" value="<?php echo $total_amount ?>">
                     </div>
                     <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="checkout()">Proceed To Checkout</button>
                 </div>
@@ -131,54 +129,60 @@
 <!-- Footer End -->
 <script>
 $(document).ready(function() {
+    var totalAmount = parseInt($('#total_price').val());
+	
     $('.btn-minus').click(function() {
-        var productId = $(this).data('productid');
         var price = parseInt($(this).data('price'));
-        var stock = parseInt($(this).data('stock'));
-        var totalamount = parseInt($(this).data('totalamount'));
         var qut = parseInt($(this).closest('tr').find('.qut_change').val());
-
-        if (qut === 0) {
-            $(this).prop('disabled', true).removeAttr('btn_minus'); // Remove custom attribute
-            var total = qut * price;
-            $('#all_amount').text(total);
-            $('#amount').text(total);
-            $('#total_amount_p').text(total);
-            return false;
+		
+		if (qut == 0) {
+			alert("Plase Add Stock: ");
+			var btn_plus = document.getElementById("btn_minus");
+			// Disable the button
+			btn_plus.style.pointerEvents = "none";
+			
+             totalAmount -= price;
         } else {
-            $(this).prop('disabled', false).removeAttr('btn_plus'); // Remove custom attribute
-            var total = qut * price;
-            console.log(total);
-            $('#all_amount').text(total);
-            $('#amount').text(total);
-            $('#total_amount_p').text(total);
+            
+			var btn_plus = document.getElementById("btn_plus");
+			// Disable the button
+			btn_plus.style.pointerEvents = "auto";
+			
+			 totalAmount -= price;
         }
+       
+
+        updateTotal(totalAmount);
     });
 
     $('.btn-plus').click(function() {
-        var productId = $(this).data('productid');
         var price = parseInt($(this).data('price'));
-        var stock = parseInt($(this).data('stock'));
-        var totalamount = parseInt($(this).data('totalamount'));
         var qut = parseInt($(this).closest('tr').find('.qut_change').val());
+        var stock = parseInt($(this).data('stock'));
 
         if (qut >= stock) {
-            alert("Only Available Stock: " + stock);
-            $(this).prop('disabled', true).removeAttr('btn_plus'); // Remove custom attribute
-
-            var total = qut * price;
-            $('#all_amount').text(total);
-            $('#amount').text(total);
-            $('#total_amount_p').text(total);
-            return false;
+			 alert("Only Available Stock: " + stock);
+			var btn_plus = document.getElementById("btn_plus");
+			// Disable the button
+			btn_plus.style.pointerEvents = "none";
+			
+			 totalAmount += price;
         } else {
-            $(this).prop('disabled', false).removeAttr('btn_minus'); // Remove custom attribute
-            var total = qut * price;
-            $('#all_amount').text(total);
-            $('#amount').text(total);
-            $('#total_amount_p').text(total);
+			var btn_plus = document.getElementById("btn_minus");
+			// Disable the button
+			btn_plus.style.pointerEvents = "auto";
+			
+            totalAmount += price;
         }
+
+        updateTotal(totalAmount);
     });
+
+    function updateTotal(amount) {
+        $('#all_amount').text(amount);
+        $('#amount').text(amount);
+        $('#total_amount_p').text(amount);
+    }
 });
 function delete_cart_items(cart_id)
 {
