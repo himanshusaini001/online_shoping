@@ -1213,14 +1213,13 @@
 							$description = $result['description'];
 							$product_color = $result['product_color'];
 							$product_size = $result['product_size'];
-							
 							if (mysqli_query($conn, $sql)) {
 								
-									$sql_cart_id = "SELECT * FROM add_to_cart WHERE customer_id ='$customer_id'";
+									$sql_cart_id = "SELECT * FROM add_to_cart WHERE product_id ='$product_id' AND customer_id='$customer_id'";
 									$row_cart  = $conn->query($sql_cart_id);
 									$result_cart = $row_cart->fetch_assoc();
-									$cart_id = $result_cart['customer_id'];
-								if($cart_id == $customer_id)
+									$product_id_cart = $result_cart['product_id'];
+								if($product_id_cart == $product_id)
 								{
 										
 									$sql = "UPDATE add_to_cart SET cart_qty='$qut' WHERE customer_id = '$customer_id' AND product_id = '$product_id'";

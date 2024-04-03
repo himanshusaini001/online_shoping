@@ -9,10 +9,12 @@
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 
+		$customer_id = $_SESSION['customer_id'];
     	$product_id = $_GET['product_id'];
    
-	$cart_sql = "SELECT * FROM add_to_cart WHERE product_id = '$product_id'";
+	$cart_sql = "SELECT * FROM add_to_cart WHERE customer_id='$customer_id'";
 	$cart_row = $conn->query($cart_sql);
+	$cart_result_num_row = $cart_row->num_rows;
 	$cart_result = $cart_row->fetch_assoc();
 ?>
 <!-- header End -->
@@ -137,9 +139,9 @@
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
                         <h6 class="mb-3">Products</h6>
-                        <div class="d-flex justify-content-between">
-                            <p>Product Name (<?php echo $cart_result['cart_qty'] ?> items)</p>
-                            <p><?php echo $cart_result['cart_name'] ?></p>
+						<div class="d-flex justify-content-between mt-2">
+                            <h5>items</h5>
+                            <h5><?php echo  $cart_result_num_row ?></h5>
                         </div>
                     </div>
                     <!--div class="border-bottom pt-3 pb-2">

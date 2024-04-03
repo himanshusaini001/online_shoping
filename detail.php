@@ -11,10 +11,10 @@
 // End Connection File 
 
 // Start Session 
-	if(!isset($_SESSION['customer_id']))
-	{
-		header("customer_login");
-	}		
+	if(!isset($_SESSION['customer_login'])) {
+        header("location: customer_login.php");
+        exit; // Add exit after header redirect to stop further execution
+    }	
 // End Session
 
 // Start Top Link File 
@@ -380,7 +380,7 @@
 		
 		if (stock > qut) {
 			
-			if (qut <= 0) {
+			if (qut == 0) {
 				alert("Please Add Stock");
 				return false;
 			} else {

@@ -84,7 +84,7 @@
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-check  m-0 mr-3"></h1>
+                    <h1 class="fa fa-check   m-0 mr-3"></h1>
                     <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
                 </div>
             </div>
@@ -94,16 +94,16 @@
                     <h5 class="font-weight-semi-bold m-0">Fast Delivery</h5>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+			<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                    <h1 class="fa fa-exchange  m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Fast Delivery</h5>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                    <h1 class="fa fa-phone  m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Fast Delivery</h5>
                 </div>
             </div>
         </div>
@@ -188,9 +188,6 @@
 							
 							<div class="product-action">
 								<a class="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
-								<a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-								<a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-								<a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
 							</div>
 						</div>
 						<div class="text-center py-4">

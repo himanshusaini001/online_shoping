@@ -108,7 +108,7 @@
                             <label for="state">State:</label><br>
                             <input type="text" class="form-control" id="state" name="state"><br>
                             <span class="error" id="stateError"></span><br>
-                            <button type="submit" class="btn btn-primary" style="float:right">Add Address</button>
+                            <button type="submit" class="btn btn-primary customer_address_btn" style="float:right">Add Address</button>
                         </div>
                     </div>
                     <input type="hidden" class="form-control" id="action" name="action" value="add_address"><br>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="address_bg " style=" height: 400px; overflow: auto;" >
+            <div class="address_bg " style=" height:335px; overflow: auto;" >
                 <h6><b>Default :</b>  View Address</h6>
                 <div class="border_bottom mb-3 mt-1"></div>
                 <?php 

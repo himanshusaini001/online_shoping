@@ -1,6 +1,4 @@
-  <?php 
-	include("whatsapp_file.php");
-  ?>
+  
   
   <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
 		<?php
@@ -73,9 +71,13 @@
     </div>
     <!-- Footer End -->
 	
-	<!-- Footer End -->
+	<!-- Whatsapp icon Start -->
+	<?php 
+		include("whatsapp_file.php");
+	?>
 
-
+	<!-- Whatsapp icon End -->
+	
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 

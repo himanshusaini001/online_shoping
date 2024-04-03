@@ -44,10 +44,10 @@
 <?php 
 if($order == "No Order") {
 ?>
-   <div class="container-fluid">
+   <div class="container-fluid ">
     <div class="row px-xl-5">
         <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
+            <nav class="breadcrumb bg-light mb-30 ">
                 <a class="breadcrumb-item text-dark" href="index.php">Home</a>
 				<a class="breadcrumb-item text-dark" href="shop.php">Shop</a>
                 <span class="breadcrumb-item active">Your Orders</span>
@@ -113,7 +113,7 @@ if($order == "No Order") {
 						</div>
 						<div class="col-md-4">
 							<h6><b>Order Id : </b><?php echo $customer_histor_result['product_id']  ?><h6>
-							<a class="arrow-link" href="detail.php?product_id=<?php echo $product_id ?>" style="color:#3d464d">View Order Detail</a>
+							<a class="arrow-link" href="cart.php	" style="color:#3d464d">View Order Detail</a>
 						</div>
 						<div class="border_bottom mt-2"></div>
 						<div>
