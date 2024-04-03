@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 02, 2024 at 08:07 AM
+-- Generation Time: Apr 03, 2024 at 12:51 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -46,9 +46,10 @@ CREATE TABLE `add_to_cart` (
 --
 
 INSERT INTO `add_to_cart` (`cart_id`, `customer_id`, `product_id`, `cart_name`, `cart_qty`, `cart_price`, `description`, `cart_color`, `cart_size`, `total_price`, `stock`) VALUES
-(28, 4, 38, 'Owl', 4, '750.00', 'Best tshirt owl brand', 'Blue', 'S', '9600', 10),
-(29, 4, 40, 'Nike', 5, '1150.00', 'Best nike shoes', 'Black', 'S', '5750', 15),
-(30, 4, 39, 'Funny tshirt', 1, '850.00', 'Best tshirt', 'Blue', 'XL', '850', 12);
+(1, 1, 1, 'Red', 1, '1000.00', 'Best', 'Red', 'S', '6000', 10),
+(2, 1, 4, 'Nike', 3, '999.00', 'Best shoes', 'Black', 'S', '18197', 25),
+(12, 2, 1, 'Red', 1, '1000.00', 'Best', 'Red', 'S', '6000', 10),
+(13, 2, 3, 'Dimodan', 2, '2500.00', 'Best watch', 'Black', 'M', '5000', 20);
 
 -- --------------------------------------------------------
 
@@ -94,94 +95,7 @@ CREATE TABLE `billingaddress` (
 --
 
 INSERT INTO `billingaddress` (`billing_address_id`, `first_name`, `last_name`, `email`, `phone`, `address_line_1`, `address_line_2`, `country`, `city`, `state`, `pin_code`) VALUES
-(1, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sad', 'Canada', 'Asdad', 'CA', '435'),
-(2, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Fgd', 'USA', 'Gdg', 'NY', '243'),
-(3, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfa', 'USA', 'Fddgf', 'NY', '435'),
-(4, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'CA', '435'),
-(5, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Frg', 'NY', '452'),
-(6, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Ewdw', 'Canada', 'Rre', 'CA', '65877'),
-(7, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Erf', 'CA', '435'),
-(8, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'Canada', 'Asda', 'NY', '324'),
-(9, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'CA', '435'),
-(10, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(11, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Sddsa', 'NY', '435'),
-(12, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', '435', 'USA', 'Fddgf', 'CA', '435'),
-(13, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(14, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(15, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', '435', 'USA', 'Gsdf', 'NY', '435'),
-(16, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Asd', 'NY', '4523'),
-(17, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '34'),
-(18, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(19, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(20, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'Canada', 'Fddgf', 'CA', '435'),
-(21, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', '435', 'USA', 'Fddgf', 'NY', '234'),
-(22, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(23, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(24, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', '435', 'USA', 'Fddgf', 'CA', '232'),
-(25, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Ef', 'USA', 'Fddgf', 'CA', '435'),
-(26, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'CA', '435'),
-(27, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435243'),
-(28, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'Canada', 'Ftgyf', 'NY', '435'),
-(29, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(30, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', '56', 'USA', 'Fddgf', 'NY', '546'),
-(31, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Mohali', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(32, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Kjhhg', 'NY', '435'),
-(33, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'DF', 'NY', '435'),
-(34, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Sdf', 'NY', '435'),
-(35, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Sdf', 'NY', '435'),
-(36, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Sdf', 'NY', '435'),
-(37, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(38, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(39, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(40, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(41, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(42, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(43, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'CA', '435'),
-(44, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(45, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(46, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(47, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(48, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(49, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(50, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(51, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'CA', '435'),
-(52, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(53, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', '435', 'USA', 'Fddgf', 'NY', '435'),
-(54, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(55, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(56, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(57, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(58, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(59, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(60, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(61, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(62, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(63, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(64, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(65, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'CA', '435'),
-(66, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(67, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(68, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(69, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(70, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(71, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(72, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(73, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(74, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'CA', '435'),
-(75, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(76, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(77, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(78, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(79, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(80, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(81, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(82, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(83, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(84, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(85, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(86, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(87, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(88, 'Satpal', 'Singh', 'Satpalsingh12@gmail.com', '7418529635', 'Kabmit clonay , mubarikpur nera goldan plam', 'Sdfse', 'USA', 'Fddgf', 'NY', '435');
+(1, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'Sdfse', 'USA', 'Fddgf', 'NY', '435');
 
 -- --------------------------------------------------------
 
@@ -201,10 +115,10 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `cname`, `cimg`, `status`) VALUES
-(1, 'Tshirt', 'orange_tshirt.png', 1),
-(2, 'Jeens', 'scratch_jeen.jpg', 1),
-(3, 'Shoes', 'cat-3.jpg', 1),
-(4, 'Watch', 'product-6.jpg', 1);
+(1, 'Jeens', 'jeens_blue.png', 1),
+(2, 'Shoes', 'cat-3.jpg', 1),
+(3, 'Tshirt', 'blue_tshirt_5.png', 1),
+(4, 'Watch', 'blue_star1.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -247,11 +161,11 @@ CREATE TABLE `colors` (
 --
 
 INSERT INTO `colors` (`color_id`, `color_name`, `status`) VALUES
-(5, 'Red', 1),
-(6, 'Orange', 1),
-(7, 'Blue', 1),
-(8, 'White', 1),
-(57, 'Black', 1);
+(1, 'Red', 1),
+(2, 'White', 1),
+(3, 'Purple', 1),
+(4, 'Black', 1),
+(5, 'Blue', 1);
 
 -- --------------------------------------------------------
 
@@ -279,12 +193,8 @@ CREATE TABLE `customer_address` (
 --
 
 INSERT INTO `customer_address` (`address_id`, `customer_id`, `country`, `full_name`, `phone`, `pincode`, `house_no`, `street`, `landmark`, `town`, `state`, `delivery_instructions`) VALUES
-(15, 5, 'India', 'Harsh saini', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House'),
-(16, 5, 'India', 'Kamal', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Near Vet Hospital', 'Goldan plam', 'Punjab', 'House'),
-(17, 4, 'India', 'Harsh saini', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House'),
-(18, 4, 'India', 'Arjun', '1234567890', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House'),
-(19, 4, 'India', 'Numan', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House'),
-(20, 4, 'India', 'Best', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House');
+(1, 2, 'India', 'Harsh saini', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House'),
+(2, 2, 'India', 'Arjun', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House');
 
 -- --------------------------------------------------------
 
@@ -300,18 +210,6 @@ CREATE TABLE `customer_contact` (
   `phone` varchar(15) NOT NULL,
   `message` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `customer_contact`
---
-
-INSERT INTO `customer_contact` (`customer_id`, `fname`, `lname`, `email`, `phone`, `message`) VALUES
-(3, 'harsh', 'saini', 'himanshusaini26112002@gmail.com', '7412589630', 'efe'),
-(4, 'harsh', 'saini', 'himanshusaini26112002@gmail.com', '7412589630', 'hello'),
-(5, 'harsh', 'saini', 'himanshusaini26112002@gmail.com', '7412589630', 'dfe'),
-(6, 'harsh', 'saini', 'anitadevi@gmail.com', '7412589630', 'dgf'),
-(7, 'harsh', 'saini', 'anitadevi@gmail.com', '7412589630', 'dgf'),
-(8, 'harsh', 'saini', 'anitadevi@gmail.com', '7412589630', 'dgf');
 
 -- --------------------------------------------------------
 
@@ -363,18 +261,7 @@ CREATE TABLE `place_order_list` (
 --
 
 INSERT INTO `place_order_list` (`place_order_id`, `order_id`, `order_name`, `order_color`, `order_size`, `order_qut`, `order_amount`, `order_type`, `total_price`) VALUES
-(196, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(197, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(198, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(199, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(200, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(201, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(202, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(203, 40, 'Nike', 'Black', 'S', '4', '1150.00', 'cash', '4600'),
-(204, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999'),
-(205, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999'),
-(206, 37, 'Blue star', 'Black', 'S', '1', '1999.00', 'cash', '1999'),
-(207, 38, 'Owl', 'Blue', 'S', '4', '750.00', 'cash', '9600');
+(1, 4, 'Nike', 'Black', 'S', '3', '999.00', 'cash', '1998');
 
 -- --------------------------------------------------------
 
@@ -400,11 +287,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `category`, `product_color`, `product_size`, `stock`, `price`, `product_name`, `description`, `product_img`, `status`) VALUES
-(35, '4', 'Black', 'S', '10', 1000, 'Blue star', 'Best watch', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
-(37, '4', 'Black', 'S', '13', 1999, 'Blue star', 'Best diamond watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1),
-(38, '1', 'Blue', 'S', '6', 750, 'Owl', 'Best tshirt owl brand', '../admin/assets/upload_img/blue_tshirt.jpg,../admin/assets/upload_img/blue_tshirt_2.png,../admin/assets/upload_img/blue_tshirt_3.png,../admin/assets/upload_img/blue_tshirt_4.png,../admin/assets/upload_img/blue_tshirt_5.png', 1),
-(39, '1', 'Blue', 'XL', '12', 850, 'Funny tshirt', 'Best tshirt', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
-(40, '3', 'Black', 'S', '15', 1150, 'Nike', 'Best nike shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1);
+(1, '3', 'Red', 'S', '10', 1000, 'Red', 'Best', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
+(2, '4', 'Black', 'S', '15', 1900, 'Bluestar', 'Best', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
+(3, '4', 'Black', 'M', '20', 2500, 'Dimodan', 'Best watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1),
+(4, '2', 'Black', 'S', '22', 999, 'Nike', 'Best shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1);
 
 -- --------------------------------------------------------
 
@@ -458,9 +344,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`sid`, `fname`, `lname`, `email`, `phone`, `address`, `username`, `password`, `created_at`, `updated_at`, `otp`, `status`) VALUES
-(5, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Derabassi', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-03-27 11:01:15', '2024-04-02 08:03:56', '297410', '1'),
-(3, 'Anita', 'Devi', 'anitadevi@gmail.com', '7412589630', 'Derabassi', 'admin', '6a2e2c33086162a2dfb92d0a4decfde8', '2024-03-13 12:39:44', '2024-03-19 13:11:20', '851222', '0'),
-(4, 'Satpal', 'Singh', 'satpalsingh12@gmail.com', '7418529635', 'kabmit clonay , mubarikpur nera goldan plam ', 'admin', '7a8a81d85dd319e11600a19f6602fc3d', '2024-03-18 07:41:03', '2024-03-27 07:09:26', '519505', '1');
+(1, 'Harsh', 'Saini', 'harshsaini26112002@gmail.com', '8699902297', 'Derabassi', 'admin', 'b0aa651c991deca550252ed6cbba99ba', '2024-04-02 12:45:23', '2024-04-02 12:51:35', '527586', '1'),
+(2, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-04-02 12:52:53', '2024-04-02 12:53:27', '453138', '1');
 
 --
 -- Indexes for dumped tables
@@ -560,7 +445,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `add_to_cart`
 --
 ALTER TABLE `add_to_cart`
-  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -572,37 +457,37 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `billingaddress`
 --
 ALTER TABLE `billingaddress`
-  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `clothing_sizes`
 --
 ALTER TABLE `clothing_sizes`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `color_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `customer_address`
 --
 ALTER TABLE `customer_address`
-  MODIFY `address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customer_contact`
 --
 ALTER TABLE `customer_contact`
-  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `customer_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `inquery`
@@ -620,13 +505,13 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `place_order_list`
 --
 ALTER TABLE `place_order_list`
-  MODIFY `place_order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `place_order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `site_settings`
@@ -638,7 +523,7 @@ ALTER TABLE `site_settings`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
