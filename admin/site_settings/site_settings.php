@@ -167,76 +167,80 @@
     $(document).ready(function () {
         // Form validation using jQuery
         $("#submitBtn").click(function () {
-            // Reset previous error messages
-            $(".error-message").text("");
-			
-			var website_name = $("#website_name").val();
-			var email = $("#email").val();
-			var location = $("#location").val();
-			var phone = $("#phone").val();
-			var twitter_link = $("#twitter_link").val();
-			var facebook_link = $("#facebook_link").val();
-			var linkedin_link = $("#linkedin_link").val();
-			var instagram_link = $("#instagram_link").val();
-			
-			if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-				alert("Check name field, add only characters." );
-			}
-			else{
-				 var isValid = true;
-
-            if (location === "") {
-                isValid = false;
-            }
-			if (website_name === "") {
-                isValid = false;
-            }
-            if (phone === "") {
-                isValid = false;
-            }
-			if (twitter_link === "") {
-                isValid = false;
-            }
-			if (facebook_link === "") {
-                isValid = false;
-            }
-			if (linkedin_link === "") {
-                isValid = false;
-            }
-			if (instagram_link === "") {
-                isValid = false;
-            }
-			
-            if (!isValid) {
-                alert("All Fild are required.");
-            } else {
+			try{
+				// Reset previous error messages
+				$(".error-message").text("");
 				
-				var form = document.getElementById('addForm');
-				let formdata = new FormData(form);
-                // AJAX to submit form data
-                $.ajax({
-                    type: "POST",
-                    url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                    data: formdata,
-					processData: false,
-					contentType: false,
-                    success: function (response) {
-						let resp = JSON.parse(response);
-						if(resp.status)
-						{
-							window.location = "../../admin/site_settings/site_settings.php" ;
+				var website_name = $("#website_name").val();
+				var email = $("#email").val();
+				var location = $("#location").val();
+				var phone = $("#phone").val();
+				var twitter_link = $("#twitter_link").val();
+				var facebook_link = $("#facebook_link").val();
+				var linkedin_link = $("#linkedin_link").val();
+				var instagram_link = $("#instagram_link").val();
+				
+				if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+					alert("Check name field, add only characters." );
+				}
+				else{
+					 var isValid = true;
+
+				if (location === "") {
+					isValid = false;
+				}
+				if (website_name === "") {
+					isValid = false;
+				}
+				if (phone === "") {
+					isValid = false;
+				}
+				if (twitter_link === "") {
+					isValid = false;
+				}
+				if (facebook_link === "") {
+					isValid = false;
+				}
+				if (linkedin_link === "") {
+					isValid = false;
+				}
+				if (instagram_link === "") {
+					isValid = false;
+				}
+				
+				if (!isValid) {
+					alert("All Fild are required.");
+				} else {
+					
+					var form = document.getElementById('addForm');
+					let formdata = new FormData(form);
+					// AJAX to submit form data
+					$.ajax({
+						type: "POST",
+						url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+						data: formdata,
+						processData: false,
+						contentType: false,
+						success: function (response) {
+							let resp = JSON.parse(response);
+							if(resp.status)
+							{
+								window.location = "../../admin/site_settings/site_settings.php" ;
+							}
+							else{
+								alert ("Failed Update Social Media Update");
+							}
+							
+						},
+						error: function (xhr, status, error) { 
+							alert("AJAX request failed: " + status + "\nError: " + error);
 						}
-						else{
-							alert ("Failed Update Social Media Update");
-						}
-						
-					},
-                    error: function (xhr, status, error) { 
-                        alert("AJAX request failed: " + status + "\nError: " + error);
-                    }
-                });
+					});
+				}
+				}
+			}catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
             }
-			}
         });
     });
 </script>

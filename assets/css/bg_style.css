@@ -239,8 +239,6 @@ img.show_img_after_place {
     left: 260px;
 }
 .bg-light {
-
-    display: flex;
     flex-wrap: wrap;
     padding: 0.75rem 1rem;
     margin-bottom: 1rem;

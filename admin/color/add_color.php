@@ -110,69 +110,72 @@
         // Form validation using jQuery
         $("#submitBtn").click(function () {
             // Reset previous error messages
-            $(".error-message").text("");
-			
-            var userInputColor = $("#color").val();
-			var color = userInputColor.toLowerCase();
-			var status = $("#status").val();
-			
-			var found = false;
-			var colors = [
-				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
-				'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
-				'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
-			];
-            
-			
-			for (var i = 0; i < colors.length; i++) {
+           
+			try{
+				$(".error-message").text("");
+				var userInputColor = $("#color").val();
+				var color = userInputColor.toLowerCase();
+				var status = $("#status").val();
 				
-				if (userInputColor === colors[i]) {
+				var found = false;
+				var colors = [
+					'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
+					'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
+					'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
+				];
+				
+				
+				for (var i = 0; i < colors.length; i++) {
 					
-					 found = true;
-					var isValid = true;
-					if (color === "") {
-						isValid = false;
-						alert("Fild is required.");
-					}
-					
-					if (status === "") {
-						isValid = false;
-						alert("Fild is required.");
-					}
+					if (userInputColor === colors[i]) {
+						
+						 found = true;
+						var isValid = true;
+						if (color === "") {
+							isValid = false;
+							alert("Fild is required.");
+						}
+						
+						if (status === "") {
+							isValid = false;
+							alert("Fild is required.");
+						}
 
 
-					if (isValid) {
-						// AJAX to submit form data
-						$.ajax({
-							type: "POST",
-							url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-							data: {
-								action: "add_color",
-								color: color,
-								status: status
-							},
-							success: function (response) {
-								var resp = JSON.parse(response);
-								if (resp.status) {
-									// Redirect to another page after successful insertion
-									window.location.href = "../color/show_color.php";
-								} else {
-									alert("Color is Already Added");
+						if (isValid) {
+							// AJAX to submit form data
+							$.ajax({
+								type: "POST",
+								url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+								data: {
+									action: "add_color",
+									color: color,
+									status: status
+								},
+								success: function (response) {
+									var resp = JSON.parse(response);
+									if (resp.status) {
+										// Redirect to another page after successful insertion
+										window.location.href = "../color/show_color.php";
+									} else {
+										alert("Color is Already Added");
+									}
+								},
+								error: function (xhr, status, error) {
+									alert("AJAX request failed: " + status + "\nError: " + error);
 								}
-							},
-							error: function (xhr, status, error) {
-								alert("AJAX request failed: " + status + "\nError: " + error);
-							}
-						});
+							});
+						}
 					}
+					
 				}
-				
+				if (found == false) {
+					alert("Please Chouse Color red, blue, green, yellow, orange, purple, pink,brown, gray, black, white, cyan, magenta, turquoise,gold, silver, indigo, maroon, olive, teal  ");
+				} 
 			}
-			if (found == false) {
-				alert("Please Chouse Color red, blue, green, yellow, orange, purple, pink,brown, gray, black, white, cyan, magenta, turquoise,gold, silver, indigo, maroon, olive, teal  ");
-			} 
-			
-			
+			catch(e){
+				alert("An error occurred at line " + e.line + ": " + e.message);
+			}
         });
     });
 </script>

@@ -85,44 +85,49 @@
 <script>
 function auto_change_qut_1() 
 {
-	var qut = document.getElementById('qut_change').value;
-	var total_qut = parseInt(qut) - 1;
-	
-	var price = document.getElementById('price').value;
-	
-	
-	if(stock > qut)
-	{
-		var btn_plus = document.getElementById('block_function');
-			btn_plus.style.pointerEvents = "auto";
-			var total_amount = total_qut * price;
-			document.getElementById('all_amount').innerText = total_amount;
-			document.getElementById('amount').innerText = total_amount;
-			document.getElementById('total_amount_p').innerText = total_amount;
-
-	}
-	else
-	{
-		if(total_qut == '0')
+	try{
+		var qut = document.getElementById('qut_change').value;
+		var total_qut = parseInt(qut) - 1;
+		
+		var price = document.getElementById('price').value;
+		
+		
+		if(stock > qut)
 		{
-			console.log(total_qut);
-			var btn_plus = document.getElementById('block_function1');
-			btn_plus.style.pointerEvents = "none";
-			
-			total_amount = '0';
-			document.getElementById('all_amount').innerText = total_amount;
-			document.getElementById('amount').innerText = total_amount;
-			document.getElementById('total_amount_p').innerText = total_amount;
+			var btn_plus = document.getElementById('block_function');
+				btn_plus.style.pointerEvents = "auto";
+				var total_amount = total_qut * price;
+				document.getElementById('all_amount').innerText = total_amount;
+				document.getElementById('amount').innerText = total_amount;
+				document.getElementById('total_amount_p').innerText = total_amount;
+
 		}
-		else{
-			console.log(stock);
-			var total_amount = total_qut * price;
-			console.log(total_amount);
-			document.getElementById('all_amount').innerText = total_amount;
-			document.getElementById('amount').innerText = total_amount;
-			document.getElementById('total_amount_p').innerText = total_amount;
+		else
+		{
+			if(total_qut == '0')
+			{
+				console.log(total_qut);
+				var btn_plus = document.getElementById('block_function1');
+				btn_plus.style.pointerEvents = "none";
+				
+				total_amount = '0';
+				document.getElementById('all_amount').innerText = total_amount;
+				document.getElementById('amount').innerText = total_amount;
+				document.getElementById('total_amount_p').innerText = total_amount;
+			}
+			else{
+				console.log(stock);
+				var total_amount = total_qut * price;
+				console.log(total_amount);
+				document.getElementById('all_amount').innerText = total_amount;
+				document.getElementById('amount').innerText = total_amount;
+				document.getElementById('total_amount_p').innerText = total_amount;
+			}
 		}
+	}catch (error) {
+		console.error("Error occurred:", error);
 	}
+	
 	
 	
 		

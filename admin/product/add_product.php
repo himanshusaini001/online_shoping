@@ -193,79 +193,84 @@
     $(document).ready(function () {
         // Form validation using jQuery
         $("#submitBtn").click(function () {
-            // Reset previous error messages
-            $(".error-message").text("");
+			try{
+				// Reset previous error messages
+				$(".error-message").text("");
 
-			var category = $("#category").val();
-			var product_color = $("#product_color").val();
-			var product_size = $("#product_size").val();
-			var product_stock = $("#product_stock").val();
-			var price = $("#price").val();
-			var product_name = $("#product_name").val();
-			var description = $("#description").val();
-			var product_img = $("#product_img").val();
-			var status = $("#status").val();
-			
-			if (!/^[a-zA-Z]+$/.test(product_name)) {
-				alert("Check name field, add only characters." );
-			}
-			else{
-				 var isValid = true;
-
-            if (category === "") {
-                isValid = false;
-            }
-
-            if (product_color === "") {
-                isValid = false;
-            }
-			if (product_size === "") {
-                isValid = false;
-            }
-			if (product_stock === "") {
-                isValid = false;
-            }
-			if (price === "") {
-                isValid = false;
-            }
-			if (product_name === "") {
-                isValid = false;
-            }
-			if (description === "") {
-                isValid = false;
-            }
-			
-			if (status === "") {
-                isValid = false;
-            }
-
-            if (!isValid) {
-                alert("Name and Image URL are required.");
-            } else {
+				var category = $("#category").val();
+				var product_color = $("#product_color").val();
+				var product_size = $("#product_size").val();
+				var product_stock = $("#product_stock").val();
+				var price = $("#price").val();
+				var product_name = $("#product_name").val();
+				var description = $("#description").val();
+				var product_img = $("#product_img").val();
+				var status = $("#status").val();
 				
-				var form = document.getElementById('addForm');
-				let formdata = new FormData(form);
-                // AJAX to submit form data
-                $.ajax({
-                    type: "POST",
-                    url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                    data: formdata,
-					processData: false,
-					contentType: false,
-                    success: function (response) {
-						var res = JSON.parse(response);
-                        if (res.status) {
-                           window.location = window.location.origin+"/online-shoping/admin/product/show_product.php" ;
-                        } else {
-                            alert("Error: Not Relocate");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        alert("AJAX request failed: " + status + "\nError: " + error);
-                    }
-                });
-            }
+				if (!/^[a-zA-Z]+$/.test(product_name)) {
+					alert("Check name field, add only characters." );
+				}
+				else{
+					 var isValid = true;
+
+				if (category === "") {
+					isValid = false;
+				}
+
+				if (product_color === "") {
+					isValid = false;
+				}
+				if (product_size === "") {
+					isValid = false;
+				}
+				if (product_stock === "") {
+					isValid = false;
+				}
+				if (price === "") {
+					isValid = false;
+				}
+				if (product_name === "") {
+					isValid = false;
+				}
+				if (description === "") {
+					isValid = false;
+				}
+				
+				if (status === "") {
+					isValid = false;
+				}
+
+				if (!isValid) {
+					alert("Name and Image URL are required.");
+				} else {
+					
+					var form = document.getElementById('addForm');
+					let formdata = new FormData(form);
+					// AJAX to submit form data
+					$.ajax({
+						type: "POST",
+						url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+						data: formdata,
+						processData: false,
+						contentType: false,
+						success: function (response) {
+							var res = JSON.parse(response);
+							if (res.status) {
+							   window.location = window.location.origin+"/online-shoping/admin/product/show_product.php" ;
+							} else {
+								alert("Error: Not Relocate");
+							}
+						},
+						error: function (xhr, status, error) {
+							alert("AJAX request failed: " + status + "\nError: " + error);
+						}
+					});
+				}
+				}
 			}
+            catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
+            }
         });
     });
 </script>

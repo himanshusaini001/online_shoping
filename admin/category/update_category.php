@@ -133,47 +133,53 @@ $cid = $_GET['cid'];
             // Form validation using jQuery
             $("#submitBtn").click(function () {
                 // Reset previous error messages
-                $(".error-message").text("");
-				var cid = $("#cid").val();
-                var cname = $("#cname").val();
-                var cimg = $("#cimg").val();
-				var status = $("#status").val();
-                var isValid = true;
+				try{
+					$(".error-message").text("");
+					var cid = $("#cid").val();
+					var cname = $("#cname").val();
+					var cimg = $("#cimg").val();
+					var status = $("#status").val();
+					var isValid = true;
 
-                if (cname === "") {
-                    isValid = false;
-                }
-				
-				if (status === "") {
-                    isValid = false;
-                }
+					if (cname === "") {
+						isValid = false;
+					}
+					
+					if (status === "") {
+						isValid = false;
+					}
 
-                if (!isValid) {
-                    alert("Name and Image URL are required.");
-                } else {
-                    // AJAX to submit form data
-					var form = document.getElementById('addForm');
-					let formdata = new FormData(form);
-                    $.ajax({
-                        type: "POST",
-                        url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                        data: formdata,
-						processData: false,
-						contentType: false,
-                        success: function (response) {
-							var resp = JSON.parse(response);
-                            if (resp.status) {
-                                // Redirect to another page after successful insertion
-                                window.location.href = "../category/show_category.php";
-                            } else {
-                                alert("Error: " + response);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            alert("AJAX request failed: " + status + "\nError: " + error);
-                        }
-                    });
-                }
+					if (!isValid) {
+						alert("Name and Image URL are required.");
+					} else {
+						// AJAX to submit form data
+						var form = document.getElementById('addForm');
+						let formdata = new FormData(form);
+						$.ajax({
+							type: "POST",
+							url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+							data: formdata,
+							processData: false,
+							contentType: false,
+							success: function (response) {
+								var resp = JSON.parse(response);
+								if (resp.status) {
+									// Redirect to another page after successful insertion
+									window.location.href = "../category/show_category.php";
+								} else {
+									alert("Error: " + response);
+								}
+							},
+							error: function (xhr, status, error) {
+								alert("AJAX request failed: " + status + "\nError: " + error);
+							}
+						});
+					}
+				}
+				catch(error){
+					alert("An error occurred at line " + error.line + ": " + error.message);
+				}
+                
             });
         });
     </script>

@@ -126,70 +126,72 @@ $color_id = $_GET['color_id'];
     $(document).ready(function () {
         // Form validation using jQuery
         $("#submitBtn").click(function () {
-            // Reset previous error messages
-            $(".error-message").text("");
-			
-            var color_name = $("#color_name").val();
-			var color_id = $("#color_id").val();
-			var status = $("#status").val();
-			
-			var found = false;
-			var colors = [
-				'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
-				'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
-				'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
-			];
-            
-			
-			for (var i = 0; i < colors.length; i++) {
+           try{
+			    // Reset previous error messages
+				$(".error-message").text("");
 				
-				if (color_name === colors[i]) {
+				var color_name = $("#color_name").val();
+				var color_id = $("#color_id").val();
+				var status = $("#status").val();
+				
+				var found = false;
+				var colors = [
+					'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'pink',
+					'brown', 'gray', 'black', 'white', 'cyan', 'magenta', 'turquoise',
+					'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
+				];
+				
+				
+				for (var i = 0; i < colors.length; i++) {
 					
-					 found = true;
-					var isValid = true;
-					if (color_name === "") {
-						isValid = false;
-						alert("Fild is required.");
-					}
-					
-					if (status === "") {
-						isValid = false;
-						alert("Fild is required.");
-					}
+					if (color_name === colors[i]) {
+						
+						 found = true;
+						var isValid = true;
+						if (color_name === "") {
+							isValid = false;
+							alert("Fild is required.");
+						}
+						
+						if (status === "") {
+							isValid = false;
+							alert("Fild is required.");
+						}
 
-					if (isValid) {
-						// AJAX to submit form data
-						$.ajax({
-							type: "POST",
-							url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-							data: {
-								action: "update_color",
-								color_name: color_name,
-								color_id:color_id,
-								status: status
-							},
-							success: function (response) {
-								var resp = JSON.parse(response);
-								if (resp.status) {
-									// Redirect to another page after successful insertion
-									window.location.href = "../color/show_color.php";
-								} else {
-									alert("Color is Already Added");
+						if (isValid) {
+							// AJAX to submit form data
+							$.ajax({
+								type: "POST",
+								url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+								data: {
+									action: "update_color",
+									color_name: color_name,
+									color_id:color_id,
+									status: status
+								},
+								success: function (response) {
+									var resp = JSON.parse(response);
+									if (resp.status) {
+										// Redirect to another page after successful insertion
+										window.location.href = "../color/show_color.php";
+									} else {
+										alert("Color is Already Added");
+									}
+								},
+								error: function (xhr, status, error) {
+									alert("AJAX request failed: " + status + "\nError: " + error);
 								}
-							},
-							error: function (xhr, status, error) {
-								alert("AJAX request failed: " + status + "\nError: " + error);
-							}
-						});
+							});
+						}
 					}
+					
 				}
-				
-			}
-			if (found == false) {
-				alert("Please Chouse Other Color red, blue, green, yellow, orange, purple, pink,brown, gray, black, white, cyan, magenta, turquoise,gold, silver, indigo, maroon, olive, teal  ");
-			} 
-			
-			
+				if (found == false) {
+					alert("Please Chouse Other Color red, blue, green, yellow, orange, purple, pink,brown, gray, black, white, cyan, magenta, turquoise,gold, silver, indigo, maroon, olive, teal  ");
+				} 
+		   }catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
+            }
         });
     });
 </script>

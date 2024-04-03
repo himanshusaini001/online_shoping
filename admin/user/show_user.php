@@ -168,45 +168,50 @@
     $(document).ready(function() {
         // Toggle status switch
         $('.status-switch').on('click', function() {
-            var userId = $(this).data('userid');
-			var email = $(this).data('email');
-            var currentStatus = $(this).data('status');
-            if(currentStatus == 1)
-			{
-				var status = currentStatus - 1;
-			}
-			else
-			{
-				var status = currentStatus + 1;
-			}
+			try{
+				var userId = $(this).data('userid');
+				var email = $(this).data('email');
+				var currentStatus = $(this).data('status');
+				if(currentStatus == 1)
+				{
+					var status = currentStatus - 1;
+				}
+				else
+				{
+					var status = currentStatus + 1;
+				}
 
-            $.ajax({
-                type: 'POST',
-                url: '../../functions/function_ajax.php', // Update this with the file handling the status update
-                data: { action:"update_user",email:email, sid: userId, status: status },
-                 success: function (response) {
-						let resp = JSON.parse(response);
-						if(resp.status)
-						{
-							if(resp.status == '1')
+				$.ajax({
+					type: 'POST',
+					url: '../../functions/function_ajax.php', // Update this with the file handling the status update
+					data: { action:"update_user",email:email, sid: userId, status: status },
+					 success: function (response) {
+							let resp = JSON.parse(response);
+							if(resp.status)
 							{
-								window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+								if(resp.status == '1')
+								{
+									window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+								}
+								else{
+									window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+								}
+								
+								 
 							}
 							else{
-								window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
+								alert ("Do not Relocate");
 							}
 							
-							 
+						},
+						error: function (xhr, status, error) { 
+							alert("AJAX request failed: " + status + "\nError: " + error);
 						}
-						else{
-							alert ("Do not Relocate");
-						}
-						
-					},
-                    error: function (xhr, status, error) { 
-                        alert("AJAX request failed: " + status + "\nError: " + error);
-                    }
-            });
+				});
+			}
+            catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
+            }
         });
     });
 </script>

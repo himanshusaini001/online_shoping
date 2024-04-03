@@ -123,58 +123,63 @@
     $(document).ready(function () {
         // Form validation using jQuery
         $("#submitBtn").click(function () {
-            // Reset previous error messages
-            $(".error-message").text("");
-			
-			var sid = $("#sid").val();
-			var status = $("#status").val();
-			var uppercaseText = $("#size").val();
-			var size = uppercaseText.toUpperCase();
-
-            if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
-                var isValid = true;
-
-                if (size === "") {
-                    isValid = false;
-                    alert("Size is required.");
-                }
+			try{
+				// Reset previous error messages
+				$(".error-message").text("");
 				
-				if (status === "") {
-                    isValid = false;
-                    alert("Size is required.");
-                }
+				var sid = $("#sid").val();
+				var status = $("#status").val();
+				var uppercaseText = $("#size").val();
+				var size = uppercaseText.toUpperCase();
 
-                if (isValid) {
-                    // AJAX to submit form data
-                    $.ajax({
-                        type: "POST",
-                        url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-                        data: {
-                            action: "update_size",
-                            size: size,
-							status: status,
-							sid: sid
-                        },
-                        success: function (response) {
-							var resp = JSON.parse(response);
-                            if (resp.status) {
-                                // Redirect to another page after successful insertion
-                                window.location.href = "../size/show_size.php";
-                            } else {
-                                alert("Size is Already Added");
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            alert("AJAX request failed: " + status + "\nError: " + error);
-                        }
-                    });
-                }
-            } else {
-				let sizesList = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
-				sizesList.push(size);
-				alert("Added size to the list: " + sizesList.join(', '));
-				// Your code for the false condition goes here
+				if (size === "XS" || size === "S" || size === "M" || size === "L" || size === "XL" || size === "XXL" || size === "XXXL") {
+					var isValid = true;
+
+					if (size === "") {
+						isValid = false;
+						alert("Size is required.");
+					}
+					
+					if (status === "") {
+						isValid = false;
+						alert("Size is required.");
+					}
+
+					if (isValid) {
+						// AJAX to submit form data
+						$.ajax({
+							type: "POST",
+							url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
+							data: {
+								action: "update_size",
+								size: size,
+								status: status,
+								sid: sid
+							},
+							success: function (response) {
+								var resp = JSON.parse(response);
+								if (resp.status) {
+									// Redirect to another page after successful insertion
+									window.location.href = "../size/show_size.php";
+								} else {
+									alert("Size is Already Added");
+								}
+							},
+							error: function (xhr, status, error) {
+								alert("AJAX request failed: " + status + "\nError: " + error);
+							}
+						});
+					}
+				} else {
+					let sizesList = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+					sizesList.push(size);
+					alert("Added size to the list: " + sizesList.join(', '));
+					// Your code for the false condition goes here
+				}
 			}
+			catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
+            }
         });
     });
 </script>

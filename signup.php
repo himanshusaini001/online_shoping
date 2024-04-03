@@ -123,121 +123,125 @@
 	<script>
     $(document).ready(function() {
         $("#addUser").click(function() {
-            // Custom validation logic
+			try{
+				
+				// Get input values
+				var fname = $("#fname").val().trim();
+				var lname = $("#lname").val().trim();
+				var email = $("#email").val().trim();
+				var phone = $("#phone").val().trim();
+				var address = $("#address").val().trim();
+				var username = $("#username").val().trim();
+				var password = $("#password").val().trim();
 
-            // Get input values
-            var fname = $("#fname").val().trim();
-            var lname = $("#lname").val().trim();
-            var email = $("#email").val().trim();
-            var phone = $("#phone").val().trim();
-            var address = $("#address").val().trim();
-            var username = $("#username").val().trim();
-            var password = $("#password").val().trim();
+				// Validation for First Name and Last Name (only alphabets)
+				var nameRegex = /^[A-Za-z]+$/;
+				if (!nameRegex.test(fname)) {
+					alert("Please enter valid first and last names (only alphabets).");
+					return;
+				}
+				var lnameRegex = /^[A-Za-z]+$/;
+				if (!nameRegex.test(lname)) {
+					alert("Please enter valid first and last names (only alphabets).");
+					return;
+				}
 
-            // Validation for First Name and Last Name (only alphabets)
-            var nameRegex = /^[A-Za-z]+$/;
-            if (!nameRegex.test(fname)) {
-                alert("Please enter valid first and last names (only alphabets).");
-                return;
-            }
-			var lnameRegex = /^[A-Za-z]+$/;
-            if (!nameRegex.test(lname)) {
-                alert("Please enter valid first and last names (only alphabets).");
-                return;
-            }
+				// Validation for Email (basic format check)
+				var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				if (!emailRegex.test(email)) {
+					alert("Please enter a valid email address.");
+					return;
+				}
 
-            // Validation for Email (basic format check)
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert("Please enter a valid email address.");
-                return;
-            }
+				// Validation for Phone (only numbers, exactly 10 digits)
+				var phoneRegex = /^[0-9]{10}$/;
+				if (!phoneRegex.test(phone)) {
+					alert("Please enter a valid 10-digit phone number.");
+					return;
+				}
 
-            // Validation for Phone (only numbers, exactly 10 digits)
-            var phoneRegex = /^[0-9]{10}$/;
-            if (!phoneRegex.test(phone)) {
-                alert("Please enter a valid 10-digit phone number.");
-                return;
-            }
+				// Validation for Password (at least 6 characters, at least 1 digit)
+				var passwordRegex = /^(?=.*\d).{6,}$/;
+				if (!passwordRegex.test(password)) {
+					alert("Please enter a valid password (at least 6 characters with at least 1 digit).");
+					return;
+				}
 
-            // Validation for Password (at least 6 characters, at least 1 digit)
-            var passwordRegex = /^(?=.*\d).{6,}$/;
-            if (!passwordRegex.test(password)) {
-                alert("Please enter a valid password (at least 6 characters with at least 1 digit).");
-                return;
-            }
+				// Validation for Address (non-empty)
+				if (address === "") {
+					alert("Please enter your address.");
+					return;
+				}
 
-            // Validation for Address (non-empty)
-            if (address === "") {
-                alert("Please enter your address.");
-                return;
-            }
+				// Validation for Username (non-empty)
+				if (username === "") {
+					alert("Please enter a username.");
+					return;
+				}
 
-            // Validation for Username (non-empty)
-            if (username === "") {
-                alert("Please enter a username.");
-                return;
-            }
+				// Send the data if all validations pass
+				$.ajax({
+					type: "POST",
+					url: "functions/function_ajax.php",
+					data: {
+						action: "register",
+						fname: fname,
+						lname: lname,
+						email: email,
+						phone: phone,
+						address: address,
+						username: username,
+						password: password
+					},
+					success: function(response) {
+						$("#result");
 
-            // Send the data if all validations pass
-            $.ajax({
-                type: "POST",
-                url: "functions/function_ajax.php",
-                data: {
-                    action: "register",
-                    fname: fname,
-                    lname: lname,
-                    email: email,
-                    phone: phone,
-                    address: address,
-                    username: username,
-                    password: password
-                },
-                success: function(response) {
-                    $("#result");
-
-                    // Check if the response indicates success, then redirect
-					if (response.includes("successful")) 
-					{
-						// Start the countdown
-						let seconds = 3; // Countdown time in seconds
-						var from = document.getElementById("addUserForm");
-						if (from.style.display === "none" || from.style.display === "") 
+						// Check if the response indicates success, then redirect
+						if (response.includes("successful")) 
 						{
-							from.style.display = "none";
-						} 
-						else 
-						{
-							from.style.display = "block";
-						}
-						var element = document.getElementById("countdown");
-						if (element.style.display === "none" || element.style.display === "") 
-						{
-							element.style.display = "block";
-						} 
-						else 
-						{
-							element.style.display = "block";
-						}
-						const countdownInterval = setInterval(function() 
-						{
-							document.getElementById("countdown").textContent = "Redirecting in " + seconds+ " second...";
-							seconds--;
-							// Show an alert when the countdown reaches 1
-							if (seconds === 3) 
+							// Start the countdown
+							let seconds = 3; // Countdown time in seconds
+							var from = document.getElementById("addUserForm");
+							if (from.style.display === "none" || from.style.display === "") 
 							{
-								alert("Redirecting in 3 second...");
-							}
-							// Redirect the user after the countdown ends
-							if (seconds < 0) 
+								from.style.display = "none";
+							} 
+							else 
 							{
-								clearInterval(countdownInterval);
-								window.location.href = "verify_otp/sign_up_otp.php"; // Redirect to another page
+								from.style.display = "block";
 							}
-						}, 1500);
+							var element = document.getElementById("countdown");
+							if (element.style.display === "none" || element.style.display === "") 
+							{
+								element.style.display = "block";
+							} 
+							else 
+							{
+								element.style.display = "block";
+							}
+							const countdownInterval = setInterval(function() 
+							{
+								document.getElementById("countdown").textContent = "Redirecting in " + seconds+ " second...";
+								seconds--;
+								// Show an alert when the countdown reaches 1
+								if (seconds === 3) 
+								{
+									alert("Redirecting in 3 second...");
+								}
+								// Redirect the user after the countdown ends
+								if (seconds < 0) 
+								{
+									clearInterval(countdownInterval);
+									window.location.href = "verify_otp/sign_up_otp.php"; // Redirect to another page
+								}
+							}, 1500);
+						}
 					}
-                }
-            });
+				});
+			}catch (error) {
+				console.error("Error occurred:", error);
+			}
+
         });
     });
 </script>

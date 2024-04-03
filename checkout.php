@@ -186,119 +186,124 @@
 
 <script>
     function place_order() {
-         var errors = [];
+		try{
+			var errors = [];
+			var firstName = document.getElementById('first_name').value.trim();
+			var lastName = document.getElementById('last_name').value.trim();
+			var city = document.getElementById('city').value.trim();
+			var email = document.getElementById('email').value.trim();
+			var phone = document.getElementById('phone').value.trim();
+			var addressLine1 = document.getElementById('address_line_1').value.trim();
+			var addressLine2 = document.getElementById('address_line_2').value.trim();
+			var country = document.getElementById('country').value.trim();
+			var state = document.getElementById('state').value.trim();
+			var pinCode = document.getElementById('pin_code').value.trim();
 
-        var firstName = document.getElementById('first_name').value.trim();
-        var lastName = document.getElementById('last_name').value.trim();
-        var city = document.getElementById('city').value.trim();
-        var email = document.getElementById('email').value.trim();
-        var phone = document.getElementById('phone').value.trim();
-        var addressLine1 = document.getElementById('address_line_1').value.trim();
-        var addressLine2 = document.getElementById('address_line_2').value.trim();
-        var country = document.getElementById('country').value.trim();
-        var state = document.getElementById('state').value.trim();
-        var pinCode = document.getElementById('pin_code').value.trim();
+			var nameRegex = /^[a-zA-Z]+$/;
+			var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			var phoneRegex = /^[0-9]+$/;
+			var addressRegex = /^[a-zA-Z0-9\s,.'-]*$/;
 
-        var nameRegex = /^[a-zA-Z]+$/;
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        var phoneRegex = /^[0-9]+$/;
-        var addressRegex = /^[a-zA-Z0-9\s,.'-]*$/;
+			if (firstName === "") {
+				errors.push("Please enter your first name.");
+			} else if (!nameRegex.test(firstName)) {
+				errors.push("Please enter a valid first name with only letters.");
+			}
 
-        if (firstName === "") {
-            errors.push("Please enter your first name.");
-        } else if (!nameRegex.test(firstName)) {
-            errors.push("Please enter a valid first name with only letters.");
-        }
+			if (lastName === "") {
+				errors.push("Please enter your last name.");
+			} else if (!nameRegex.test(lastName)) {
+				errors.push("Please enter a valid last name with only letters.");
+			}
 
-        if (lastName === "") {
-            errors.push("Please enter your last name.");
-        } else if (!nameRegex.test(lastName)) {
-            errors.push("Please enter a valid last name with only letters.");
-        }
+			if (city === "") {
+				errors.push("Please enter your city name.");
+			} else if (!nameRegex.test(city)) {
+				errors.push("Please enter a valid city name with only letters.");
+			}
 
-        if (city === "") {
-            errors.push("Please enter your city name.");
-        } else if (!nameRegex.test(city)) {
-            errors.push("Please enter a valid city name with only letters.");
-        }
+			if (email === "") {
+				errors.push("Please enter your email address.");
+			} else if (!emailRegex.test(email)) {
+				errors.push("Please enter a valid email address.");
+			}
 
-        if (email === "") {
-            errors.push("Please enter your email address.");
-        } else if (!emailRegex.test(email)) {
-            errors.push("Please enter a valid email address.");
-        }
+			if (phone === "") {
+				errors.push("Please enter your phone number.");
+			} else if (!phoneRegex.test(phone)) {
+				errors.push("Please enter a valid phone number with only digits.");
+			}
 
-        if (phone === "") {
-            errors.push("Please enter your phone number.");
-        } else if (!phoneRegex.test(phone)) {
-            errors.push("Please enter a valid phone number with only digits.");
-        }
+			if (addressLine1 === "") {
+				errors.push("Please enter your address line 1.");
+			} else if (!addressRegex.test(addressLine1)) {
+				errors.push("Please enter a valid address line 1.");
+			}
+			
+			if (addressLine2 === "") {
+				errors.push("Please enter your address line 2.");
+			} else if (!addressRegex.test(addressLine1)) {
+				errors.push("Please enter a valid address line 2.");
+			}
+			
+			if (country === "") {
+				errors.push("Please enter your country .");
+			} else if (!addressRegex.test(addressLine1)) {
+				errors.push("Please enter a valid country .");
+			}
+			
+			if (state === "") {
+				errors.push("Please enter your state .");
+			} else if (!addressRegex.test(addressLine1)) {
+				errors.push("Please enter a valid state .");
+			}
+			if (pinCode === "") {
+				errors.push("Please enter your pinCode .");
+			} else if (!addressRegex.test(addressLine1)) {
+				errors.push("Please enter a valid pinCode .");
+			}
 
-        if (addressLine1 === "") {
-            errors.push("Please enter your address line 1.");
-        } else if (!addressRegex.test(addressLine1)) {
-            errors.push("Please enter a valid address line 1.");
-        }
-		
-		if (addressLine2 === "") {
-            errors.push("Please enter your address line 2.");
-        } else if (!addressRegex.test(addressLine1)) {
-            errors.push("Please enter a valid address line 2.");
-        }
-		
-		if (country === "") {
-            errors.push("Please enter your country .");
-        } else if (!addressRegex.test(addressLine1)) {
-            errors.push("Please enter a valid country .");
-        }
-		
-		if (state === "") {
-            errors.push("Please enter your state .");
-        } else if (!addressRegex.test(addressLine1)) {
-            errors.push("Please enter a valid state .");
-        }
-		if (pinCode === "") {
-            errors.push("Please enter your pinCode .");
-        } else if (!addressRegex.test(addressLine1)) {
-            errors.push("Please enter a valid pinCode .");
-        }
+			// Repeat the same pattern for other fields
 
-        // Repeat the same pattern for other fields
-
-        if (errors.length > 0) {
-            event.preventDefault();
-            alert(errors.join("\n"));
-        }
-		else{
-			// AJAX to submit form data
-        var form = document.getElementById('addUserForm');
-        let formdata = new FormData(form);
-        $.ajax({
-            type: "POST",
-            url: "functions/function_ajax.php", // Replace with the actual server-side processing script
-            data: formdata,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-				var resp = JSON.parse(response);
-                if (resp.status) {
-					var product_id = document.getElementById('product_id').value;
-					var qut = document.getElementById('qut').value;
-					var order_type = document.getElementById('order_type').value;
-					console.log(order_type);
-					
-                    // Redirect to another page after successful insertion
-					//alert("data insert ok");
-                    window.location.href = "place_order.php?product_id=" + encodeURIComponent(product_id) + "&order_type=" +  encodeURIComponent(order_type);
-                } else {
-                    alert("Error: " + response);
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("AJAX request failed: " + status + "\nError: " + error);
-            }
-        });
+			if (errors.length > 0) {
+				event.preventDefault();
+				alert(errors.join("\n"));
+			}
+			else{
+				// AJAX to submit form data
+			var form = document.getElementById('addUserForm');
+			let formdata = new FormData(form);
+			$.ajax({
+				type: "POST",
+				url: "functions/function_ajax.php", // Replace with the actual server-side processing script
+				data: formdata,
+				processData: false,
+				contentType: false,
+				success: function (response) {
+					var resp = JSON.parse(response);
+					if (resp.status) {
+						var product_id = document.getElementById('product_id').value;
+						var qut = document.getElementById('qut').value;
+						var order_type = document.getElementById('order_type').value;
+						console.log(order_type);
+						
+						// Redirect to another page after successful insertion
+						//alert("data insert ok");
+						window.location.href = "place_order.php?product_id=" + encodeURIComponent(product_id) + "&order_type=" +  encodeURIComponent(order_type);
+					} else {
+						alert("Error: " + response);
+					}
+				},
+				error: function (xhr, status, error) {
+					alert("AJAX request failed: " + status + "\nError: " + error);
+				}
+			});
+			}
 		}
+		catch (error) {
+			console.error("Error occurred:", error);
+		}
+         
     }
 
 </script>

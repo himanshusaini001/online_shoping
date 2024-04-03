@@ -123,57 +123,55 @@ include("../include/main_file/main_sidebar.php");
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
-    // Form validation using jQuery
-    $("#submitBtn").click(function () {
-        // Reset previous error messages
-        $(".error-message").remove();
+        $("#submitBtn").click(function () {
+            $(".error-message").remove();
 
-        // Validation and trimming for the name field
-        var cname = $.trim($("#cname").val());
-        if (cname === "" || !/^[a-zA-Z ]+$/.test(cname)) {
-            $("#cname").after('<span class="error-message">Please enter a valid name (only letters and spaces).</span>');
-            return;
-        }
-
-        // Validation for the image field
-        var cimg = $("#cimg").val();
-        if (!cimg) {
-            $("#cimg").after('<span class="error-message">Please select an image.</span>');
-            return;
-        }
-
-        // Validation for the status field
-        var status = $("#status").val();
-        if (!/^[0-1]$/.test(status)) {
-            $("#status").after('<span class="error-message">Please select a valid status.</span>');
-            return;
-        }
-
-        // AJAX to submit form data
-        var form = document.getElementById('addForm');
-        let formdata = new FormData(form);
-        $.ajax({
-            type: "POST",
-            url: "../../functions/function_ajax.php", // Replace with the actual server-side processing script
-            data: formdata,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-				var resp = JSON.parse(response);
-                if (resp.status) {
-                    // Redirect to another page after successful insertion
-                    window.location.href = "../category/show_category.php";
-                } else {
-                    alert("Error: " + response);
+            try {
+                var cname = $.trim($("#cname").val());
+                if (cname === "" || !/^[a-zA-Z ]+$/.test(cname)) {
+                    $("#cname").after('<span class="error-message">Please enter a valid name (only letters and spaces).</span>');
+                    return;
                 }
-            },
-            error: function (xhr, status, error) {
-                alert("AJAX request failed: " + status + "\nError: " + error);
+
+                var cimg = $("#cimg").val();
+                if (!cimg) {
+                    $("#cimg").after('<span class="error-message">Please select an image.</span>');
+                    return;
+                }
+
+                var status = $("#status").val();
+                if (!/^[0-1]$/.test(status)) {
+                    $("#status").after('<span class="error-message">Please select a valid status.</span>');
+                    return;
+                }
+
+                var form = document.getElementById('addForm');
+                let formdata = new FormData(form);
+                $.ajax({
+                    type: "POST",
+                    url: "../../functions/function_ajax.php",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        var resp = JSON.parse(response);
+                        if (resp.status) {
+                            window.location.href = "../category/show_category.php";
+                        } else {
+                            alert("Error: " + response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        throw new Error("AJAX request failed: " + status + "\nError: " + error);
+                    }
+                });
+            } catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
             }
         });
     });
-});
 </script>
+
 
 <!-- End Script Tag  -->
 

@@ -100,63 +100,69 @@
 <script>
 $(document).ready(function() {
     $('form').submit(function(e) {
-        e.preventDefault(); // Prevent default form submission
+		try{  
+			e.preventDefault(); // Prevent default form submission
 
-        var error = false;
+			var error = false;
 
-        // First Name and Last Name validation
-        var fname = $('#fname').val();
-        var lname = $('#lname').val();
-        var nameRegex = /^[a-zA-Z\s]*$/; // Allow only alphabets and spaces
+			// First Name and Last Name validation
+			var fname = $('#fname').val();
+			var lname = $('#lname').val();
+			var nameRegex = /^[a-zA-Z\s]*$/; // Allow only alphabets and spaces
 
-        if (!nameRegex.test(fname) || !nameRegex.test(lname)) {
-            alert('Please enter valid first and last names (no numbers or special characters allowed).');
-            error = true;
-        }
+			if (!nameRegex.test(fname) || !nameRegex.test(lname)) {
+				alert('Please enter valid first and last names (no numbers or special characters allowed).');
+				error = true;
+			}
 
-        // Email validation
-        var email = $('#email').val();
-        var emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+			// Email validation
+			var email = $('#email').val();
+			var emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
-            error = true;
-        }
+			if (!emailRegex.test(email)) {
+				alert('Please enter a valid email address.');
+				error = true;
+			}
 
-        // Phone number validation
-        var phone = $('#phone').val();
-        var phoneRegex = /^\d{10}$/; // 10 digits only
+			// Phone number validation
+			var phone = $('#phone').val();
+			var phoneRegex = /^\d{10}$/; // 10 digits only
 
-        if (!phoneRegex.test(phone)) {
-            alert('Please enter a 10-digit phone number.');
-            error = true;
-        }
+			if (!phoneRegex.test(phone)) {
+				alert('Please enter a 10-digit phone number.');
+				error = true;
+			}
 
-        if (!error) {
-            // If no validation error, proceed with AJAX form submission
-            var form = document.getElementById('addForm');
-            let formdata = new FormData(form);
-            $.ajax({
-                type: 'POST',
-                url: "functions/function_ajax.php", // Replace with the actual server-side processing script
-                data: formdata,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    var res = JSON.parse(response);
-                    if (res.status) {
-                           window.location = window.location.origin+"/online-shoping/index.php" ;
-                        } else {
-                            alert("Error: Not Relocate");
-                        }
-                },
-                error: function(xhr, status, error) {
-                    // Handle error response
-                    alert('An error occurred while submitting the form. Please try again later.');
-                    console.error(xhr.responseText);
-                }
-            });
-        }
+			if (!error) {
+				// If no validation error, proceed with AJAX form submission
+				var form = document.getElementById('addForm');
+				let formdata = new FormData(form);
+				$.ajax({
+					type: 'POST',
+					url: "functions/function_ajax.php", // Replace with the actual server-side processing script
+					data: formdata,
+					processData: false,
+					contentType: false,
+					success: function(response) {
+						var res = JSON.parse(response);
+						if (res.status) {
+							   window.location = window.location.origin+"/online-shoping/index.php" ;
+							} else {
+								alert("Error: Not Relocate");
+							}
+					},
+					error: function(xhr, status, error) {
+						// Handle error response
+						alert('An error occurred while submitting the form. Please try again later.');
+						console.error(xhr.responseText);
+					}
+				});
+			}
+		}
+		catch (error) {
+			console.error("Error occurred:", error);
+		}
+      
     });
 });
 </script>

@@ -372,49 +372,54 @@
 
 <script>
 	function cart_call() {
-		var qut = parseInt(document.getElementById('qut').value);
-		var stock = parseInt(document.getElementById('stock').value);
-		var product_id = parseInt(document.getElementById('product_id').value);
-		var price = parseInt(document.getElementById('price').value);
-		var total_price = qut * price;
-		
-		if (stock > qut) {
-			
-			if (qut == 0) {
-				alert("Please Add Stock");
-				return false;
-			} else {
-				$.ajax({
-					type: "POST",
-					url: "functions/function_ajax.php",
-					data: {
-						action: "add_to_cart",
-						qut: qut,
-						stock: stock,
-						total_price:total_price,
-						product_id: product_id
-					},
-					// specify the expected data type of the response
-					success: function(response) {
-							var resp = JSON.parse(response);
-						if (resp.status) {
-							alert("Successfully Added To Cart");
-							window.location.href = "detail.php?product_id= " +encodeURIComponent(product_id);
-						} else {
-							alert("Error: " + response.message); // Assuming there's a message field in the response
-						}
-					},
-					error: function(xhr, status, error) {
-						// Function to be called if the request fails
-						console.error("Error loading data: " + error);
+		try{
+				var qut = parseInt(document.getElementById('qut').value);
+				var stock = parseInt(document.getElementById('stock').value);
+				var product_id = parseInt(document.getElementById('product_id').value);
+				var price = parseInt(document.getElementById('price').value);
+				var total_price = qut * price;
+				
+				if (stock > qut) {
+					
+					if (qut == 0) {
+						alert("Please Add Stock");
+						return false;
+					} else {
+						$.ajax({
+							type: "POST",
+							url: "functions/function_ajax.php",
+							data: {
+								action: "add_to_cart",
+								qut: qut,
+								stock: stock,
+								total_price:total_price,
+								product_id: product_id
+							},
+							// specify the expected data type of the response
+							success: function(response) {
+									var resp = JSON.parse(response);
+								if (resp.status) {
+									alert("Successfully Added To Cart");
+									window.location.href = "detail.php?product_id= " +encodeURIComponent(product_id);
+								} else {
+									alert("Error: " + response.message); // Assuming there's a message field in the response
+								}
+							},
+							error: function(xhr, status, error) {
+								// Function to be called if the request fails
+								console.error("Error loading data: " + error);
+							}
+						});
 					}
-				});
-			}
-		} else {
-			alert("Available Stock " + stock);
-			return false;
-			
+				} else {
+					alert("Available Stock " + stock);
+					return false;
+					
+				}
+		}catch (error) {
+			console.error("Error occurred:", error);
 		}
+
 	}
 </script>
 </body>

@@ -143,17 +143,21 @@
 <script>
     $(document).ready(function() {
         // DataTable Initialization
-        var dataTable = $('#dataTable').DataTable();
+		try {
+			var dataTable = $('#dataTable').DataTable();
+			// Search Bar
+			$('#search').on('keyup', function () {
+				dataTable.search(this.value).draw();
+			});
 
-        // Search Bar
-        $('#search').on('keyup', function () {
-            dataTable.search(this.value).draw();
-        });
-
-        // Entries per page
-        $('#entries').on('change', function () {
-            dataTable.page.len(this.value).draw();
-        });
+			// Entries per page
+			$('#entries').on('change', function () {
+				dataTable.page.len(this.value).draw();
+			});
+		}
+		catch(e){
+			alert("An error occurred at line " + e.line + ": " + e.message);
+		}
     });
 </script>
 

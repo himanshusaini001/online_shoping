@@ -161,129 +161,135 @@
 <script>
 $(document).ready(function() {
     $('#countryForm').submit(function(e) {
-        e.preventDefault();
-        var isValid = true;
+		try{
+			 e.preventDefault();
+			var isValid = true;
 
-		// Validation for Full Name
-        var country = $('#country').val();
-        if (country.trim() === '') {
-            $('#countryError').text('Please enter your country.');
-            isValid = false;
-        } else {
-            $('#countryError').text('');
-        }
+			// Validation for Full Name
+			var country = $('#country').val();
+			if (country.trim() === '') {
+				$('#countryError').text('Please enter your country.');
+				isValid = false;
+			} else {
+				$('#countryError').text('');
+			}
 
-        // Validation for Full Name
-        var fullname = $('#fullname').val();
-        if (fullname.trim() === '') {
-            $('#fullNameError').text('Please enter your full name.');
-            isValid = false;
-        } else {
-            $('#fullNameError').text('');
-        }
+			// Validation for Full Name
+			var fullname = $('#fullname').val();
+			if (fullname.trim() === '') {
+				$('#fullNameError').text('Please enter your full name.');
+				isValid = false;
+			} else {
+				$('#fullNameError').text('');
+			}
 
-        // Validation for Phone
-        var phone = $('#phone').val();
-        var phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(phone)) {
-            $('#phoneError').text('Please enter a valid phone number (10 digits).');
-            isValid = false;
-        } else {
-            $('#phoneError').text('');
-        }
+			// Validation for Phone
+			var phone = $('#phone').val();
+			var phoneRegex = /^\d{10}$/;
+			if (!phoneRegex.test(phone)) {
+				$('#phoneError').text('Please enter a valid phone number (10 digits).');
+				isValid = false;
+			} else {
+				$('#phoneError').text('');
+			}
 
-        // Validation for Pincode
-        var pincode = $('#pincode').val();
-        if (pincode.trim() === '' || isNaN(pincode) || pincode.length !== 6) {
-            $('#pincodeError').text('Please enter a valid 6-digit pincode.');
-            isValid = false;
-        } else {
-            $('#pincodeError').text('');
-        }
+			// Validation for Pincode
+			var pincode = $('#pincode').val();
+			if (pincode.trim() === '' || isNaN(pincode) || pincode.length !== 6) {
+				$('#pincodeError').text('Please enter a valid 6-digit pincode.');
+				isValid = false;
+			} else {
+				$('#pincodeError').text('');
+			}
 
 
-        // Validation for House/Flat No.
-        var house = $('#house').val();
-        if (house.trim() === '') { // Trimmed the input before validation
-            $('#houseError').text('Please enter your house/flat number.');
-            isValid = false;
-        } else {
-            $('#houseError').text('');
-        }
+			// Validation for House/Flat No.
+			var house = $('#house').val();
+			if (house.trim() === '') { // Trimmed the input before validation
+				$('#houseError').text('Please enter your house/flat number.');
+				isValid = false;
+			} else {
+				$('#houseError').text('');
+			}
 
-        // Validation for Street
-        var street = $('#street').val();
-        if (street.trim() === '') { // Trimmed the input before validation
-            $('#streetError').text('Please enter your street name.');
-            isValid = false;
-        } else {
-            $('#streetError').text('');
-        }
+			// Validation for Street
+			var street = $('#street').val();
+			if (street.trim() === '') { // Trimmed the input before validation
+				$('#streetError').text('Please enter your street name.');
+				isValid = false;
+			} else {
+				$('#streetError').text('');
+			}
 
-        // Validation for Landmark
-        var landmark = $('#landmark').val();
-        if (landmark.trim() === '') { // Trimmed the input before validation
-            $('#landmarkError').text('Please enter a landmark.');
-            isValid = false;
-        } else {
-            $('#landmarkError').text('');
-        }
+			// Validation for Landmark
+			var landmark = $('#landmark').val();
+			if (landmark.trim() === '') { // Trimmed the input before validation
+				$('#landmarkError').text('Please enter a landmark.');
+				isValid = false;
+			} else {
+				$('#landmarkError').text('');
+			}
 
-        // Validation for Town
-        var town = $('#town').val();
-        if (town.trim() === '') { // Trimmed the input before validation
-            $('#townError').text('Please enter your town name.');
-            isValid = false;
-        } else {
-            $('#townError').text('');
-        }
+			// Validation for Town
+			var town = $('#town').val();
+			if (town.trim() === '') { // Trimmed the input before validation
+				$('#townError').text('Please enter your town name.');
+				isValid = false;
+			} else {
+				$('#townError').text('');
+			}
 
-        // Validation for state
-        var state = $('#state').val();
-        if (state.trim() === '') { // Trimmed the input before validation
-            $('#stateError').text('Please enter your state name.');
-            isValid = false;
-        } else {
-            $('#stateError').text('');
-        }
-		
-		// Validation for delivery.
-        var delivery = $('#delivery').val();
-        if (delivery.trim() === '') { // Trimmed the input before validation
-            $('#deliveryError').text('Please enter your delivery Location.');
-            isValid = false;
-        } else {
-            $('#deliveryError').text('');
-        }
-		
-		
-		
-		if (isValid) {
-		// Here you can submit the form or perform further actions
-		   // AJAX to submit form data
-			var form = document.getElementById('countryForm');
-			let formdata = new FormData(form);
-			$.ajax({
-				type: "POST",
-				url: "functions/function_ajax.php", // Replace with the actual server-side processing script
-				data: formdata,
-				processData: false,
-				contentType: false,
-				success: function (response) {
-					var resp = JSON.parse(response);
-					if (resp.status) {
-						// Redirect to another page after successful insertion
-						 window.location.href = "customer_address.php";
-					} else {
-						alert("Error: " + response);
+			// Validation for state
+			var state = $('#state').val();
+			if (state.trim() === '') { // Trimmed the input before validation
+				$('#stateError').text('Please enter your state name.');
+				isValid = false;
+			} else {
+				$('#stateError').text('');
+			}
+			
+			// Validation for delivery.
+			var delivery = $('#delivery').val();
+			if (delivery.trim() === '') { // Trimmed the input before validation
+				$('#deliveryError').text('Please enter your delivery Location.');
+				isValid = false;
+			} else {
+				$('#deliveryError').text('');
+			}
+			
+			
+			
+			if (isValid) {
+			// Here you can submit the form or perform further actions
+			   // AJAX to submit form data
+				var form = document.getElementById('countryForm');
+				let formdata = new FormData(form);
+				$.ajax({
+					type: "POST",
+					url: "functions/function_ajax.php", // Replace with the actual server-side processing script
+					data: formdata,
+					processData: false,
+					contentType: false,
+					success: function (response) {
+						var resp = JSON.parse(response);
+						if (resp.status) {
+							// Redirect to another page after successful insertion
+							 window.location.href = "customer_address.php";
+						} else {
+							alert("Error: " + response);
+						}
+					},
+					error: function (xhr, status, error) {
+						alert("AJAX request failed: " + status + "\nError: " + error);
 					}
-				},
-				error: function (xhr, status, error) {
-					alert("AJAX request failed: " + status + "\nError: " + error);
-				}
-			});
+				});
+			}
+			// If all fields are valid, submit the form
 		}
-        // If all fields are valid, submit the form
+		catch (error) {
+			console.error("Error occurred:", error);
+		}
+       
         
     });
 });

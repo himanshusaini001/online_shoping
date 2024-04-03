@@ -66,47 +66,52 @@ include('../include/db_file/config.php');
 <script>
     $(document).ready(function () {
         $("#submitButton").click(function () {
-            // Clear previous error messages
-            $("#errorMessages").html("");
+			try{
+				// Clear previous error messages
+				$("#errorMessages").html("");
 
-            // Get input values
-            var admin_name = $("#admin_name").val();
-            var admin_password = $("#admin_password").val();
+				// Get input values
+				var admin_name = $("#admin_name").val();
+				var admin_password = $("#admin_password").val();
 
-            // Perform validation
-            if (admin_name === "") {
-                $("#errorMessages").html("Please enter a username.");
-                return;
+				// Perform validation
+				if (admin_name === "") {
+					$("#errorMessages").html("Please enter a username.");
+					return;
+				}
+
+				if (admin_password === "") {
+					$("#errorMessages").html("Please enter a password.");
+					return;
+				}
+
+				// If both fields are filled, proceed with AJAX request
+				$.ajax({
+					type: "POST",
+					url: "../functions/function_ajax.php",
+					data: {
+						action: "admin_login",
+						admin_name: admin_name,
+						admin_password: admin_password
+					},
+					dataType: 'json', // Specify JSON dataType
+					success: function (response) {
+						if (response.status === 'success') {
+							window.location.href = "../admin/category/show_category.php";
+						} else {
+							// Authentication failed
+							$("#errorMessages").html(response.message);
+						}
+					},
+					error: function (error) {
+						console.log(error);
+						$("#errorMessages").html("DO NOT MECTH NAME  AND PASSWORD");
+					}
+				});
+			}catch (e) {
+				alert("An error occurred at line " + e.line + ": " + e.message);
             }
-
-            if (admin_password === "") {
-                $("#errorMessages").html("Please enter a password.");
-                return;
-            }
-
-            // If both fields are filled, proceed with AJAX request
-            $.ajax({
-                type: "POST",
-                url: "../functions/function_ajax.php",
-                data: {
-                    action: "admin_login",
-                    admin_name: admin_name,
-                    admin_password: admin_password
-                },
-                dataType: 'json', // Specify JSON dataType
-                success: function (response) {
-                    if (response.status === 'success') {
-                        window.location.href = "../admin/category/add_category.php";
-                    } else {
-                        // Authentication failed
-                        $("#errorMessages").html(response.message);
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                    $("#errorMessages").html("DO NOT MECTH NAME  AND PASSWORD");
-                }
-            });
+            
         });
     });
 </script>

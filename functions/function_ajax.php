@@ -24,6 +24,24 @@
 				return $data;
 			}
 
+
+		// Define logging function
+		function logMessage($message, $type = 'info') {
+			// Log file path
+			$logFile = '../admin/logs/log.php';
+			$customer_id = $_SESSION['customer_id'];
+			// Current timestamp
+			$timestamp = date('Y-m-d H:i:s');
+
+			// Format the log message
+			$logMessage = "[$timestamp][$type] $message Customer_id = $customer_id " . PHP_EOL;
+
+			// Append the log message to the log file
+			file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
+		}
+
+
+
 			if ($action == "register") {
 				
 				try{
@@ -507,7 +525,49 @@
 			
 			
 			// Fetch Query All Start ->
-			
+				// Add category 
+					
+					if ($action == "category") {
+						
+						try{
+							// Get data from AJAX request
+							if(!empty($_POST['cname']) && !empty($_FILES['cimg']['name'])){
+								
+								$cname_c = test_input($_POST['cname']);
+								$cname = ucfirst($cname_c);
+								$cimg = test_input($_FILES['cimg']['name']);
+								$uploadDir = '../admin/assets/upload_img/';
+								$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
+								move_uploaded_file($_FILES['cimg']['tmp_name'],$uploadedFile);
+								
+								
+								$status = test_input($_POST['status']);
+								// Insert data into the category table
+
+								$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
+
+								if ($conn->query($sql) === TRUE) {
+									echo json_encode(['status' => true]);
+									$_SESSION['msg'] = "Add Categories successfully";
+									 logMessage("Update Add To Cart successfully");
+								} else {
+									echo json_encode(['status' => false]);
+									$_SESSION['msg_error'] = "Do Not Add Categories ";
+								}
+							}else{
+								 throw new Exception("cname and cimg should not be empty.");
+								  logMessage("Failed to Update Add To Cart", 'error');
+							}
+							
+						}
+						catch(Exception $e){
+							echo 'Caught exception: ',  $e->getMessage(), "\n";
+							echo 'Caught exception: ',  $e->getLine(), "\n";
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');				
+						}
+						
+					}
 			
 				// Fetch Category 
 					
@@ -631,39 +691,7 @@
 				
 				// Admin Data Category Start
 				
-				// Add category 
 				
-				if ($action == "category") {
-					
-					try{
-						// Get data from AJAX request
-						$cname_c = test_input($_POST['cname']);
-						$cname = ucfirst($cname_c);
-						$cimg = test_input($_FILES['cimg']['name']);
-						$uploadDir = '../admin/assets/upload_img/';
-						$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
-						move_uploaded_file($_FILES['cimg']['tmp_name'],$uploadedFile);
-						
-						
-						$status = test_input($_POST['status']);
-						// Insert data into the category table
-
-						$sql = "INSERT INTO category (cname, cimg ,status) VALUES ('$cname', '$cimg', '$status')";
-
-						if ($conn->query($sql) === TRUE) {
-							echo json_encode(['status' => true]);
-							$_SESSION['msg'] = "Add Categories successfully";
-						} else {
-							echo json_encode(['status' => false]);
-							$_SESSION['msg_error'] = "Do Not Add Categories ";
-						}
-					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
-					}
-					
-				}
 				
 				// Delete Category
 				
@@ -730,13 +758,9 @@
 						echo 'Caught exception: ',  $e->getMessage(), "\n";
 						echo 'Caught exception: ',  $e->getLine(), "\n";
 					}
-					
-
 				}
 			
 			// Admin Data Category 
-				
-				
 				
 				// Admin Data Product Start
 				
@@ -744,55 +768,54 @@
 				
 				if ($action == "add_product") {
 					try{
-					// Get data from AJAX request
-					$category_c = test_input($_POST['category']);
-					$category = ucfirst($category_c);
-					$product_color = test_input($_POST['product_color']);
-					$product_size = test_input($_POST['product_size']);
-					$product_stock = test_input($_POST['product_stock']);
-					$price = test_input($_POST['price']);
-					$product_name_c = test_input($_POST['product_name']);
-					$product_name = ucfirst($product_name_c);
-					
-					$description_c = test_input($_POST['description']);
-					$description = ucfirst($description_c);
-					
-					$status = test_input($_POST['status']);
-					
-					// Array to store uploaded file names
-					$product_imgs = array();
-					
-					// Process multiple file uploads
-					if (!empty($_FILES['product_img']['name'][0])) {
-						$uploadDir = '../admin/assets/upload_img/';
-						foreach ($_FILES['product_img']['name'] as $key => $name) {
-							$tmp_name = $_FILES['product_img']['tmp_name'][$key];
-							$newFileName = $uploadDir . basename($name);
-							if (move_uploaded_file($tmp_name, $newFileName)) {
-								$product_imgs[] = $newFileName;
-							} else {
-								echo "Error uploading file: " . $name;
+						// Get data from AJAX request
+						$category_c = test_input($_POST['category']);
+						$category = ucfirst($category_c);
+						$product_color = test_input($_POST['product_color']);
+						$product_size = test_input($_POST['product_size']);
+						$product_stock = test_input($_POST['product_stock']);
+						$price = test_input($_POST['price']);
+						$product_name_c = test_input($_POST['product_name']);
+						$product_name = ucfirst($product_name_c);
+						$description_c = test_input($_POST['description']);
+						$description = ucfirst($description_c);
+						$status = test_input($_POST['status']);
+						
+						// Array to store uploaded file names
+						
+						$product_imgs = array();
+						
+						// Process multiple file uploads
+						
+						if (!empty($_FILES['product_img']['name'][0])) {
+							$uploadDir = '../admin/assets/upload_img/';
+							foreach ($_FILES['product_img']['name'] as $key => $name) {
+								$tmp_name = $_FILES['product_img']['tmp_name'][$key];
+								$newFileName = $uploadDir . basename($name);
+								if (move_uploaded_file($tmp_name, $newFileName)) {
+									$product_imgs[] = $newFileName;
+								} else {
+									echo "Error uploading file: " . $name;
+								}
 							}
 						}
-					}
-					
-					// Insert data into the product table
-					$sql = "INSERT INTO product (category,product_color,product_size,stock,price,product_name,description,product_img,status) VALUES ('$category','$product_color','$product_size','$product_stock','$price','$product_name','$description','" . implode(',', $product_imgs) . "','$status')";
-					
-					if ($conn->query($sql) === TRUE) {
-						echo json_encode(["status"=>true]);
-						$_SESSION['msg'] = "Add Data Successfully";
-					} else {
-						echo json_encode(["status"=>false]);
-						$_SESSION['msg_error'] = "Do not Add Data ";
-					}
+						
+						// Insert data into the product table
+						$sql = "INSERT INTO product (category,product_color,product_size,stock,price,product_name,description,product_img,status) VALUES ('$category','$product_color','$product_size','$product_stock','$price','$product_name','$description','" . implode(',', $product_imgs) . "','$status')";
+						
+						if ($conn->query($sql) === TRUE) {
+							echo json_encode(["status"=>true]);
+							$_SESSION['msg'] = "Add Data Successfully";
+						} else {
+							echo json_encode(["status"=>false]);
+							$_SESSION['msg_error'] = "Do not Add Data ";
+						}
 					}
 					catch(Exception $e){
 						echo 'Caught exception: ',  $e->getMessage(), "\n";
 						echo 'Caught exception: ',  $e->getLine(), "\n";
 					}
-				
-			}
+				}
 
 				
 				// Update Product
@@ -939,7 +962,6 @@
 			// Update User
 				
 			if ($action == "update_user") {
-				
 				try{
 					// Get data from AJAX request
 					$email = test_input($_POST['email']);
@@ -999,8 +1021,6 @@
 					echo 'Caught exception: ',  $e->getMessage(), "\n";
 					echo 'Caught exception: ',  $e->getLine(), "\n";
 				}
-				
-		
 			}
 			
 			// Add  billing Address

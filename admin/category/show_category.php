@@ -145,18 +145,23 @@
 <!-- Start Script  Tag -->
 <script>
     $(document).ready(function() {
-        // DataTable Initialization
-        var dataTable = $('#dataTable').DataTable();
+        try {
+            // DataTable Initialization
+            var dataTable = $('#dataTable').DataTable();
 
-        // Search Bar
-        $('#search').on('keyup', function () {
-            dataTable.search(this.value).draw();
-        });
+            // Search Bar
+            $('#search').on('keyup', function () {
+                dataTable.search(this.value).draw();
+            });
 
-        // Entries per page
-        $('#entries').on('change', function () {
-            dataTable.page.len(this.value).draw();
-        });
+            // Entries per page
+            $('#entries').on('change', function () {
+                dataTable.page.len(this.value).draw();
+            });
+        } catch(error) {
+            // Handle the error here, if any
+            console.error("An error occurred:", error);
+        }
     });
 </script>
 <!-- End Script  Tag -->

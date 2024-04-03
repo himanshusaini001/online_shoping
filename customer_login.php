@@ -72,60 +72,66 @@ if(isset($_SESSION['customer_login']))
     <script>
         $(document).ready(function () {
             $("#submitButton").click(function () {
-                // Clear previous error messages
-                $("#errorMessages").html("");
+				try{
+					 // Clear previous error messages
+					$("#errorMessages").html("");
 
-                // Get input values
-                var username = $("#usernameField").val();
-                var password = $("#passwordField").val();
+					// Get input values
+					var username = $("#usernameField").val();
+					var password = $("#passwordField").val();
 
-                // Perform validation
-                if (username === "") {
-                    $("#errorMessages").html("Please enter a username.");
-                    return;
-                }
-
-                if (password === "") {
-                    $("#errorMessages").html("Please enter a password.");
-                    return;
-                }
-
-                // If both fields are filled, proceed with AJAX request
-                $.ajax({
-				type: "POST",
-				url: "functions/function_ajax.php", // Change this to the actual PHP script
-				data: {
-					action:"login",
-					username: username,
-					password: password
-				},
-				dataType: "json", // Expect JSON response
-				success: function(response) {
-					if (response.status === 'success') {
-						// Authentication successful, use the fetched data
-						console.log(response);
-
-						/* // Display fetched data in a specific div
-						$("#userData").html(
-							"<p>First Name: " + response.fname + "</p>" +
-							"<p>Last Name: " + response.lname + "</p>" +
-							"<p>Email: " + response.email + "</p>" +
-							"<p>Address: " + response.address + "</p>" +
-							"<p>Phone: " + response.phone + "</p>"
-						); */
-
-						// Redirect to another page (e.g., home.html)
-						window.location.href = "profile.php"; // Change this to the desired page
-					} else {
-						// Authentication failed
-						$("#errorMessages").html(response.message);
+					// Perform validation
+					if (username === "") {
+						$("#errorMessages").html("Please enter a username.");
+						return;
 					}
-				},
-				error: function(error) {
-					console.log(error);
-					$("#errorMessages").html("Error during AJAX request.");
+
+					if (password === "") {
+						$("#errorMessages").html("Please enter a password.");
+						return;
+					}
+
+					// If both fields are filled, proceed with AJAX request
+					$.ajax({
+					type: "POST",
+					url: "functions/function_ajax.php", // Change this to the actual PHP script
+					data: {
+						action:"login",
+						username: username,
+						password: password
+					},
+					dataType: "json", // Expect JSON response
+					success: function(response) {
+						if (response.status === 'success') {
+							// Authentication successful, use the fetched data
+							console.log(response);
+
+							/* // Display fetched data in a specific div
+							$("#userData").html(
+								"<p>First Name: " + response.fname + "</p>" +
+								"<p>Last Name: " + response.lname + "</p>" +
+								"<p>Email: " + response.email + "</p>" +
+								"<p>Address: " + response.address + "</p>" +
+								"<p>Phone: " + response.phone + "</p>"
+							); */
+
+							// Redirect to another page (e.g., home.html)
+							window.location.href = "profile.php"; // Change this to the desired page
+						} else {
+							// Authentication failed
+							$("#errorMessages").html(response.message);
+						}
+					},
+					error: function(error) {
+						console.log(error);
+						$("#errorMessages").html("Error during AJAX request.");
+					}
+				});
 				}
-			});
+				catch (error) {
+					console.error("Error occurred:", error);
+				}
+               
             });
         });
     </script>
