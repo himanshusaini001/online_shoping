@@ -1,3 +1,2 @@
-[2024-04-03 12:38:07][info] Update Add To Cart successfully
-[2024-04-03 12:42:26][info] Update Add To Cart successfully 2 
-[2024-04-03 12:43:30][info] Update Add To Cart successfully Customer_id 2 
+Today Date: [2024-04-04] & <b>Time</b> = [13:56:08] & <b>Type</b> = [info] successfully Update Quantity Product Id 1 Customer Id = 2 
+<br>

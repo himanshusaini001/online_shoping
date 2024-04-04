@@ -23,25 +23,35 @@
 				$data = htmlspecialchars($data);
 				return $data;
 			}
-
-
-		// Define logging function
-		function logMessage($message, $type = 'info') {
+			// Define logging function
+			function logMessage($message, $type = 'info') {
+				
 			// Log file path
-			$logFile = '../admin/logs/log.php';
-			$customer_id = $_SESSION['customer_id'];
+				$logFile = '../admin/logs/log.txt';
 			// Current timestamp
-			$timestamp = date('Y-m-d H:i:s');
+			
+			//Time Zone Start
+				$newTimeZone = 'Asia/Kolkata'; // India time zone
+				date_default_timezone_set($newTimeZone);
 
+				$currentTimeZone = date_default_timezone_get();
+				$Datetamp = date('Y-m-d');
+				$Timetamp = date('H:i:s');
+			//Time Zone End
+			
 			// Format the log message
-			$logMessage = "[$timestamp][$type] $message Customer_id = $customer_id " . PHP_EOL;
-
+				$logMessage = "Today Date:- [$Datetamp] & Time:- [$Timetamp] & Type:- [$type] $message " . PHP_EOL;
 			// Append the log message to the log file
-			file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
-		}
-
-
-
+				$result = file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
+				
+				if(!$result == false)
+				{
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
 			if ($action == "register") {
 				
 				try{
@@ -101,7 +111,6 @@
 							} else {
 								echo "Insert Error: " . mysqli_stmt_error($stmt);
 							}
-
 							mysqli_stmt_close($stmt);
 						} else {
 							echo "Prepare statement error: " . mysqli_error($conn);
@@ -130,14 +139,17 @@
 					if ($conn->query($sql) === TRUE) {
 						echo json_encode(['status' => true]);
 						$_SESSION['msg'] = "Add Size successfully";
+						logMessage("successfully Add Size = ".$size);
 					} else {
 						echo json_encode(['status' => false]);
 						$_SESSION['msg'] = "Do not Add Size ";
+						logMessage("Failed Do Not Add Size = ".$size);
 					}
 				}
-				catch(Exception $e){
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
-					echo 'Caught exception: ',  $e->getLine(), "\n";
+				 catch (Exception $e) {
+					echo json_encode(['status' => false, 'message' => 'An error occurred']);
+					logMessage("Exception caught: " . $e->getMessage(), 'error');
+					logMessage("Line: " . $e->getLine(), 'error');
 				}
 				
 			}
@@ -150,55 +162,53 @@
 					$color_c= test_input($_POST['color']);
 					$color = ucfirst($color_c);
 					$status = test_input($_POST['status']);
-					
-
 					// Insert data into the category table
-
 					$sql = "INSERT INTO colors (color_name,status) VALUES ('$color','$status')";
-
 					if ($conn->query($sql) === TRUE) {
 						echo json_encode(['status' => true]);
 						$_SESSION['msg'] = "Add Color successfully";
+						logMessage("successfully Add Color = ".$color);
 					} else {
 						echo json_encode(['status' => false]);
 						$_SESSION['msg'] = "Do Not Add Color ";
+						logMessage("Failed Do Not Add Color = ".$color );
 					}
 				}
-				catch(Exception $e){
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
-					echo 'Caught exception: ',  $e->getLine(), "\n";
+				catch(Exception $e) {
+					echo json_encode(['status' => false, 'message' => 'An error occurred']);
+					logMessage("Exception caught: " . $e->getMessage(), 'error');
+					logMessage("Line: " . $e->getLine(), 'error');
 				}
-				
 			}
 			
 			
 			// Insert Query All End ->
 			
-			
-			
-			
 			// Update Query All Start ->
-			
 			
 				if ($action == "confrom_pass") {
 					try{
 						// Check if the OTP is provided
 						$password = test_input(md5($_POST['password']));
-						
 
 						// Update the user information in the database
 						$sql = "UPDATE user SET password='$password' WHERE sid='1'";
 
 						if ($conn->query($sql) === TRUE) {
 							echo "successfully";
+							logMessage("successfully Update Password = ".$password );
+							
 						} else {
 							echo "Error updating record: " . $conn->error;
+							logMessage("Failed Do Not update Password = ".$password);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 						
 				}
 				// Update size
@@ -216,15 +226,19 @@
 						if ($conn->query($sql) === TRUE) {
 							echo json_encode(['status' => true]);
 							$_SESSION['msg'] = "Update Size successfully";
+							logMessage("successfully Update Size ".$size." Size Id = ".$sid);
 						} else {
 							echo json_encode(['status' => false]);
 							$_SESSION['msg'] = "Do not Update Size";
+							logMessage("Failed Do Not Update Size ".$size." Size Id = ".$sid);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 						
 				}
 				
@@ -247,15 +261,19 @@
 						if ($conn->query($sql) === TRUE) {
 							echo json_encode(['status' => true]);
 							$_SESSION['msg'] = "Update Color successfully";
+							logMessage("successfully Update Color ".$color." Color Id = ".$color_id);
 						} else {
 							echo json_encode(['status' => false]);
 							$_SESSION['msg'] = "Do not Update color";
+							logMessage("Failed Do Not Update Color ".$color." Color Id = ".$color_id);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 				
 				}
 				
@@ -279,15 +297,19 @@
 						if (mysqli_query($conn, $sql)) {
 							echo "Record deleted successfully";
 							$_SESSION['msg'] = "Delete Size successfully";
+							logMessage("successfully Delete Size Id ".$sid);
 						} else {
 							echo "Error deleting record: " . mysqli_error($conn);
 							$_SESSION['msg'] = "Do Not Delete Size ";
+							logMessage("Failed Do Not Delete Size Id = ".$sid);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 				
 				}
 				
@@ -305,15 +327,19 @@
 						if (mysqli_query($conn, $sql)) {
 							echo "Record deleted successfully";
 							$_SESSION['msg'] = "Delete Color successfully";
+							logMessage("successfully Delete Color Id = ".$color_id);
 						} else {
 							echo "Error deleting record: " . mysqli_error($conn);
 							$_SESSION['msg'] = " Do not Delete Color";
+							logMessage("Failed Do Not Delete Color Id = ".$color_id);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 						
 				}
 				
@@ -395,10 +421,12 @@
 								echo json_encode($response);
 							}
 						}
-						catch(Exception $e){
-							echo 'Caught exception: ',  $e->getMessage(), "\n";
-							echo 'Caught exception: ',  $e->getLine(), "\n";
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');
 						}
+
 							
 					}
 
@@ -424,16 +452,20 @@
 								if($userInputOTP == $otp)
 								{
 									echo 'successful';
+									logMessage("successfully generate OTP = ".$userInputOTP);
 								}
 							}
 							else{
-								  'error';
+								  echo 'error';
+									logMessage("Failed Do Not generate OTP = ".$userInputOTP);
 							}
 						}
-						catch(Exception $e){
-							echo 'Caught exception: ',  $e->getMessage(), "\n";
-							echo 'Caught exception: ',  $e->getLine(), "\n";
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');
 						}
+
 								
 					}
 					
@@ -468,18 +500,21 @@
 								
 								  $resetLink = "http://localhost/online-shoping/reset_password/conform_password.php?sid=$sid&email=$email&token=".uniqid();
 									echo $resetLink;die();
-								// Send the link to the user's email (use a proper mail library in production)
-								mail($email, "Password Reset", "Click the link to reset your password: $resetLink");
-								
+									// Send the link to the user's email (use a proper mail library in production)
+									mail($email, "Password Reset", "Click the link to reset your password: $resetLink");
+									logMessage("successfully Sand OTP Link = ".$email);
 								}
 							 else {
 								echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+								logMessage("Failed Do Not Sand Link = ".$email);
 							}
 						}
-						catch(Exception $e){
-							echo 'Caught exception: ',  $e->getMessage(), "\n";
-							echo 'Caught exception: ',  $e->getLine(), "\n";
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');
 						}
+
 							
 					}
 					// admin Login
@@ -507,17 +542,21 @@
 										// Explicitly set the content type to JSON
 										header('Content-Type: application/json');
 										echo json_encode(["status" => "success"]);
+										logMessage("successfully Admin Login = ".$name);
 									
 								} else {
 									// Provide a generic error message
 									header('Content-Type: application/json');
 									echo json_encode(["status" => "error", "message" => "Error executing the query"]);
+									logMessage("Failed Do Not Fetch Admin Login Data = ".$name);
 								}
 							}
-							catch(Exception $e){
-								echo 'Caught exception: ',  $e->getMessage(), "\n";
-								echo 'Caught exception: ',  $e->getLine(), "\n";
+							catch (Exception $e) {
+								echo json_encode(['status' => false, 'message' => 'An error occurred']);
+								logMessage("Exception caught: " . $e->getMessage(), 'error');
+								logMessage("Line: " . $e->getLine(), 'error');
 							}
+
 						
 					  }
 					
@@ -549,23 +588,24 @@
 								if ($conn->query($sql) === TRUE) {
 									echo json_encode(['status' => true]);
 									$_SESSION['msg'] = "Add Categories successfully";
-									 logMessage("Update Add To Cart successfully");
+									 logMessage("successfully Add Category = ".$cname);
 								} else {
 									echo json_encode(['status' => false]);
 									$_SESSION['msg_error'] = "Do Not Add Categories ";
+									 logMessage("Failed Do Not add Category = ".$cname);
 								}
 							}else{
 								 throw new Exception("cname and cimg should not be empty.");
-								  logMessage("Failed to Update Add To Cart", 'error');
+								  logMessage("Failed Value is empty", 'error');
 							}
 							
 						}
-						catch(Exception $e){
-							echo 'Caught exception: ',  $e->getMessage(), "\n";
-							echo 'Caught exception: ',  $e->getLine(), "\n";
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
 							logMessage("Exception caught: " . $e->getMessage(), 'error');
-							logMessage("Line: " . $e->getLine(), 'error');				
+							logMessage("Line: " . $e->getLine(), 'error');
 						}
+
 						
 					}
 			
@@ -603,10 +643,12 @@
 									echo "no record found";
 								}
 						}
-						catch(Exception $e){
-							echo 'Caught exception: ',  $e->getMessage(), "\n";
-							echo 'Caught exception: ',  $e->getLine(), "\n";
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');
 						}
+
 							
 					}
 			
@@ -614,39 +656,41 @@
 					if ($action == "fetch_size") {
 						
 						try{
-					
-				}
-				catch(Exception $e){
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
-					echo 'Caught exception: ',  $e->getLine(), "\n";
-				}
-						$sql = "select * from clothing_sizes";
-						$result = mysqli_query($conn, $sql) or die("sql query failed");
-						$output = "";
-						if (mysqli_num_rows($result) > 0) {
-							$output = '<table border="1" width="100" cellspacing="0" cellpadding="10px" class="category_table_style">
-							<tr>
-							<th>sid</th>
-							<th>size</th>
-							<th>Update </th>
-							<th>Delete</th>
-							</tr>';
-							while ($row = mysqli_fetch_assoc($result))
-							//print_r($row);exit;
-							{
-								$output .= "<tr>
-								<td>{$row['sid']}</td>
-								<td>{$row['size']}</td>
-								<td><a class='btn btn-success' href='update_size.php?sid={$row['sid']}'>Update</a></td>
-								 <td><a class='btn btn-danger' href='delete_size.php?sid={$row['sid']}'>delete</a></td>
-								</tr>";
-							}
-							$output .= "</table>";
+							$sql = "select * from clothing_sizes";
+							$result = mysqli_query($conn, $sql) or die("sql query failed");
+							$output = "";
+							if (mysqli_num_rows($result) > 0) {
+								$output = '<table border="1" width="100" cellspacing="0" cellpadding="10px" class="category_table_style">
+								<tr>
+								<th>sid</th>
+								<th>size</th>
+								<th>Update </th>
+								<th>Delete</th>
+								</tr>';
+								while ($row = mysqli_fetch_assoc($result))
+								//print_r($row);exit;
+								{
+									$output .= "<tr>
+									<td>{$row['sid']}</td>
+									<td>{$row['size']}</td>
+									<td><a class='btn btn-success' href='update_size.php?sid={$row['sid']}'>Update</a></td>
+									 <td><a class='btn btn-danger' href='delete_size.php?sid={$row['sid']}'>delete</a></td>
+									</tr>";
+								}
+								$output .= "</table>";
 
-							echo $output;
-						} else {
-							echo "no record found";
+								echo $output;
+							} else {
+								echo "no record found";
+							}
 						}
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');
+						}
+
+						
 					}
 				
 				// Fetch color 
@@ -680,11 +724,11 @@
 									echo "no record found";
 								}
 						}
-						catch(Exception $e){
-							echo 'Caught exception: ',  $e->getMessage(), "\n";
-							echo 'Caught exception: ',  $e->getLine(), "\n";
+						catch (Exception $e) {
+							echo json_encode(['status' => false, 'message' => 'An error occurred']);
+							logMessage("Exception caught: " . $e->getMessage(), 'error');
+							logMessage("Line: " . $e->getLine(), 'error');
 						}
-						
 					}
 			
 			// Fetch Query All End ->
@@ -704,15 +748,19 @@
 						if (mysqli_query($conn, $sql)) {
 							echo "Record deleted successfully";
 							$_SESSION['msg'] = "Delete Categories successfully";
+							logMessage("successfully Delete Category = ".$cid);
 						} else {
 							echo "Error deleting record: " . mysqli_error($conn);
 							$_SESSION['msg_error'] = "Do Not Delete Categories ";
+							logMessage("Failed Do Not Delete Category = ".$cid);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 						
 				}
 				
@@ -749,14 +797,17 @@
 						if ($stmt->execute()) {
 							echo json_encode(['status' => true]);
 							$_SESSION['msg'] = "Update Categories successfully";
+							logMessage("successfully Update Category ".$cname." Category Id = ".$cid);
 						} else {
 							echo json_encode(['status' => false]);
 							$_SESSION['msg_error'] = "Do Not Update Categories";
+							logMessage("Failed Do Not Update Category ".$cname." Category Id = ".$cid);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
 				}
 			
@@ -806,15 +857,19 @@
 						if ($conn->query($sql) === TRUE) {
 							echo json_encode(["status"=>true]);
 							$_SESSION['msg'] = "Add Data Successfully";
+							logMessage("successfully Add Product ".$product_name." category Id = ".$category );
 						} else {
 							echo json_encode(["status"=>false]);
 							$_SESSION['msg_error'] = "Do not Add Data ";
+							logMessage("Failed Do Not Add Product ".$product_name." category Id = ".$category);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 				}
 
 				
@@ -871,15 +926,20 @@
 							
 							echo json_encode(["status"=>true]);
 							$_SESSION['msg'] = "Update Data Successfully";
+							logMessage("successfully Update Product ".$product_name." Category Id = ".$category);
+							
 						} else {
 							echo json_encode(["status"=>false]);
 							$_SESSION['msg_error'] = "Do not Update Product";
+							logMessage("Failed Do Not Update Product ".$product_name." Category Id = ".$category);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 					
 
 				}
@@ -898,15 +958,19 @@
 						if (mysqli_query($conn,$sql)) {
 							echo "Record deleted successfully";
 							$_SESSION['msg'] = "Delete Data Successfully";
+							logMessage("successfully Delete Product Id = ".$product_id );
 						} else {
 							echo "Error deleting record: " . mysqli_error($conn);
 							$_SESSION['msg_error'] = "Do Not Delete Product";
+							logMessage("Failed Do Not Delete Product = ".$product_id);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 					
 				}
 				
@@ -923,7 +987,6 @@
 					$email = $_POST['email'];
 					$phone = $_POST['phone'];
 					$message = $_POST['message'];
-		
 		
 					// Session Start
 					
@@ -942,20 +1005,26 @@
 
 						if (mail($to, $subject, $body, $headers)) {
 							echo json_encode(['status' => true]);
+							logMessage("successfully Add Contact ".$fname." ".$lname." Email = " .$email);
+							
 						} else {
 							// If email sending fails, return an error message
 							echo json_encode(['status' => false, 'message'=>'Error sending email']);
+							logMessage("Failed Do Not Insert Contact ".$fname." ".$lname." Email = " .$email);
 						}
 					} else {
 						// If insertion fails, return an error message
 						echo json_encode(['status'=>false, 'message'=>'Error inserting into database']);
 						$_SESSION['msg_error'] = "Error";
+						logMessage("Failed Do Not Generate Query In Contact Function ", 'error');
 					}
 				}
-				catch(Exception $e){
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
-					echo 'Caught exception: ',  $e->getLine(), "\n";
+				catch (Exception $e) {
+					echo json_encode(['status' => false, 'message' => 'An error occurred']);
+					logMessage("Exception caught: " . $e->getMessage(), 'error');
+					logMessage("Line: " . $e->getLine(), 'error');
 				}
+
 				
 			} 
 			
@@ -1017,10 +1086,12 @@
 						}
 					}
 				}
-				catch(Exception $e){
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
-					echo 'Caught exception: ',  $e->getLine(), "\n";
+				catch (Exception $e) {
+					echo json_encode(['status' => false, 'message' => 'An error occurred']);
+					logMessage("Exception caught: " . $e->getMessage(), 'error');
+					logMessage("Line: " . $e->getLine(), 'error');
 				}
+
 			}
 			
 			// Add  billing Address
@@ -1067,16 +1138,18 @@
 					if ($conn->query($sql) === TRUE) {
 						echo json_encode(['status' => true]);
 						$_SESSION['msg'] = "Add billing_Address successfully";
+						logMessage("successfully Insert Billing Address ".$first_name." ".$last_name." Pin Code = ".$pin_code);
 					} else {
 						echo json_encode(['status' => false]);
 						$_SESSION['msg_error'] = "Do Not Add billing_Address ";
+						logMessage("Failed Do Not Insert Billing Address ".$first_name." ".$last_name." Pin Code = ".$pin_code);
 					}
 				}
-				catch(Exception $e){
-					echo 'Caught exception: ',  $e->getMessage(), "\n";
-					echo 'Caught exception: ',  $e->getLine(), "\n";
+				catch (Exception $e) {
+					echo json_encode(['status' => false, 'message' => 'An error occurred']);
+					logMessage("Exception caught: " . $e->getMessage(), 'error');
+					logMessage("Line: " . $e->getLine(), 'error');
 				}
-					
 			}
 				
 				
@@ -1123,15 +1196,19 @@
 						if ($conn->query($sql) === TRUE) {
 							echo json_encode(['status' => true]);
 							$_SESSION['msg'] = "successfully Update social Media Data";
+							logMessage("successfully Update social Media Link ".$website_name." Email = ".$email);
 						} else {
 							echo json_encode(['status' => false]);
-							$_SESSION['msg_error'] = "failed Update social Media Data";
+							$_SESSION['msg_error'] = "failed Update social Media Data";	
+							logMessage("Failed Do Not Update social Media Link ".$website_name." Email = ".$email);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 					
 				}
 				
@@ -1185,17 +1262,21 @@
 						if ($conn->query($sql) === TRUE) {
 							echo json_encode(['status' => true]);
 							$_SESSION['msg'] = "Successfully Add Address";
+							logMessage("successfully Shipping Address Country ".$country." Customer Id = ".$customer_id);
 							
 
 						} else {
 							echo json_encode(['status' => false]);
 							$_SESSION['msg_error'] = "Do Not Add Categories ";
+							logMessage("Failed Do NotInsert Shipping Address ".$country." Customer Id = ".$customer_id);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 						
 				}
 				
@@ -1247,10 +1328,12 @@
 
 									if ($conn->query($sql) === TRUE) {
 										echo json_encode(['status' => true]);
-										$_SESSION['msg'] = "Successfully Add Quantity";
+										$_SESSION['msg'] = "Successfully Update Quantity";
+										logMessage("successfully Update Quantity Product Id ".$product_id." Customer Id = ".$customer_id);
 									} else {
 										echo json_encode(['status' => true]);
 										$_SESSION['msg'] = "Not Update Data";
+										logMessage("successfully Update Quantity Product Id ".$product_id." Customer Id = ".$customer_id);
 									}
 								}
 								else{
@@ -1259,28 +1342,35 @@
 										{
 											echo json_encode(['status' => true]);
 											$_SESSION['msg'] = "Successfully Add Quantity";
+											logMessage("successfully Add Quantity Product Id ".$product_id." Customer Id = ".$customer_id);
+											
 										}
 										else{
 											echo json_encode(['status' => false]);
 											$_SESSION['msg'] = "Not Insert Data";
+											logMessage("Failed Do Not add Quantity Product Id ".$product_id." Customer Id = ".$customer_id);
 										}
 									}
 									
 							} else {
 								echo json_encode(['status' => false]);
 								$_SESSION['msg_error'] = "Do Not Metch Product Id ";
+								logMessage("Failed Do Not Match Product Id");
 							}
 							
 						}
 						else {
 							echo json_encode(['status' => false]);
 							$_SESSION['msg_error'] = "Please Add Quantity";
+							logMessage("Failed Check Quantity");
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 				}
 				
 				
@@ -1294,16 +1384,20 @@
 
 						if (mysqli_query($conn,$sql)) {
 							echo json_encode(['status' => true]);
-								$_SESSION['msg'] = "Delete Data Successfully";
+								$_SESSION['msg'] = "Delete Add To cart Successfully";
+								logMessage("Successful Add To cart Delete Cart Id = ".$cart_id);
 						} else {
 							echo json_encode(['status' => false]);
-								$_SESSION['msg_error'] = "Do Not Metch Product Id ";
+								$_SESSION['msg_error'] = "Failed Do not Delete Add To Cart";
+								logMessage("Failed Do not Delete Add To Cart Id = ".$cart_id);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 				}
 				
 				// Update Add To Cart
@@ -1312,29 +1406,34 @@
 					
 					try{
 							// Get data from AJAX request and sanitize
+						$customer_id = $_SESSION['customer_id'];
 						$qut = test_input($_POST['qut']);
 						$total_price = test_input($_POST['total_price']);
 						$product_id = test_input($_POST['product_id']);
 						
 						// Use prepared statement to prevent SQL injection
-						$sql = "UPDATE add_to_cart SET cart_qty=?, total_price=? WHERE product_id=?";
+						$sql = "UPDATE add_to_cart SET cart_qty=?, total_price=? WHERE product_id=? AND customer_id=?";
 						
 						// Prepare and execute the statement
 						$stmt = $conn->prepare($sql);
-						$stmt->bind_param("sss", $qut, $total_price, $product_id);
+						$stmt->bind_param("sss", $qut, $total_price, $product_id,$customer_id);
 						
 						if ($stmt->execute()) {
 							echo json_encode(['status' => true]);
-							$_SESSION['msg'] = "Update Add To Cart successfully";
+							$_SESSION['msg'] = "Update Add To Cart successfully Quantity" ;
+							logMessage("Successful Update Add To cart ".$qut." Total Price ".$total_price." Product Id ".$product_id." Customer Id = ".$customer_id);
 						} else {
 							echo json_encode(['status' => false]);
 							$_SESSION['msg_error'] = "Failed to Update Add To Cart";
+							logMessage("Failed Do Not Update Add To cart ".$qut." Total Price ".$total_price." Product Id ".$product_id." Customer Id = ".$customer_id);
 						}
 					}
-					catch(Exception $e){
-						echo 'Caught exception: ',  $e->getMessage(), "\n";
-						echo 'Caught exception: ',  $e->getLine(), "\n";
+					catch (Exception $e) {
+						echo json_encode(['status' => false, 'message' => 'An error occurred']);	
+						logMessage("Exception caught: " . $e->getMessage(), 'error');
+						logMessage("Line: " . $e->getLine(), 'error');
 					}
+
 				}
 				
 		}	

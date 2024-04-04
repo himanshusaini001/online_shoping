@@ -124,23 +124,22 @@
 					'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
 				];
 				
+				var isValid = true;
+				if (color == "") {
+					isValid = false;
+					alert("Fild is required.");
+				}
 				
+				if (status == "") {
+					isValid = false;
+					alert("Fild is required.");
+				}
+
 				for (var i = 0; i < colors.length; i++) {
 					
-					if (userInputColor === colors[i]) {
+					if (userInputColor == colors[i]) {
 						
-						 found = true;
-						var isValid = true;
-						if (color === "") {
-							isValid = false;
-							alert("Fild is required.");
-						}
-						
-						if (status === "") {
-							isValid = false;
-							alert("Fild is required.");
-						}
-
+						found = true;
 
 						if (isValid) {
 							// AJAX to submit form data

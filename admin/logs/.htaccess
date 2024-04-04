@@ -1,7 +1,7 @@
 RewriteEngine On
 
 # Block direct access to log file
-RewriteRule ^log\.php$ - [F]
+RewriteRule ^log\.txt$ - [F]
 
 # Rewrite rule for accessing log files
-RewriteRule ^log/([a-zA-Z0-9-/]+)$ log.php [L]
+RewriteRule ^log/([a-zA-Z0-9-/]+)$ log.txt [L]

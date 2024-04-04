@@ -130,7 +130,7 @@ $color_id = $_GET['color_id'];
 			    // Reset previous error messages
 				$(".error-message").text("");
 				
-				var color_name = $("#color_name").val();
+				var color_name = $("#color_name").val().toLowerCase();
 				var color_id = $("#color_id").val();
 				var status = $("#status").val();
 				
@@ -141,23 +141,22 @@ $color_id = $_GET['color_id'];
 					'gold', 'silver', 'indigo', 'maroon', 'olive', 'teal'
 				];
 				
+				var isValid = true;
+				if (color_name == "") {
+					isValid = false;
+					alert("Fild is required.");
+				}
 				
+				if (status == "") {
+					isValid = false;
+					alert("Fild is required.");
+				}
 				for (var i = 0; i < colors.length; i++) {
 					
-					if (color_name === colors[i]) {
+					if (color_name == colors[i]) {
 						
-						 found = true;
-						var isValid = true;
-						if (color_name === "") {
-							isValid = false;
-							alert("Fild is required.");
-						}
+						found = true;
 						
-						if (status === "") {
-							isValid = false;
-							alert("Fild is required.");
-						}
-
 						if (isValid) {
 							// AJAX to submit form data
 							$.ajax({
