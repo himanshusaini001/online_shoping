@@ -1,4 +1,4 @@
-<!-- header Start -->
+ <!-- header Start -->
 <?php 
     require_once('include/db_file/config.php');
 	require_once('include/db_file/connection_file.php');
@@ -10,37 +10,36 @@
     include('include/main_file/header.php');
 	 // Get Data Start
     
-	$product_id = $_GET['product_id'];
 
-	$_SESSION['customer_order_history_id'] = $product_id;
 	
+	$customer_id = $_SESSION['customer_id'];
 	 // Get Data End
 	 
 	 // Select Command Start
-	if ($product_id != "") {
-    $sql = "SELECT * FROM add_to_cart WHERE product_id = '$product_id'";
+	if ($customer_id != "") {
+    $sql = "SELECT * FROM add_to_cart WHERE customer_id = '$customer_id'";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+		$customer_id = $row['customer_id'];
         $product_id = $row['product_id'];
 		$stock = $row['stock'];
-        $cart_name = $row['cart_name'];
-        $cart_qty = $row['cart_qty'];
-        $cart_price = $row['cart_price'];
-        $description = $row['description'];
-        $cart_color = $row['cart_color'];
-        $cart_size = $row['cart_size'];
+        $product_name = $row['cart_name'];
+        $product_qty = $row['cart_qty'];
+        $product_price = $row['cart_price'];
+        $product_color = $row['cart_color'];
+        $product_size = $row['cart_size'];
         $total_price = $row['total_price'];
-        $order_type = $_GET['order_type'];
+        $order_type = 'cash';
 
-        $place_order_sql = "INSERT INTO place_order_list (order_id, order_name, order_color, order_size, order_qut, order_amount, total_price, order_type) VALUES ('$product_id', '$cart_name', '$cart_color', '$cart_size', '$cart_qty', '$cart_price', '$total_price', '$order_type')";
+        $place_order_sql = "INSERT INTO order_list (place_order_id,customer_id,product_id, product_name,product_qty,product_price,product_color,product_size,total_price, order_type) VALUES ('$product_id','$customer_id','$product_id','$product_name','$product_qty','$product_price','$product_color','$product_size','$total_price','$order_type')";
         
         if ($conn->query($place_order_sql) === TRUE) {
-         	if($cart_qty <= $stock)
+         	if($product_qty <= $stock)
 					{
 							
-								$update_stock = $stock - $cart_qty;
+								$update_stock = $stock - $product_qty;
 								$sql_update = "	UPDATE product SET stock = '$update_stock' WHERE product_id = '$product_id'";
 								
 									if ($conn->query($sql_update) === TRUE) {

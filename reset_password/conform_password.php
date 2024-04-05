@@ -52,8 +52,6 @@
 
 <script>
   $(document).ready(function() {
-    var formSubmitted = false;
-
     // Function to validate password and confirm password fields
     function validatePasswordFields() {
       var password = $('#password').val();
@@ -61,18 +59,12 @@
       var validationMessage = $('#validationMessage');
       var submitButton = $('#submitButton');
 
-      // Example validation - You can customize this based on your requirements
-      if (password.length >= 8) {
-        if (confirmPassword === password) {
-          validationMessage.text('');
-          submitButton.addClass('fadeIn').show();
-        } else {
-          validationMessage.text('Passwords do not match');
-          submitButton.removeClass('fadeIn').hide();
-        }
+      if (password.length >= 8 && confirmPassword === password) {
+        validationMessage.text('');
+        submitButton.prop('disabled', false).show();
       } else {
-        validationMessage.text('Password must be at least 8 characters');
-        submitButton.removeClass('fadeIn').hide();
+        validationMessage.text('Passwords do not match or are not at least 8 characters');
+        submitButton.prop('disabled', true).hide();
       }
     }
 
@@ -81,43 +73,34 @@
       validatePasswordFields();
     });
 
-    // Show button after clicking confirm password field
-    $('#confirmPassword').on('click', function() {
-      validatePasswordFields();
-      $('#submitButton').show(); // Show the submit button
-    });
+    // Form submission
+    $('#updatePasswordForm').on('submit', function(e) {
+      e.preventDefault(); // Prevent form submission
+      
+      // Your form submission logic here
+      var password = $('#password').val();
 
-    // Submit button click event
-    $('#submitButton').on('click', function(e) {
-      if (!formSubmitted) {
-        e.preventDefault(); // Prevent the form from being submitted multiple times
-        
-        // Your form submission logic here
-        alert('Form submitted!');
-        
-        formSubmitted = true;
-        
-        // Continue with the AJAX request
-        var password = $('#password').val();
-
-        // Send AJAX request
-        $.ajax({
-          type: 'POST',
-          url: '../functions/function_ajax.php', // Update with your server-side script URL
-          data: {
-            action: "confrom_pass",
-            password: password
-          },
-          success: function (response) {
-            // Check if the response indicates successful login, then update the result div
-            if (response.includes("successfully")) {
-              // Update the result div
-              $("#result").html(response);
-				window.location.href = "../customer_login.php";
-            }
-          },
-        });
-      }
+      // Send AJAX request
+      $.ajax({
+        type: 'POST',
+        url: '../functions/function_ajax.php', // Update with your server-side script URL
+        data: {
+          action: "confirm_pass",
+          password: password
+        },
+        success: function (response) {
+          // Update the result div
+          $("#result").html(response);
+          
+          // Redirect if necessary
+          if (response.includes("successfully")) {
+            window.location.href = "../customer_login.php";
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
     });
   });
 </script>

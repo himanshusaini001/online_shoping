@@ -8,14 +8,6 @@
     }
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
-
-		$customer_id = $_SESSION['customer_id'];
-    	$product_id = $_GET['product_id'];
-   
-	$cart_sql = "SELECT * FROM add_to_cart WHERE customer_id='$customer_id'";
-	$cart_row = $conn->query($cart_sql);
-	$cart_result_num_row = $cart_row->num_rows;
-	$cart_result = $cart_row->fetch_assoc();
 ?>
 <!-- header End -->
 
@@ -135,6 +127,21 @@
 			
         </div>
         <div class="col-lg-4">
+		<?php 
+			$customer_id = $_SESSION['customer_id'];
+			$sql_total = "SELECT * FROM add_to_cart WHERE customer_id = '$customer_id'";
+			$total_amount = 0;
+			$total_qut = 0;
+			$result_num = $conn->query($sql_total);
+			$cart_result_num_row = $result_num->num_rows;
+			if( $cart_result_num_row > 0){
+				while($result = $result_num->fetch_assoc()){
+					$total_amount += $result['total_price'];
+					$total_qut += $result['cart_qty'];
+				}
+			}
+			
+		?>
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
@@ -144,20 +151,10 @@
                             <h5><?php echo  $cart_result_num_row ?></h5>
                         </div>
                     </div>
-                    <!--div class="border-bottom pt-3 pb-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
-                            <h6>$150</h6>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
-                        </div>
-                    </div-->
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
                             <h5>Total</h5>
-                            <h5><?php echo  $cart_result['total_price'] ?></h5>
+                            <h5><?php echo  $total_amount ?></h5>
                         </div>
                     </div>
                 </div>
@@ -289,7 +286,7 @@
 						
 						// Redirect to another page after successful insertion
 						//alert("data insert ok");
-						window.location.href = "place_order.php?product_id=" + encodeURIComponent(product_id) + "&order_type=" +  encodeURIComponent(order_type);
+						window.location.href = "place_order.php";
 					} else {
 						alert("Error: " + response);
 					}
