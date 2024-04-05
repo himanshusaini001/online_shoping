@@ -1,7 +1,6 @@
 <?php	
 	// Assuming you have a database connection already established
-	
-		require_once('../include/db_file/config.php');
+	require_once('../include/db_file/config.php');
 		require_once('../include/db_file/connection_file.php');
 		
 		// Session Start
