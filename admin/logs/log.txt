@@ -48,3 +48,25 @@ Today Date:- [2024-04-05] & Time:- [18:26:52] & Type:- [info] Successfully inser
 Today Date:- [2024-04-05] & Time:- [18:40:40] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 6476 
 Today Date:- [2024-04-05] & Time:- [18:41:15] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 454 
 Today Date:- [2024-04-05] & Time:- [18:42:41] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 4534 
+Today Date:- [2024-04-08] & Time:- [10:23:16] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 534 
+Today Date:- [2024-04-08] & Time:- [10:40:33] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 5645 
+Today Date:- [2024-04-08] & Time:- [10:58:04] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 45 
+Today Date:- [2024-04-08] & Time:- [11:29:30] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:29:36] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:29:41] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:29:55] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 534 
+Today Date:- [2024-04-08] & Time:- [11:31:49] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:32:13] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 255 
+Today Date:- [2024-04-08] & Time:- [11:33:24] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:33:51] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 7675 
+Today Date:- [2024-04-08] & Time:- [11:37:30] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:37:44] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 43543 
+Today Date:- [2024-04-08] & Time:- [11:40:43] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:42:44] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:43:08] & Type:- [info] Successfully deleted item from cart. Cart ID: 37 
+Today Date:- [2024-04-08] & Time:- [11:43:24] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:44:07] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 222 
+Today Date:- [2024-04-08] & Time:- [11:46:49] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:47:07] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 2423 
+Today Date:- [2024-04-08] & Time:- [11:57:15] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:57:32] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 4342 

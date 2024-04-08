@@ -379,8 +379,7 @@
 				var price = parseInt(document.getElementById('price').value);
 				var total_price = qut * price;
 				
-				if (stock > qut) {
-					
+				if (stock >= qut) {
 					if (qut == 0) {
 						alert("Please Add Stock");
 						return false;
@@ -413,8 +412,6 @@
 					}
 				} else {
 					alert("Available Stock " + stock);
-					return false;
-					
 				}
 		}catch (error) {
 			console.error("Error occurred:", error);
