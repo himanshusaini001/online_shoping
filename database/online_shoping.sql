@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 03, 2024 at 12:51 PM
+-- Generation Time: Apr 08, 2024 at 04:35 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -48,8 +48,10 @@ CREATE TABLE `add_to_cart` (
 INSERT INTO `add_to_cart` (`cart_id`, `customer_id`, `product_id`, `cart_name`, `cart_qty`, `cart_price`, `description`, `cart_color`, `cart_size`, `total_price`, `stock`) VALUES
 (1, 1, 1, 'Red', 1, '1000.00', 'Best', 'Red', 'S', '6000', 10),
 (2, 1, 4, 'Nike', 3, '999.00', 'Best shoes', 'Black', 'S', '18197', 25),
-(12, 2, 1, 'Red', 1, '1000.00', 'Best', 'Red', 'S', '6000', 10),
-(13, 2, 3, 'Dimodan', 2, '2500.00', 'Best watch', 'Black', 'M', '5000', 20);
+(13, 2, 3, 'Dimodan', 2, '2500.00', 'Best watch', 'Black', 'M', '5000', 20),
+(15, 2, 1, 'Red', 2, '1000.00', 'Best', 'Red', 'S', '2000', 10),
+(31, 3, 1, 'Bluestar', 3, '1000.00', 'Bests', 'Black', 'S', '3000', 9),
+(32, 3, 2, 'Spider', 2, '999.00', 'Best product', 'Red', 'S', '1998', 14);
 
 -- --------------------------------------------------------
 
@@ -95,7 +97,14 @@ CREATE TABLE `billingaddress` (
 --
 
 INSERT INTO `billingaddress` (`billing_address_id`, `first_name`, `last_name`, `email`, `phone`, `address_line_1`, `address_line_2`, `country`, `city`, `state`, `pin_code`) VALUES
-(1, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'Sdfse', 'USA', 'Fddgf', 'NY', '435');
+(1, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
+(2, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
+(3, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
+(4, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '45725'),
+(5, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '245'),
+(6, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '6476'),
+(7, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '454'),
+(8, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '4534');
 
 -- --------------------------------------------------------
 
@@ -115,9 +124,9 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cid`, `cname`, `cimg`, `status`) VALUES
-(1, 'Jeens', 'jeens_blue.png', 1),
-(2, 'Shoes', 'cat-3.jpg', 1),
-(3, 'Tshirt', 'blue_tshirt_5.png', 1),
+(1, 'Tshirt', 'red_tshirt_1.png', 1),
+(2, 'Jeens', 'jeens_blue.png', 1),
+(3, 'Shoes', 'cat-3.jpg', 1),
 (4, 'Watch', 'blue_star1.jpg', 1);
 
 -- --------------------------------------------------------
@@ -139,10 +148,10 @@ CREATE TABLE `clothing_sizes` (
 INSERT INTO `clothing_sizes` (`sid`, `size`, `status`) VALUES
 (1, 'XS', 1),
 (2, 'S', 1),
-(3, 'M', 1),
-(4, 'L', 1),
-(5, 'XL', 1),
-(6, 'XXL', 1);
+(3, 'L', 1),
+(4, 'XL', 1),
+(5, 'XXL', 1),
+(6, 'XXXL', 1);
 
 -- --------------------------------------------------------
 
@@ -162,10 +171,9 @@ CREATE TABLE `colors` (
 
 INSERT INTO `colors` (`color_id`, `color_name`, `status`) VALUES
 (1, 'Red', 1),
-(2, 'White', 1),
-(3, 'Purple', 1),
-(4, 'Black', 1),
-(5, 'Blue', 1);
+(2, 'Black', 1),
+(4, 'Blue', 1),
+(5, 'Yellow', 1);
 
 -- --------------------------------------------------------
 
@@ -241,27 +249,28 @@ CREATE TABLE `login` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `place_order_list`
+-- Table structure for table `order_list`
 --
 
-CREATE TABLE `place_order_list` (
+CREATE TABLE `order_list` (
   `place_order_id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `order_name` varchar(255) NOT NULL,
-  `order_color` varchar(50) NOT NULL,
-  `order_size` varchar(20) NOT NULL,
-  `order_qut` varchar(6) NOT NULL,
-  `order_amount` varchar(10) NOT NULL,
-  `order_type` varchar(255) NOT NULL,
-  `total_price` varchar(20) NOT NULL
+  `customer_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `product_qty` int NOT NULL,
+  `product_price` decimal(10,2) NOT NULL,
+  `product_color` varchar(50) NOT NULL,
+  `product_size` varchar(20) NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `order_type` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `place_order_list`
+-- Dumping data for table `order_list`
 --
 
-INSERT INTO `place_order_list` (`place_order_id`, `order_id`, `order_name`, `order_color`, `order_size`, `order_qut`, `order_amount`, `order_type`, `total_price`) VALUES
-(1, 4, 'Nike', 'Black', 'S', '3', '999.00', 'cash', '1998');
+INSERT INTO `order_list` (`place_order_id`, `customer_id`, `product_id`, `product_name`, `product_qty`, `product_price`, `product_color`, `product_size`, `total_price`, `order_type`) VALUES
+(1, 3, 1, 'Bluestar', 3, '1000.00', 'Black', 'S', '3000.00', 'cash');
 
 -- --------------------------------------------------------
 
@@ -287,10 +296,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `category`, `product_color`, `product_size`, `stock`, `price`, `product_name`, `description`, `product_img`, `status`) VALUES
-(1, '3', 'Red', 'S', '10', 1000, 'Red', 'Best', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
-(2, '4', 'Black', 'S', '15', 1900, 'Bluestar', 'Best', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
-(3, '4', 'Black', 'M', '20', 2500, 'Dimodan', 'Best watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1),
-(4, '2', 'Black', 'S', '22', 999, 'Nike', 'Best shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1);
+(1, '4', 'Black', 'S', '9', 1000, 'Bluestar', 'Bests', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
+(2, '1', 'Red', 'S', '14', 999, 'Spider', 'Best product', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
+(6, '3', 'Black', 'L', '30', 1499, 'Nike', 'Best shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1),
+(7, '4', 'Black', 'L', '10', 1999, 'Diamond', 'Best diamond Watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1);
 
 -- --------------------------------------------------------
 
@@ -345,7 +354,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`sid`, `fname`, `lname`, `email`, `phone`, `address`, `username`, `password`, `created_at`, `updated_at`, `otp`, `status`) VALUES
 (1, 'Harsh', 'Saini', 'harshsaini26112002@gmail.com', '8699902297', 'Derabassi', 'admin', 'b0aa651c991deca550252ed6cbba99ba', '2024-04-02 12:45:23', '2024-04-02 12:51:35', '527586', '1'),
-(2, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-04-02 12:52:53', '2024-04-02 12:53:27', '453138', '1');
+(2, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-04-02 12:52:53', '2024-04-02 12:53:27', '453138', '1'),
+(3, 'Anita', 'Devi', 'anitadevi@gmail.com', '8699902297', 'Derabassi', 'admin', 'cf0761a0e0eb3fa006dc5dd9844736b0', '2024-04-05 10:18:29', '2024-04-05 10:40:12', '125663', '1');
 
 --
 -- Indexes for dumped tables
@@ -414,9 +424,9 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`lid`);
 
 --
--- Indexes for table `place_order_list`
+-- Indexes for table `order_list`
 --
-ALTER TABLE `place_order_list`
+ALTER TABLE `order_list`
   ADD PRIMARY KEY (`place_order_id`);
 
 --
@@ -445,7 +455,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `add_to_cart`
 --
 ALTER TABLE `add_to_cart`
-  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -457,19 +467,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `billingaddress`
 --
 ALTER TABLE `billingaddress`
-  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `cid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `clothing_sizes`
 --
 ALTER TABLE `clothing_sizes`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `colors`
@@ -502,16 +512,10 @@ ALTER TABLE `login`
   MODIFY `lid` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `place_order_list`
---
-ALTER TABLE `place_order_list`
-  MODIFY `place_order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `site_settings`
@@ -523,7 +527,7 @@ ALTER TABLE `site_settings`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
