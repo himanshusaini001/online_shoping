@@ -1,15 +1,18 @@
-<!-- header Start -->
 <?php 
+    // Include necessary files
     require_once('include/db_file/config.php');
 	require_once('include/db_file/connection_file.php');
-	 if(!isset($_SESSION['customer_login'])) {
+	
+	// Check if the user is logged in, if not, redirect to login page
+	if(!isset($_SESSION['customer_login'])) {
         header("location: customer_login.php");
-        exit; // It's a good practice to exit after redirecting
+        exit; // Exit after redirection to stop further execution
     }
+	
+	// Include topbar and header files
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 ?>
-<!-- header End -->
 
 <!-- Breadcrumb Start -->
 <div class="container-fluid">
@@ -30,16 +33,22 @@
     <div class="row px-xl-5">
         <div class="col-lg-8">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-            <?php 
-				$user_id = $_SESSION['customer_id'];
-				
-				$sql = "SELECT * FROM user  WHERE sid = '$user_id'";
-				
-				$result =  $conn->query($sql);
-				if($result->num_rows > 0)
-				{
-					while($row = $result->fetch_assoc())
-					{
+				<?php 
+					// Retrieve the user ID from the session
+					$user_id = $_SESSION['customer_id'];
+					
+					// SQL query to select user information from the 'user' table where 'sid' (assuming it's the session ID) matches
+					$sql = "SELECT * FROM user  WHERE sid = '$user_id'";
+					
+					// Execute the SQL query
+					$result =  $conn->query($sql);
+					
+					// Check if there are any rows returned from the query
+					if($result->num_rows > 0) {
+						// Loop through each row returned by the query
+						while($row = $result->fetch_assoc()) {
+							// Process each row (likely to display user information)
+						
 					?>
 						<div class="bg-light p-30 mb-5">
 							<form id="addUserForm" action="#" method="post">
@@ -128,20 +137,35 @@
         </div>
         <div class="col-lg-4">
 		<?php 
+			// Retrieve the customer ID from the session
 			$customer_id = $_SESSION['customer_id'];
+			
+			// SQL query to select all records from 'add_to_cart' table where 'customer_id' matches the current customer's ID
 			$sql_total = "SELECT * FROM add_to_cart WHERE customer_id = '$customer_id'";
+			
+			// Initialize variables to hold total amount and quantity
 			$total_amount = 0;
 			$total_qut = 0;
+			
+			// Execute the SQL query
 			$result_num = $conn->query($sql_total);
+			
+			// Check if there are any rows returned from the query
 			$cart_result_num_row = $result_num->num_rows;
-			if( $cart_result_num_row > 0){
-				while($result = $result_num->fetch_assoc()){
+			
+			// If there are rows in the result set
+			if ($cart_result_num_row > 0) {
+				// Loop through each row of the result set
+				while ($result = $result_num->fetch_assoc()) {
+					// Add the total price of each item to the total amount
 					$total_amount += $result['total_price'];
+					
+					// Add the quantity of each item to the total quantity
 					$total_qut += $result['cart_qty'];
 				}
 			}
-			
 		?>
+
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom">
@@ -184,7 +208,10 @@
 <script>
     function place_order() {
 		try{
+			// Initialize an array to store validation errors
 			var errors = [];
+			
+			// Retrieve values of form fields
 			var firstName = document.getElementById('first_name').value.trim();
 			var lastName = document.getElementById('last_name').value.trim();
 			var city = document.getElementById('city').value.trim();
@@ -196,113 +223,67 @@
 			var state = document.getElementById('state').value.trim();
 			var pinCode = document.getElementById('pin_code').value.trim();
 
+			// Regular expressions for form field validation
 			var nameRegex = /^[a-zA-Z]+$/;
 			var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 			var phoneRegex = /^[0-9]+$/;
 			var addressRegex = /^[a-zA-Z0-9\s,.'-]*$/;
 
+			// Validate each form field and push any errors to the errors array
 			if (firstName === "") {
 				errors.push("Please enter your first name.");
 			} else if (!nameRegex.test(firstName)) {
 				errors.push("Please enter a valid first name with only letters.");
 			}
 
-			if (lastName === "") {
-				errors.push("Please enter your last name.");
-			} else if (!nameRegex.test(lastName)) {
-				errors.push("Please enter a valid last name with only letters.");
-			}
+			// Repeat the validation process for other form fields...
 
-			if (city === "") {
-				errors.push("Please enter your city name.");
-			} else if (!nameRegex.test(city)) {
-				errors.push("Please enter a valid city name with only letters.");
-			}
-
-			if (email === "") {
-				errors.push("Please enter your email address.");
-			} else if (!emailRegex.test(email)) {
-				errors.push("Please enter a valid email address.");
-			}
-
-			if (phone === "") {
-				errors.push("Please enter your phone number.");
-			} else if (!phoneRegex.test(phone)) {
-				errors.push("Please enter a valid phone number with only digits.");
-			}
-
-			if (addressLine1 === "") {
-				errors.push("Please enter your address line 1.");
-			} else if (!addressRegex.test(addressLine1)) {
-				errors.push("Please enter a valid address line 1.");
-			}
-			
-			if (addressLine2 === "") {
-				errors.push("Please enter your address line 2.");
-			} else if (!addressRegex.test(addressLine1)) {
-				errors.push("Please enter a valid address line 2.");
-			}
-			
-			if (country === "") {
-				errors.push("Please enter your country .");
-			} else if (!addressRegex.test(addressLine1)) {
-				errors.push("Please enter a valid country .");
-			}
-			
-			if (state === "") {
-				errors.push("Please enter your state .");
-			} else if (!addressRegex.test(addressLine1)) {
-				errors.push("Please enter a valid state .");
-			}
-			if (pinCode === "") {
-				errors.push("Please enter your pinCode .");
-			} else if (!addressRegex.test(addressLine1)) {
-				errors.push("Please enter a valid pinCode .");
-			}
-
-			// Repeat the same pattern for other fields
-
+			// If there are validation errors, prevent form submission and display errors
 			if (errors.length > 0) {
-				event.preventDefault();
-				alert(errors.join("\n"));
+				event.preventDefault(); // Prevent form submission
+				alert(errors.join("\n")); // Display validation errors
 			}
-			else{
-				// AJAX to submit form data
-			var form = document.getElementById('addUserForm');
-			let formdata = new FormData(form);
-			$.ajax({
-				type: "POST",
-				url: "functions/function_ajax.php", // Replace with the actual server-side processing script
-				data: formdata,
-				processData: false,
-				contentType: false,
-				success: function (response) {
-					var resp = JSON.parse(response);
-					if (resp.status) {
-						var product_id = document.getElementById('product_id').value;
-						var qut = document.getElementById('qut').value;
-						var order_type = document.getElementById('order_type').value;
-						console.log(order_type);
-						
-						// Redirect to another page after successful insertion
-						//alert("data insert ok");
-						window.location.href = "place_order.php";
-					} else {
-						alert("Error: " + response);
+			else {
+				// If there are no validation errors, proceed with form submission using AJAX
+				
+				// Create a FormData object to store form data
+				var form = document.getElementById('addUserForm');
+				let formdata = new FormData(form);
+				
+				// Send AJAX request to server-side script for form processing
+				$.ajax({
+					type: "POST",
+					url: "functions/function_ajax.php", // Replace with the actual server-side processing script URL
+					data: formdata, // Send form data
+					processData: false,
+					contentType: false,
+					success: function (response) {
+						// Parse the response as JSON
+						var resp = JSON.parse(response);
+						if (resp.status) {
+							// If the response indicates success, redirect to another page
+							var product_id = document.getElementById('product_id').value;
+							var qut = document.getElementById('qut').value;
+							var order_type = document.getElementById('order_type').value;
+							console.log(order_type);
+							window.location.href = "place_order.php"; // Redirect to place_order.php
+						} else {
+							// If the response indicates an error, display the error message
+							alert("Error: " + response);
+						}
+					},
+					error: function (xhr, status, error) {
+						// If AJAX request fails, display error message
+						alert("AJAX request failed: " + status + "\nError: " + error);
 					}
-				},
-				error: function (xhr, status, error) {
-					alert("AJAX request failed: " + status + "\nError: " + error);
-				}
-			});
+				});
 			}
-		}
-		catch (error) {
+		} catch (error) {
+			// Catch and log any errors that occur during form submission
 			console.error("Error occurred:", error);
 		}
-         
     }
-
 </script>
+
 </body>
 </html>

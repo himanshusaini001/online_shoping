@@ -1,12 +1,17 @@
-	<!-- header Start -->
 	<?php 
+		// Including configuration file
 		require_once('include/db_file/config.php');
+
+		// Including database connection file
 		require_once('include/db_file/connection_file.php');
+
+		// Including topbar file
 		include('include/main_file/topbar.php');
+
+		// Including header file
 		include('include/main_file/header.php');
-		
 	?>
-	<!-- header End -->
+
     <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">
@@ -19,7 +24,6 @@
         </div>
     </div>
     <!-- Breadcrumb End -->
-
 
     <!-- Shop Start -->
     <div class="container-fluid">
@@ -74,13 +78,20 @@
                             <span class="badge border font-weight-normal">1000</span>
                         </div>
                         <?php 
+							// SQL query to select all records from the 'colors' table
 							$sql1 = "SELECT * FROM colors";
+							
+							// Executing the SQL query
 							$result1 = $conn->query($sql1);
+							
+							// Checking if there are rows returned
 							if($result1->num_rows > 0)
 							{
+								// Looping through each row of the result set
 								while($row1 = $result1->fetch_assoc())
-									{
+								{
 						?>
+
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                             <input type="checkbox" class="custom-control-input" id="color-5">
                             <label class="custom-control-label" for="color-5"><?php echo $row1['color_name'] ?></label>
@@ -104,13 +115,20 @@
                             <span class="badge border font-weight-normal">1000</span>
                         </div>
                          <?php 
+							// SQL query to select all records from the 'clothing_sizes' table
 							$sql2 = "SELECT * FROM clothing_sizes";
+							
+							// Executing the SQL query
 							$result2 = $conn->query($sql2);
+							
+							// Checking if there are rows returned
 							if($result2->num_rows > 0)
 							{
+								// Looping through each row of the result set
 								while($row2 = $result2->fetch_assoc())
-									{
+								{
 						?>
+
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                             <input type="checkbox" class="custom-control-input" id="size-1">
                             <label class="custom-control-label" for="size-1"><?php echo $row2['size'] ?></label>
@@ -160,13 +178,20 @@
                         </div>
                     </div>
 					<?php 
+						// SQL query to select all records from the 'product' table
 						$sql3 = "SELECT * FROM product";
+						
+						// Executing the SQL query
 						$result3 = $conn->query($sql3);
+						
+						// Checking if there are rows returned
 						if($result3->num_rows > 0)
 						{
+							// Looping through each row of the result set
 							while($row3 = $result3->fetch_assoc())
-								{
+							{
 					?>
+
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
@@ -240,7 +265,6 @@
 
 	<!-- footer End -->
 	
-   
 </body>
 
 </html>

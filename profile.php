@@ -1,17 +1,22 @@
-	<!-- header Start -->
-	
 	<?php 
+		// Including configuration file
 		require_once('include/db_file/config.php');
+
+		// Including database connection file
 		require_once('include/db_file/connection_file.php');
+
+		// Including topbar file
 		include('include/main_file/topbar.php');
+
+		// Including header file
 		include('include/main_file/header.php');
-		
+
+		// Redirecting to customer login page if session is not set
 		if(!isset($_SESSION['customer_login']))
 		{
 			header("location: customer_login.php");
 		}
 	?>
-	<!-- header End -->
 	 <!-- Breadcrumb Start -->
     <div class="container-fluid">
         <div class="row px-xl-5">

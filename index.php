@@ -1,14 +1,17 @@
-	<!-- header Start -->
-	
 	<?php 
+		// Include database configuration
 		require_once('include/db_file/config.php');
+		
+		// Include file for establishing database connection
 		require_once('include/db_file/connection_file.php');
+		
+		// Include topbar file
 		include('include/main_file/topbar.php');
+		
+		// Include header file
 		include('include/main_file/header.php');
-		
-		
-		
 	?>
+
 	
 	<!-- header End -->
 	
@@ -115,36 +118,36 @@
     <div class="container-fluid pt-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
         <div class="row px-xl-5 pb-3">
-			<?php 
+			<?php
 				// Select Category 
-				
 				$sql1 = "SELECT * FROM category WHERE status = '1' LIMIT 12";
 				
+				// Execute the SQL query
 				$result_category = $conn->query($sql1);
 				
+				// Check if there are any rows returned
 				if ($result_category->num_rows > 0) {
-					while ($row1 = $result_category->fetch_assoc()) 
-					{
-					   
+					// Loop through each row of the result set
+					while ($row1 = $result_category->fetch_assoc()) {
+				{
 			?>
-						<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-							<a class="text-decoration-none" href="">
-								<div class="cat-item d-flex align-items-center mb-4">
-									<div class="overflow-hidden" style="width: 100px; height: 100px;">
-									   <img class="img-fluid" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row1['cimg'] ?>" alt="">
-									</div>
-									<div class="flex-fill pl-3">
-										<h6><?php echo $row1['cname']?></h6>
-										<small class="text-body">100 product</small>
-									</div>
-								</div>
-							</a>
+				<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+					<a class="text-decoration-none" href="">
+						<div class="cat-item d-flex align-items-center mb-4">
+							<div class="overflow-hidden" style="width: 100px; height: 100px;">
+							   <img class="img-fluid" src="<?php echo DTS_WS_SITE_ADMIN_UPLOAD_IMG . $row1['cimg'] ?>" alt="">
+							</div>
+							<div class="flex-fill pl-3">
+								<h6><?php echo $row1['cname']?></h6>
+								<small class="text-body">100 product</small>
+							</div>
 						</div>
+					</a>
+				</div>
 			<?php
 					}
 				}
 			?>
-
         </div>
     </div>
     <!-- Categories End -->
@@ -157,15 +160,15 @@
 			<div class="row px-xl-5">
 				<?php 
 					// Select Product 
-					
 					$sql2 = "SELECT * FROM product WHERE status = '1' LIMIT 12";
 					
+					// Execute the SQL query
 					$result_product = $conn->query($sql2);
 					
+					// Check if there are any rows returned
 					if ($result_product->num_rows > 0) {
-						while ($row2 = $result_product->fetch_assoc()) 
-						{
-						   
+						// Loop through each row of the result set
+						while ($row2 = $result_product->fetch_assoc()) 	
 				?>
 				 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
 					<div class="product-item bg-light mb-4">
@@ -185,7 +188,6 @@
 								}
 							}
 						?>
-							
 							<div class="product-action">
 								<a class="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
 							</div>
@@ -213,8 +215,6 @@
 			</div>
 		</div>
 		<!-- Products End -->
-
-	
 
     <!-- Offer Start -->
 		

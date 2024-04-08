@@ -1,4 +1,3 @@
-<!-- header Start -->
 <?php 
     require_once('include/db_file/config.php');
     require_once('include/db_file/connection_file.php');
@@ -14,8 +13,9 @@
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $total = $qut * $row['price'];
-	$stock = $row['stock'];
+    $stock = $row['stock'];
 ?>
+
 <!-- header End -->
 
 <!-- Breadcrumb Start -->
@@ -127,11 +127,7 @@ function auto_change_qut_1()
 	}catch (error) {
 		console.error("Error occurred:", error);
 	}
-	
-	
-	
 		
-	
 }
 
 function auto_change_qut_2() {

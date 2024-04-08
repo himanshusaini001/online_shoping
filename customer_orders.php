@@ -1,16 +1,17 @@
-	<!-- header Start -->
-	
-	<?php 
-		require_once('include/db_file/config.php');
-		require_once('include/db_file/connection_file.php');
-		include('include/main_file/topbar.php');
-		include('include/main_file/header.php');
-		
-		if(!isset($_SESSION['customer_login']))
-		{
-			header("location: customer_login.php");
-		}
-	?>
+<?php 
+    // Include configuration file and necessary files
+    require_once('include/db_file/config.php');
+    require_once('include/db_file/connection_file.php');
+    include('include/main_file/topbar.php');
+    include('include/main_file/header.php');
+    
+    // Check if customer is not logged in, then redirect to customer_login.php
+    if(!isset($_SESSION['customer_login'])) {
+        header("location: customer_login.php");
+        exit; // Add exit after header redirect to stop further execution
+    }
+?>
+
 	<!-- header End -->
 	 <!-- Breadcrumb Start -->
     <div class="container-fluid">

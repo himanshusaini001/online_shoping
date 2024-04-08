@@ -1,11 +1,15 @@
 <?php 
-#harsh 
+	// Including configuration file
 	require_once('include/db_file/config.php');
+
+	// Checking if customer is already logged in
 	if(isset($_SESSION['customer_login']))
 	{
+		// Redirecting to index.php if logged in
 		header("location: index.php");
 	}	
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,7 +124,7 @@
 <!-- Result Section -->
 <div id="result" class="result"></div>
 <!-- Script Start -->
-	<script>
+<script>
     $(document).ready(function() {
         $("#addUser").click(function() {
 			try{
@@ -199,7 +203,7 @@
 						// Check if the response indicates success, then redirect
 						if (response.includes("successful")) 
 						{
-							// Start the countdown
+							// Start the countdown to
 							let seconds = 3; // Countdown time in seconds
 							var from = document.getElementById("addUserForm");
 							if (from.style.display === "none" || from.style.display === "") 
@@ -245,8 +249,7 @@
         });
     });
 </script>
-	<!-- Script End -->
-
+<!-- Script End -->
 </body>
 <!-- Body End -->
 </html>

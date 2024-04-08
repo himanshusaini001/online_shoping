@@ -1,21 +1,24 @@
 <?php 
+    // Include configuration file and database connection
     require_once('include/db_file/config.php');
     require_once('include/db_file/connection_file.php');
+    
+    // Redirect to customer login page if not logged in
     if(!isset($_SESSION['customer_login'])) {
         header("location: customer_login.php");
         exit; // Add exit after header redirect to stop further execution
     }
 
+    // Include topbar and header files
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 
-    if(!isset($_SESSION['customer_id']) ) {
-		$order = $_SESSION['order_id'] = "No Order";
-		
+    // Set session variable for order
+    if(!isset($_SESSION['customer_id'])) {
+        $order = $_SESSION['order_id'] = "No Order"; // Set order to "No Order" if customer ID is not set
+    } else {
+        $order = $_SESSION['order_id'] = " order"; // Set order to "order" if customer ID is set
     }
-	else{
-		$order = $_SESSION['order_id'] = " order";
-	}
 ?>
 
 <style>
@@ -98,15 +101,21 @@ if($order == "No Order") {
         <div class="col-md-8"style="height: 400px; overflow: auto; "  >
 			<h5><b>Order :-</b></h5>
 			<?php 
+				// Retrieve customer ID from session
 				$customer_id = $_SESSION['customer_id'];
-				$customer_histor = "SELECT * FROM order_list WHERE customer_id='$customer_id' ";
-				$customer_histor_row = $conn->query($customer_histor);
+
+				// Query to select order history for the current customer
+				$customer_history_query = "SELECT * FROM order_list WHERE customer_id='$customer_id' ";
 				
-				if($customer_histor_row->num_rows > 0)
-				{
-					while($customer_histor_result = $customer_histor_row->fetch_assoc())
-					{
+				// Execute the query
+				$customer_history_result = $conn->query($customer_history_query);
+				
+				// Check if there are any rows returned
+				if($customer_history_result->num_rows > 0) {
+					// Loop through the results and display each order
+					while($customer_history_row = $customer_history_result->fetch_assoc()) {
 			?>
+
             <div class="order_history_box mb-4"  >
 					<div class="row" >
 						<div class="col-md-4">
@@ -169,9 +178,10 @@ if($order == "No Order") {
 			<h5><b>Buy it again :-</b></h5>
             <div class=" product_box" style="height: 323px; overflow: auto;" >
 				<?php 
+					#fetch Data
 					$product_box = "SELECT * FROM product";
-					$product_box_row = $conn->query($product_box);
-					if($product_box_row->num_rows > 0)
+					$product_box_row = $conn->query($product_box);//Execute Query
+					if($product_box_row->num_rows > 0) // Fecth Num Rows
 					{
 						while($product_box_result = $product_box_row->fetch_assoc())
 						{ 

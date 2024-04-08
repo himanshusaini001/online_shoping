@@ -47,9 +47,10 @@
 		<?php 
 			include("admin/include/main_file/flash_message.php");
 		?>
-		<?php 
+		<?php  
+		// Fecth Query
 			$sql="SELECT * FROM product WHERE product_id = $product_id";
-			$result = $conn->query($sql);
+			$result = $conn->query($sql); // Execute Query
 			$row = $result->fetch_assoc();
 		?>
         <div class="row px-xl-5">
@@ -304,8 +305,9 @@
             <div class="col">
                 <div class="owl-carousel related-carousel">
 				  <?php 
+						// Fetch Data
 						$sql2 = "SELECT * FROM product WHERE status = '1'";
-						$result2 = $conn->query($sql2);
+						$result2 = $conn->query($sql2);// Execute
 						if($result2->num_rows > 0)
 						{
 							while($row2 = $result2->fetch_assoc())
@@ -371,54 +373,79 @@
 	<!-- Footer End -->
 
 <script>
-	function cart_call() {
-		try{
-				var qut = parseInt(document.getElementById('qut').value);
-				var stock = parseInt(document.getElementById('stock').value);
-				var product_id = parseInt(document.getElementById('product_id').value);
-				var price = parseInt(document.getElementById('price').value);
-				var total_price = qut * price;
-				
-				if (stock >= qut) {
-					if (qut == 0) {
-						alert("Please Add Stock");
-						return false;
-					} else {
-						$.ajax({
-							type: "POST",
-							url: "functions/function_ajax.php",
-							data: {
-								action: "add_to_cart",
-								qut: qut,
-								stock: stock,
-								total_price:total_price,
-								product_id: product_id
-							},
-							// specify the expected data type of the response
-							success: function(response) {
-									var resp = JSON.parse(response);
-								if (resp.status) {
-									alert("Successfully Added To Cart");
-									window.location.href = "detail.php?product_id= " +encodeURIComponent(product_id);
-								} else {
-									alert("Error: " + response.message); // Assuming there's a message field in the response
-								}
-							},
-							error: function(xhr, status, error) {
-								// Function to be called if the request fails
-								console.error("Error loading data: " + error);
-							}
-						});
-					}
-				} else {
-					alert("Available Stock " + stock);
-				}
-		}catch (error) {
-			console.error("Error occurred:", error);
-		}
+    function cart_call() {
+        try {
+            var qut = parseInt(document.getElementById('qut').value);
+            var stock = parseInt(document.getElementById('stock').value);
+            var product_id = parseInt(document.getElementById('product_id').value);
+            var price = parseInt(document.getElementById('price').value);
+            var total_price = qut * price;
 
-	}
+            if (stock >= qut) {
+                if (qut == 0) {
+                    alert("Please Add Stock");
+                    return false;
+                } else {
+                    // Show loading message or animation
+                    showLoading();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "functions/function_ajax.php",
+                        data: {
+                            action: "add_to_cart",
+                            qut: qut,
+                            stock: stock,
+                            total_price: total_price,
+                            product_id: product_id
+                        },
+                        // specify the expected data type of the response
+                        success: function(response) {
+                            var resp = JSON.parse(response);
+                            if (resp.status) {
+                                alert("Successfully Added To Cart");
+                                window.location.href = "detail.php?product_id=" + encodeURIComponent(product_id);
+                            } else {
+                                alert("Error: " + response.message); // Assuming there's a message field in the response
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Function to be called if the request fails
+                            console.error("Error loading data: " + error);
+                        },
+                        complete: function() {
+                            // Hide loading message or animation when request completes
+                            hideLoading();
+                        }
+                    });
+                }
+            } else {
+                alert("Available Stock " + stock);
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
+
+    }
+
+    function showLoading() {
+        // You can implement your loading message or animation here
+        // For example, displaying a loading spinner or message
+        document.getElementById("loading").style.display = "block";
+    }
+
+    function hideLoading() {
+        // Hide loading message or animation when request completes
+        document.getElementById("loading").style.display = "none";
+    }
 </script>
+
+<!-- Add this HTML for loading spinner or message -->
+<div id="loading" style="display: none;">
+    <!-- Your loading animation or message here -->
+    Loading...
+</div>
+
 </body>
 
 </html>
