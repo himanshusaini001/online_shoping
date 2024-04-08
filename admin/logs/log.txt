@@ -1,3 +1,72 @@
-Today Date: [2024-04-04] & Time: [13:57:35] & Type: [info] successfully Update Quantity Product Id 1 Customer Id = 2 
-<br>Today Date:- [2024-04-04] & Time:- [13:58:25] & Type:- [info] successfully Update Quantity Product Id 1 Customer Id = 2 
-Today Date:- [2024-04-04] & Time:- [13:59:05] & Type:- [info] successfully Update Quantity Product Id 1 Customer Id = 2 
+Today Date:- [2024-04-05] & Time:- [17:33:05] & Type:- [info] Successfully deleted item from cart. Cart ID: 16 
+Today Date:- [2024-04-05] & Time:- [17:33:06] & Type:- [info] Successfully deleted item from cart. Cart ID: 19 
+Today Date:- [2024-04-05] & Time:- [17:33:13] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:33:22] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:33:27] & Type:- [info] Successfully updated quantity in cart. Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:33:36] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 435 
+Today Date:- [2024-04-05] & Time:- [17:34:18] & Type:- [info] Successfully updated quantity in cart. Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:36:49] & Type:- [info] Successfully deleted item from cart. Cart ID: 20 
+Today Date:- [2024-04-05] & Time:- [17:36:50] & Type:- [info] Successfully deleted item from cart. Cart ID: 21 
+Today Date:- [2024-04-05] & Time:- [17:38:00] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:38:06] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:38:10] & Type:- [error] Exception caught: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE product_id=? AND customer_id=?' at line 1 
+Today Date:- [2024-04-05] & Time:- [17:38:10] & Type:- [error] Line: 1306 
+Today Date:- [2024-04-05] & Time:- [17:38:16] & Type:- [error] Exception caught: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE product_id=? AND customer_id=?' at line 1 
+Today Date:- [2024-04-05] & Time:- [17:38:16] & Type:- [error] Line: 1306 
+Today Date:- [2024-04-05] & Time:- [17:39:01] & Type:- [error] Exception caught: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE product_id=? AND customer_id=?' at line 1 
+Today Date:- [2024-04-05] & Time:- [17:39:01] & Type:- [error] Line: 1306 
+Today Date:- [2024-04-05] & Time:- [17:39:07] & Type:- [error] Exception caught: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE product_id=? AND customer_id=?' at line 1 
+Today Date:- [2024-04-05] & Time:- [17:39:07] & Type:- [error] Line: 1306 
+Today Date:- [2024-04-05] & Time:- [17:39:49] & Type:- [info] Successfully updated quantity in cart. Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:39:58] & Type:- [info] Successfully deleted item from cart. Cart ID: 22 
+Today Date:- [2024-04-05] & Time:- [17:39:59] & Type:- [info] Successfully deleted item from cart. Cart ID: 23 
+Today Date:- [2024-04-05] & Time:- [17:40:05] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:40:10] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:40:18] & Type:- [info] Successfully updated quantity for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:43:07] & Type:- [info] Successfully updated quantity for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:45:52] & Type:- [info] Successfully updated quantity in cart. Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:46:59] & Type:- [info] Successfully updated quantity for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:47:18] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:49:38] & Type:- [info] Successfully updated quantity in cart. Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:50:07] & Type:- [info] Successfully deleted item from cart. Cart ID: 25 
+Today Date:- [2024-04-05] & Time:- [17:50:08] & Type:- [info] Successfully deleted item from cart. Cart ID: 26 
+Today Date:- [2024-04-05] & Time:- [17:50:12] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:50:19] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:50:25] & Type:- [info] Successfully updated quantity in cart. Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [17:53:06] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 45725 
+Today Date:- [2024-04-05] & Time:- [17:59:17] & Type:- [info] Successfully deleted item from cart. Cart ID: 27 
+Today Date:- [2024-04-05] & Time:- [17:59:18] & Type:- [info] Successfully deleted item from cart. Cart ID: 28 
+Today Date:- [2024-04-05] & Time:- [18:00:01] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [18:00:14] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [18:00:21] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [18:01:59] & Type:- [info] Successfully updated quantity in cart. Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [18:02:44] & Type:- [info] Successfully deleted item from cart. Cart ID: 29 
+Today Date:- [2024-04-05] & Time:- [18:02:45] & Type:- [info] Successfully deleted item from cart. Cart ID: 30 
+Today Date:- [2024-04-05] & Time:- [18:02:52] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [18:02:56] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-05] & Time:- [18:26:52] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 245 
+Today Date:- [2024-04-05] & Time:- [18:40:40] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 6476 
+Today Date:- [2024-04-05] & Time:- [18:41:15] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 454 
+Today Date:- [2024-04-05] & Time:- [18:42:41] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 4534 
+Today Date:- [2024-04-08] & Time:- [10:23:16] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 534 
+Today Date:- [2024-04-08] & Time:- [10:40:33] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 5645 
+Today Date:- [2024-04-08] & Time:- [10:58:04] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 45 
+Today Date:- [2024-04-08] & Time:- [11:29:30] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:29:36] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:29:41] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:29:55] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 534 
+Today Date:- [2024-04-08] & Time:- [11:31:49] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:32:13] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 255 
+Today Date:- [2024-04-08] & Time:- [11:33:24] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:33:51] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 7675 
+Today Date:- [2024-04-08] & Time:- [11:37:30] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:37:44] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 43543 
+Today Date:- [2024-04-08] & Time:- [11:40:43] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:42:44] & Type:- [info] Successfully updated quantity for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:43:08] & Type:- [info] Successfully deleted item from cart. Cart ID: 37 
+Today Date:- [2024-04-08] & Time:- [11:43:24] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:44:07] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 222 
+Today Date:- [2024-04-08] & Time:- [11:46:49] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:47:07] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 2423 
+Today Date:- [2024-04-08] & Time:- [11:57:15] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 3 
+Today Date:- [2024-04-08] & Time:- [11:57:32] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 4342 

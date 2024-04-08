@@ -1,4 +1,4 @@
-<!-- header Start -->
+ <!-- header Start -->
 <?php 
     require_once('include/db_file/config.php');
 	require_once('include/db_file/connection_file.php');
@@ -6,42 +6,46 @@
         header("location: customer_login.php");
         exit; // It's a good practice to exit after redirecting
     }
+	if(!isset($_SESSION['customer_id'])) {
+        header("location: shop.php");
+        exit; // It's a good practice to exit after redirecting
+    }
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 	 // Get Data Start
     
-	$product_id = $_GET['product_id'];
 
-	$_SESSION['customer_order_history_id'] = $product_id;
 	
+	$customer_id = $_SESSION['customer_id'];
 	 // Get Data End
 	 
 	 // Select Command Start
-	if ($product_id != "") {
-    $sql = "SELECT * FROM add_to_cart WHERE product_id = '$product_id'";
+	if ($customer_id != "") {
+    $sql = "SELECT * FROM add_to_cart WHERE customer_id = '$customer_id'";
     $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
+
+    if ( $total_row = $result->num_rows > 0) {
+		
         $row = $result->fetch_assoc();
+		$customer_id = $row['customer_id'];
         $product_id = $row['product_id'];
 		$stock = $row['stock'];
-        $cart_name = $row['cart_name'];
-        $cart_qty = $row['cart_qty'];
-        $cart_price = $row['cart_price'];
-        $description = $row['description'];
-        $cart_color = $row['cart_color'];
-        $cart_size = $row['cart_size'];
+        $product_name = $row['cart_name'];
+        $product_qty = $row['cart_qty'];
+        $product_price = $row['cart_price'];
+        $product_color = $row['cart_color'];
+        $product_size = $row['cart_size'];
         $total_price = $row['total_price'];
-        $order_type = $_GET['order_type'];
+        $order_type = 'cash';
 
-        $place_order_sql = "INSERT INTO place_order_list (order_id, order_name, order_color, order_size, order_qut, order_amount, total_price, order_type) VALUES ('$product_id', '$cart_name', '$cart_color', '$cart_size', '$cart_qty', '$cart_price', '$total_price', '$order_type')";
+        $place_order_sql = "INSERT INTO order_list (customer_id,product_id, product_name,product_qty,product_price,product_color,product_size,total_price, order_type) VALUES ('$customer_id','$product_id','$product_name','$product_qty','$product_price','$product_color','$product_size','$total_price','$order_type')";
         
         if ($conn->query($place_order_sql) === TRUE) {
-         	if($cart_qty <= $stock)
+         	if($product_qty <= $stock) 
 					{
 							
-								$update_stock = $stock - $cart_qty;
-								$sql_update = "	UPDATE product SET stock = '$update_stock' WHERE product_id = '$product_id'";
+								$update_stock = $stock - $product_qty;
+								$sql_update = "UPDATE product SET stock = '$update_stock' WHERE product_id = '$product_id'";
 								
 									if ($conn->query($sql_update) === TRUE) {
 										echo '<style>
@@ -49,6 +53,19 @@
 												display:none;
 											}
 										</style>';
+										$delete_add_to_cart = "DELETE FROM add_to_cart WHERE customer_id = ?";
+										$stmt = $conn->prepare($delete_add_to_cart);
+										$stmt->bind_param("i", $customer_id);
+										
+										if($stmt->execute())
+										{
+											echo "<script>window.location='place_order.php';</script>";	
+										}
+										else{
+											echo "After Place order Do NOt Delete Cart";
+										}
+										
+												
 									} else {
 									  echo "Error updating record: " . $conn->error;
 									}
@@ -66,8 +83,8 @@
         } else {
             echo "Error: " . $place_order_sql . "<br>" . $conn->error;
         }
+		
     } else {
-        echo "No product found with this ID.";
     }
 }
 	else
@@ -111,14 +128,24 @@
     <div class="row px-xl-5">
         <div class="col-lg-12">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
-			<div class="bg-light p-30 mb-5  border_bottom">
+			<div class=" p-30 mb-5  border_bottom ">
 				<div class="row">
-					<div class="col-md-4">
+				<?php
+						$category_product = "SELECT * FROM order_list WHERE customer_id = '$customer_id'";
+						$category_product_row = $conn->query($category_product);
+							if($category_product_row->num_rows > 0)
+							{
+								while($category_product_result = $category_product_row->fetch_assoc())
+								{
+								?>
+					<div class="col-md-4 bg-light ml-3">
+						
+								
 						 <img src="assets/img/place_order.png" alt="Image" class="img-fluid mr-3 mt-1" style="width:70px;"><span class="place_order_text"><b>Order placed, thank you!</b></span>
-						<p class="mt-3"><b>Shipping To :- </b> <?php echo $cart_name ?></p>
-						<p class=""><b>Color :- </b> <?php echo $cart_color ?></p>
-						<p class=""><b>Size :-</b> <?php echo $cart_size ?></p>
-						<p class=""><b>Total Amount :- </b> <?php echo $total_price ?></p>
+						<p class="mt-3"><b>Shipping To :- </b> <?php echo $category_product_result['product_name'] ?></p>
+						<p class=""><b>Color :- </b>  <?php echo $category_product_result['product_color'] ?></p>
+						<p class=""><b>Size :-</b>  <?php echo $category_product_result['product_size'] ?></p>
+						<p class=""><b>Total Amount :- </b>  <?php echo $category_product_result['product_price'] ?></p>
 						<?php 
 							// Check if there are images for this product
 							if (!empty($row['product_img'])) {
@@ -132,35 +159,14 @@
 								}
 							}
 						?>
+						<button  type="text" name="cancel_order" class="btn btn-primary p-2" id="cancel_order">cancel order</button>
+							
 					</div>
-					<div class="col-md-8">
-					<!-- Vendor Start -->
-						<div class="container-fluid py-5">
-							<div class="row px-xl-5">
-								<div class="col">
-									<div class="owl-carousel vendor-carousel">
-										<?php
-											$category_product = "SELECT * FROM product";
-											$category_product_row = $conn->query($category_product);
-												if($category_product_row->num_rows > 0)
-												{
-													while($category_product_result = $category_product_row->fetch_assoc())
-													{
-														
-													?>
-														<div class="bg-light p-4">
-															<img src="<?php echo $category_product_result['product_img'] ?>" alt="">
-														</div>
-													<?php
-													}
-												}
-										?>
-									</div>
-								</div>
-							</div>
-						</div>
-					<!-- Vendor End -->
-					</div>
+					<?php
+									}
+								}
+						?>
+					
 				</div>
 			</div>
         </div>
@@ -169,25 +175,7 @@
     </div>
 </div>
 <!-- Checkout End -->
-<div class="container-fluid  block_out_off_stock1">
-	<div class="container ">
-		<?php 
-			include("admin/include/main_file/flash_message.php");
-		?>
-		<div class="row px-xl-5  bg-light p-30 mb-5  border_bottom">
-			<div class="col-lg-12">
-				<h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Sorry !</span></h5>
-				<?php 
-					include("admin/include/main_file/flash_message.php");
-				?>
-				<div class="">
-					<span class="place_order_text mr-5" >After Avaliable product i will Sand Message Your G-mail</span> <span><a href="shop.php" class=" btn btn-primary  shop_button ">Continue Shop</a></span>
-				</div>
-				
-			</div>
-		</div>
-	</div>
-</div>
+
 
 <!-- Products Start -->
     <div class="container-fluid py-5">
@@ -252,12 +240,11 @@
         </div>
     </div>
     <!-- Products End -->
+	<input type="hidden" name="customer_id" id="customer_id" value="<?php echo  $customer_id ?>">
 <!-- Footer Start -->
 <?php 
     include('include/main_file/footer.php');
 ?>
 <!-- Footer End -->
-
-
 </body>
 </html>

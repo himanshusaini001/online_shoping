@@ -9,19 +9,13 @@
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 
-    if(!isset($_SESSION['customer_order_history_id']) ) {
+    if(!isset($_SESSION['customer_id']) ) {
 		$order = $_SESSION['order_id'] = "No Order";
 		
-    } else {
-       
-		 $product_id = $_SESSION['customer_order_history_id'];
-        $customer_histor = "SELECT * FROM add_to_cart WHERE product_id='$product_id' ";
-		
-		$customer_histor_row = $conn->query($customer_histor);
-		
-		$customer_histor_result = $customer_histor_row->fetch_assoc();
-        $order = $_SESSION['order_id'] = " order";
     }
+	else{
+		$order = $_SESSION['order_id'] = " order";
+	}
 ?>
 
 <style>
@@ -99,17 +93,27 @@ if($order == "No Order") {
 <!-- Breadcrumb End -->
 
 <!-- Shop Detail Start -->
-<div class="container">
+<div class="container " >
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8"style="height: 400px; overflow: auto; "  >
 			<h5><b>Order :-</b></h5>
-            <div class="order_history_box">
-					<div class="row">
+			<?php 
+				$customer_id = $_SESSION['customer_id'];
+				$customer_histor = "SELECT * FROM order_list WHERE customer_id='$customer_id' ";
+				$customer_histor_row = $conn->query($customer_histor);
+				
+				if($customer_histor_row->num_rows > 0)
+				{
+					while($customer_histor_result = $customer_histor_row->fetch_assoc())
+					{
+			?>
+            <div class="order_history_box mb-4"  >
+					<div class="row" >
 						<div class="col-md-4">
 							<h6><b>Total Amount : </b><?php echo $customer_histor_result['total_price']  ?><h6>
 						</div>
 						<div class="col-md-4">
-							<h6><b>Ship To : </b><?php echo $customer_histor_result['cart_name']  ?><h6>
+							<h6><b>Ship To : </b><?php echo $customer_histor_result['product_name']  ?><h6>
 						</div>
 						<div class="col-md-4">
 							<h6><b>Order Id : </b><?php echo $customer_histor_result['product_id']  ?><h6>
@@ -136,7 +140,7 @@ if($order == "No Order") {
 										?>
 								</div>
 								<div class="col-md-6">
-									<h6><b><?php echo $customer_histor_result['description']  ?></b></h6>
+									<h6><b>Return window closed on 10-Feb-2024</b></h6>
 									<p>Return window closed on 10-Feb-2024</p>
 								</div>
 								<div class="col-md-3">
@@ -154,10 +158,16 @@ if($order == "No Order") {
 						</div>
 					</div>
 			</div>
+			<?php 
+					
+					}
+				}
+				
+			?>
         </div>
         <div class="col-md-4">
 			<h5><b>Buy it again :-</b></h5>
-            <div class=" product_box" style="height: 323px; overflow: auto; " >
+            <div class=" product_box" style="height: 323px; overflow: auto;" >
 				<?php 
 					$product_box = "SELECT * FROM product";
 					$product_box_row = $conn->query($product_box);

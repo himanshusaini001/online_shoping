@@ -66,9 +66,10 @@
 							<div class="input-group quantity mx-auto" style="width: 100px;">
 								<div class="input-group-btn">
 									<button class="btn btn-sm btn-primary btn-minus link1" id="btn_minus"
-									data-productid="<?php echo $row['product_id'] ?>"
+									data-product_id="<?php echo $row['product_id'] ?>"
 									data-price="<?php echo $row['cart_price'] ?>"
 									data-stock="<?php echo $row['stock'] ?>"
+									data-cart_id="<?php echo $row['cart_id'] ?>"
 									>
 										<i class="fa fa-minus"></i>
 									</button>
@@ -76,9 +77,10 @@
 								<input type="number" id="qut_change"  name="qut_change" min="1" max="5" class="form-control form-control-sm bg-secondary border-0 text-center qut_change" value="<?php echo $row['cart_qty'] ?>">
 								<div class="input-group-btn">
 									<button class="btn btn-sm btn-primary btn-plus link2"  id="btn_plus" 
-									data-productid="<?php echo $row['product_id'] ?>"
+									data-product_id="<?php echo $row['product_id'] ?>"
 									data-price="<?php echo $row['cart_price'] ?>"
 									data-stock="<?php echo $row['stock'] ?>"
+									data-cart_id="<?php echo $row['cart_id'] ?>"
 									>
 										<i class="fa fa-plus"></i>
 									</button>
@@ -130,22 +132,45 @@
 <script>
 $(document).ready(function() {
     var totalAmount = parseInt($('#total_price').val());
-	
     $('.btn-minus').click(function() {
 		try{
 			var price = parseInt($(this).data('price'));
+			var product_id = parseInt($(this).data('product_id'));
+			var cart_id = parseInt($(this).data('cart_id'));
 			var qut = parseInt($(this).closest('tr').find('.qut_change').val());
-			
 			if (qut == 0) {
 				alert("Plase Add Stock: ");
-				var btn_plus = document.getElementById("btn_minus");
+				totalAmount -= price;
+					$.ajax({
+						type: "POST",
+						url: "functions/function_ajax.php",
+						data: {
+							action: "add_to_cart_delete",
+							cart_id: cart_id
+						},
+						// specify the expected data type of the response
+						success: function(response) {
+								var resp = JSON.parse(response);
+							if (resp.status) {
+								window.location.href = "cart.php";
+							} else {
+								alert("Error: " + response.message); // Assuming there's a message field in the response
+							}
+						},
+						error: function(xhr, status, error) {
+							// Function to be called if the request fails
+							console.error("Error loading data: " + error);
+						}
+					});
+				//var btn_plus = document.getElementById("btn_minus");
 				// Disable the button
-				btn_plus.style.pointerEvents = "none";
+				//btn_plus.style.pointerEvents = "none";
 				
-				 totalAmount -= price;
+				 
 			} else {
 				
 				var btn_plus = document.getElementById("btn_plus");
+				console.log(btn_plus);
 				// Disable the button
 				btn_plus.style.pointerEvents = "auto";
 				
@@ -164,14 +189,13 @@ $(document).ready(function() {
 			 var price = parseInt($(this).data('price'));
 			var qut = parseInt($(this).closest('tr').find('.qut_change').val());
 			var stock = parseInt($(this).data('stock'));
-
+			var cart_id = parseInt($(this).data('cart_id'));
+			var product_id = parseInt($(this).data('product_id'));
+			
 			if (qut >= stock) {
 				 alert("Only Available Stock: " + stock);
-				var btn_plus = document.getElementById("btn_plus");
-				// Disable the button
-				btn_plus.style.pointerEvents = "none";
-				
-				 totalAmount += price;
+				 $(this).css('pointer-events', 'none'); 
+				totalAmount += price;
 			} else {
 				var btn_plus = document.getElementById("btn_minus");
 				// Disable the button
@@ -227,37 +251,8 @@ function delete_cart_items(cart_id)
 
 function checkout()
 {
-	try{
-		var qut = document.getElementById('qut_change').value;
-		var product_id = document.getElementById('product_id').value;
-		var total_price = document.getElementById('all_amount').textContent;
-		$.ajax({
-			type: "POST",
-			url: "functions/function_ajax.php",
-			data: {
-				action: "update_add_to_cart",
-				qut:qut,
-				product_id:product_id,
-				total_price:total_price
-				
-			},
-			// specify the expected data type of the response
-			success: function(response) {
-				var resp = JSON.parse(response);
-				if (resp.status) {
-					window.location.href = "checkout.php?product_id=" + encodeURIComponent(product_id);
-				} else {
-					alert("Error: " + response.message); // Assuming there's a message field in the response
-				}
-			},
-			error: function(xhr, status, error) {
-				// Function to be called if the request fails
-				console.error("Error loading data: " + error);
-			}
-		});
-	}catch (error) {
-		console.error("Error occurred:", error);
-	}
+	window.location.href = "checkout.php";
+	
 }
 </script>
 </body>

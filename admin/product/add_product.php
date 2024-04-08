@@ -208,7 +208,7 @@
 				var status = $("#status").val();
 				
 				if (!/^[a-zA-Z]+$/.test(product_name)) {
-					alert("Check name field, add only characters." );
+					alert("All Fild Required Do Not add Space" );
 				}
 				else{
 					 var isValid = true;
