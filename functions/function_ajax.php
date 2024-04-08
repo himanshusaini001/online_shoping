@@ -609,11 +609,11 @@
 			try {
 				// Select all data from the category table
 				$sql = "SELECT * FROM category";
-				$result = mysqli_query($conn, $sql);
+				$result = mysqli_query($conn, $sql); // Execute the query
 
 				// Check if the SQL query executed successfully
 				if (!$result) {
-					throw new Exception("SQL query failed: " . mysqli_error($conn));
+					throw new Exception("SQL query failed: " . mysqli_error($conn)); // Throw an exception with the error message
 				}
 
 				// Initialize output variable
@@ -621,7 +621,7 @@
 
 				// Check if there are any rows returned
 				if (mysqli_num_rows($result) > 0) {
-					// Start building the table
+					// If there are rows, start building the HTML table
 					$output = '<table border="1" width="100%" cellspacing="0" cellpadding="10" class="category_table_style">';
 					$output .= '<tr>
 									<th>cid</th>
@@ -641,37 +641,45 @@
 										<td><a class='btn btn-danger' href='delete_category.php?cid={$row['cid']}'>Delete</a></td>
 									</tr>";
 					}
-					// Close the table
+
+					// Close the HTML table
 					$output .= "</table>";
-					echo $output; // Output the table
+
+					// Output the HTML table
+					echo $output;
 				} else {
-					echo "No records found"; // If no records found, display this message
+					// If no records found, display this message
+					echo "No records found";
 				}
 			} catch (Exception $e) {
-				// Catch any exceptions and log them
-				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
+				// Catch any exceptions and handle them
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Output error message in JSON format
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
+				logMessage("Line: " . $e->getLine(), 'error'); // Log line number where exception occurred
 			}
 		}
 
-
-		
 		// Show Data Category End 
 		
 		// Show data Size Start
 		
 		if ($action == "fetch_size") {
 			try {
+				// SQL query to fetch all clothing sizes
 				$sql = "SELECT * FROM clothing_sizes";
-				$result = mysqli_query($conn, $sql);
+				$result = mysqli_query($conn, $sql); // Execute the query
 
+				// Check if the query execution was successful
 				if (!$result) {
-					throw new Exception("SQL query failed: " . mysqli_error($conn));
+					throw new Exception("SQL query failed: " . mysqli_error($conn)); // Throw an exception with the error message
 				}
 
+				// Initialize output variable
 				$output = "";
+
+				// Check if there are rows returned from the query
 				if (mysqli_num_rows($result) > 0) {
+					// If there are rows, start building the HTML table
 					$output = '<table border="1" width="100%" cellspacing="0" cellpadding="10" class="category_table_style">';
 					$output .= '<tr>
 									<th>sid</th>
@@ -680,7 +688,9 @@
 									<th>Delete</th>
 								</tr>';
 
+					// Loop through each row returned from the query
 					while ($row = mysqli_fetch_assoc($result)) {
+						// Append the row data to the HTML table
 						$output .= "<tr>
 										<td>{$row['sid']}</td>
 										<td>{$row['size']}</td>
@@ -688,16 +698,21 @@
 										<td><a class='btn btn-danger' href='delete_size.php?sid={$row['sid']}'>Delete</a></td>
 									</tr>";
 					}
+
+					// Close the HTML table
 					$output .= "</table>";
 
+					// Output the HTML table
 					echo $output;
 				} else {
+					// If no rows found, output a message
 					echo "No records found";
 				}
 			} catch (Exception $e) {
-				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
+				// Catch any exceptions and handle them
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Output error message in JSON format
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
+				logMessage("Line: " . $e->getLine(), 'error'); // Log line number where exception occurred
 			}
 		}
 
@@ -707,15 +722,21 @@
 		// Show data Color Start
 		if ($action == "fetch_color") {
 			try {
+				// SQL query to fetch all colors
 				$sql = "SELECT * FROM colors";
-				$result = mysqli_query($conn, $sql);
+				$result = mysqli_query($conn, $sql); // Execute the query
 
+				// Check if the query execution was successful
 				if (!$result) {
-					throw new Exception("SQL query failed: " . mysqli_error($conn));
+					throw new Exception("SQL query failed: " . mysqli_error($conn)); // Throw an exception with the error message
 				}
 
+				// Initialize output variable
 				$output = "";
+
+				// Check if there are rows returned from the query
 				if (mysqli_num_rows($result) > 0) {
+					// If there are rows, start building the HTML table
 					$output = '<table border="1" width="100%" cellspacing="0" cellpadding="10" class="category_table_style">';
 					$output .= '<tr>
 									<th>color_id</th>
@@ -724,7 +745,9 @@
 									<th>Delete</th>
 								</tr>';
 
+					// Loop through each row returned from the query
 					while ($row = mysqli_fetch_assoc($result)) {
+						// Append the row data to the HTML table
 						$output .= "<tr>
 										<td>{$row['color_id']}</td>
 										<td>{$row['color_name']}</td>
@@ -732,47 +755,53 @@
 										<td><a class='btn btn-danger' href='delete_color.php?color_id={$row['color_id']}'>Delete</a></td>
 									</tr>";
 					}
+
+					// Close the HTML table
 					$output .= "</table>";
 
+					// Output the HTML table
 					echo $output;
 				} else {
+					// If no rows found, output a message
 					echo "No records found";
 				}
 			} catch (Exception $e) {
-				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
+				// Catch any exceptions and handle them
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Output error message in JSON format
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
+				logMessage("Line: " . $e->getLine(), 'error'); // Log line number where exception occurred
 			}
 		}
 
-		
 		// Show data Color End
 		
 		// Delete Category Start
 
 		if ($action == "delete_category") {
 			try {
-				$cid = test_input($_POST['cid']);
+				$cid = test_input($_POST['cid']); // Sanitize category ID
 
 				// Use prepared statement for security
-				$stmt = $conn->prepare("DELETE FROM category WHERE cid = ?");
-				$stmt->bind_param("i", $cid);
+				$stmt = $conn->prepare("DELETE FROM category WHERE cid = ?"); // Prepare SQL statement
+				$stmt->bind_param("i", $cid); // Bind category ID parameter
 
+				// Execute the prepared statement
 				if ($stmt->execute()) {
-					echo "Record deleted successfully";
-					$_SESSION['msg'] = "Delete Categories successfully";
-					logMessage("Successfully deleted Category = " . $cid);
+					echo "Record deleted successfully"; // Output success message
+					$_SESSION['msg'] = "Delete Categories successfully"; // Set success message in session
+					logMessage("Successfully deleted Category = " . $cid); // Log success message
 				} else {
-					echo "Error deleting record: " . $stmt->error;
-					$_SESSION['msg_error'] = "Failed to delete Category";
-					logMessage("Failed to delete Category = " . $cid, 'error');
+					echo "Error deleting record: " . $stmt->error; // Output error message
+					$_SESSION['msg_error'] = "Failed to delete Category"; // Set error message in session
+					logMessage("Failed to delete Category = " . $cid, 'error'); // Log error message
 				}
 			} catch (Exception $e) {
-				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Output error message in JSON format
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
+				logMessage("Line: " . $e->getLine(), 'error'); // Log line number where exception occurred
 			}
 		}
+
 
 		
 		// Delete Category End
@@ -781,49 +810,51 @@
 
 		if ($action == "update_category") {
 			try {
-				// Get data from AJAX request
-				$cname_c = test_input($_POST['cname']);
-				$cname = ucfirst($cname_c);
-				$status = test_input($_POST['status']);
-				$cid = test_input($_POST['cid']);
+				// Get data from AJAX request and sanitize
+				$cname_c = test_input($_POST['cname']); // Sanitize category name
+				$cname = ucfirst($cname_c); // Capitalize category name
+				$status = test_input($_POST['status']); // Sanitize status
+				$cid = test_input($_POST['cid']); // Sanitize category ID
 
 				// Check if a file is uploaded
 				if (!empty($_FILES['cimg']['name'])) {
-					$cimg = test_input($_FILES['cimg']['name']);
-					$uploadDir = '../admin/assets/upload_img/';
-					$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']);
-					move_uploaded_file($_FILES['cimg']['tmp_name'], $uploadedFile);
+					$cimg = test_input($_FILES['cimg']['name']); // Sanitize uploaded file name
+					$uploadDir = '../admin/assets/upload_img/'; // Set upload directory
+					$uploadedFile = $uploadDir . basename($_FILES['cimg']['name']); // Set uploaded file path
+					move_uploaded_file($_FILES['cimg']['tmp_name'], $uploadedFile); // Move uploaded file to destination
 				} else {
 					// If no file is uploaded, retain the existing image name
-					$folder_img = "SELECT cimg FROM category WHERE cid=?";
-					$stmt = $conn->prepare($folder_img);
-					$stmt->bind_param("i", $cid);
-					$stmt->execute();
-					$res = $stmt->get_result();
-					$row = $res->fetch_assoc();
-					$cimg = test_input($row['cimg']);
+					$folder_img = "SELECT cimg FROM category WHERE cid=?"; // SQL query to retrieve existing image name
+					$stmt = $conn->prepare($folder_img); // Prepare SQL statement
+					$stmt->bind_param("i", $cid); // Bind parameter
+					$stmt->execute(); // Execute SQL query
+					$res = $stmt->get_result(); // Get query result
+					$row = $res->fetch_assoc(); // Fetch result as associative array
+					$cimg = test_input($row['cimg']); // Sanitize and store existing image name
 				}
 
 				// Use prepared statement to prevent SQL injection
-				$sql = "UPDATE category SET cname=?, cimg=?, status=? WHERE cid=?";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("sssi", $cname, $cimg, $status, $cid);
+				$sql = "UPDATE category SET cname=?, cimg=?, status=? WHERE cid=?"; // SQL query to update category
+				$stmt = $conn->prepare($sql); // Prepare SQL statement
+				$stmt->bind_param("sssi", $cname, $cimg, $status, $cid); // Bind parameters
 
+				// Execute SQL query
 				if ($stmt->execute()) {
-					echo json_encode(['status' => true]);
-					$_SESSION['msg'] = "Update Categories successfully";
-					logMessage("Successfully updated Category: " . $cname . " (Category ID: " . $cid . ")");
+					echo json_encode(['status' => true]); // Return success status
+					$_SESSION['msg'] = "Update Categories successfully"; // Set success message
+					logMessage("Successfully updated Category: " . $cname . " (Category ID: " . $cid . ")"); // Log success message
 				} else {
-					echo json_encode(['status' => false]);
-					$_SESSION['msg_error'] = "Failed to update Categories";
-					logMessage("Failed to update Category: " . $cname . " (Category ID: " . $cid . ")", 'error');
+					echo json_encode(['status' => false]); // Return failure status
+					$_SESSION['msg_error'] = "Failed to update Categories"; // Set error message
+					logMessage("Failed to update Category: " . $cname . " (Category ID: " . $cid . ")", 'error'); // Log error message
 				}
 			} catch (Exception $e) {
-				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Return error status and message
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
+				logMessage("Line: " . $e->getLine(), 'error'); // Log line number where exception occurred
 			}
 		}
+
 
 		
 		// Update Category End
@@ -831,96 +862,96 @@
 		// Add product  Start
 
 		if ($action == "add_product") {
-			try{
-				// Get data from AJAX request
-				$category_c = test_input($_POST['category']);
-				$category = ucfirst($category_c);
-				$product_color = test_input($_POST['product_color']);
-				$product_size = test_input($_POST['product_size']);
-				$product_stock = test_input($_POST['product_stock']);
-				$price = test_input($_POST['price']);
-				$product_name_c = test_input($_POST['product_name']);
-				$product_name = ucfirst($product_name_c);
-				$description_c = test_input($_POST['description']);
-				$description = ucfirst($description_c);
-				$status = test_input($_POST['status']);
+			try {
+				// Get data from AJAX request and sanitize
+				$category_c = test_input($_POST['category']); // Sanitize category
+				$category = ucfirst($category_c); // Capitalize category
+				$product_color = test_input($_POST['product_color']); // Sanitize product color
+				$product_size = test_input($_POST['product_size']); // Sanitize product size
+				$product_stock = test_input($_POST['product_stock']); // Sanitize product stock
+				$price = test_input($_POST['price']); // Sanitize price
+				$product_name_c = test_input($_POST['product_name']); // Sanitize product name
+				$product_name = ucfirst($product_name_c); // Capitalize product name
+				$description_c = test_input($_POST['description']); // Sanitize description
+				$description = ucfirst($description_c); // Capitalize description
+				$status = test_input($_POST['status']); // Sanitize status
 
 				// Array to store uploaded file names
-
 				$product_imgs = array();
 
 				// Process multiple file uploads
-
 				if (!empty($_FILES['product_img']['name'][0])) {
 					$uploadDir = '../admin/assets/upload_img/';
 					foreach ($_FILES['product_img']['name'] as $key => $name) {
-					$tmp_name = $_FILES['product_img']['tmp_name'][$key];
-					$newFileName = $uploadDir . basename($name);
-					if (move_uploaded_file($tmp_name, $newFileName)) {
-						$product_imgs[] = $newFileName;
-					} else {
-						echo "Error uploading file: " . $name;
-					}
+						$tmp_name = $_FILES['product_img']['tmp_name'][$key];
+						$newFileName = $uploadDir . basename($name);
+						if (move_uploaded_file($tmp_name, $newFileName)) {
+							$product_imgs[] = $newFileName; // Store uploaded file names
+						} else {
+							echo "Error uploading file: " . $name; // Display error message if file upload fails
+						}
 					}
 				}
 
+				// Construct SQL query
 				$sql = "INSERT INTO product (category,product_color,product_size,stock,price,product_name,description,product_img,status) VALUES ('$category','$product_color','$product_size','$product_stock','$price','$product_name','$description','" . implode(',', $product_imgs) . "','$status')";
 
+				// Execute SQL query
 				if ($conn->query($sql) === TRUE) {
-					echo json_encode(["status"=>true]);
-					$_SESSION['msg'] = "Add Data Successfully";
-					logMessage("successfully Add Product ".$product_name." category Id = ".$category );
+					echo json_encode(["status"=>true]); // Return success status
+					$_SESSION['msg'] = "Add Data Successfully"; // Set success message
+					logMessage("Successfully added product: ".$product_name.", Category ID: ".$category);
 				} else {
-					echo json_encode(["status"=>false]);
-					$_SESSION['msg_error'] = "Do not Add Data ";
-					logMessage("Failed Do Not Add Product ".$product_name." category Id = ".$category);
+					echo json_encode(["status"=>false]); // Return failure status
+					$_SESSION['msg_error'] = "Failed to Add Data"; // Set error message
+					logMessage("Failed to add product: ".$product_name.", Category ID: ".$category, 'error');
 				}
-			}
-			catch (Exception $e) {
-				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
+			} catch (Exception $e) {
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Return error status and message
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
+				logMessage("Line: " . $e->getLine(), 'error'); // Log line number where exception occurred
 			}
 		}
-
 
 		// Update Product Start
 
 		if ($action == "update_product") {
 			try {
 				// Get data from AJAX request
-				$product_id = test_input($_POST['product_id']);
-				$category = test_input($_POST['category']);
-				$product_color = test_input($_POST['product_color']);
-				$product_size = test_input($_POST['product_size']);
-				$price = test_input($_POST['price']);
-				$product_name = test_input($_POST['product_name']);
-				$description = test_input($_POST['description']);
-				$status = test_input($_POST['status']);
+				$product_id = test_input($_POST['product_id']); // Sanitize Product Id 
+				$category = test_input($_POST['category']); // Sanitize Category
+				$product_color = test_input($_POST['product_color']); // Sanitize product Color
+				$product_size = test_input($_POST['product_size']); // Sanitize Product Size
+				$price = test_input($_POST['price']);// Sanitize Price
+				$product_name = test_input($_POST['product_name']); // Sanitize Product name
+				$description = test_input($_POST['description']); // Sanitize description
+				$status = test_input($_POST['status']); // Sanitize Status 
 
 				// Array to store uploaded file names
 				$product_imgs = array();
 
-				if (!empty($_FILES['product_img']['name'][0])) {
-					$uploadDir = '../admin/assets/upload_img/';
-					foreach ($_FILES['product_img']['name'] as $key => $name) {
-						$tmp_name = $_FILES['product_img']['tmp_name'][$key];
-						$filename = $uploadDir . basename($name);
-						
-						// Validate file type and move file
-						$fileType = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-						if (in_array($fileType, ['jpg', 'jpeg', 'png', 'gif']) && $_FILES['product_img']['size'][$key] < 5000000) {
-							if (move_uploaded_file($tmp_name, $filename)) {
-								$product_imgs[] = $filename;
-							} else {
-								throw new Exception("Error uploading file: " . $name);
-							}
+				if (!empty($_FILES['product_img']['name'][0])) { // Check if any files were uploaded
+				$uploadDir = '../admin/assets/upload_img/'; // Set the upload directory
+				
+				foreach ($_FILES['product_img']['name'] as $key => $name) { // Loop through each uploaded file
+					$tmp_name = $_FILES['product_img']['tmp_name'][$key]; // Get the temporary file name
+					$filename = $uploadDir . basename($name); // Set the destination file path
+					
+					// Validate file type and move file
+					$fileType = strtolower(pathinfo($filename, PATHINFO_EXTENSION)); // Get the file extension
+					if (in_array($fileType, ['jpg', 'jpeg', 'png', 'gif']) && $_FILES['product_img']['size'][$key] < 5000000) { // Check if file type and size are valid
+						if (move_uploaded_file($tmp_name, $filename)) { // Move the file to the upload directory
+							$product_imgs[] = $filename; // Store the file name
 						} else {
-							throw new Exception("Invalid file type or file size exceeds the limit for file: " . $name);
+							throw new Exception("Error uploading file: " . $name); // Throw exception if file upload fails
 						}
+					} else {
+						throw new Exception("Invalid file type or file size exceeds the limit for file: " . $name); // Throw exception for invalid file type or size
 					}
-					$product_img = implode(',', $product_imgs);
-				} else {
+				}
+				$product_img = implode(',', $product_imgs); // Convert array of file names to comma-separated string
+				}
+				 else {
 					// If no file is uploaded, retain the existing image name
 					$stmt_folder = $conn->prepare("SELECT product_img FROM product WHERE product_id=?");
 					$stmt_folder->bind_param("i", $product_id);
@@ -958,27 +989,33 @@
 
 		if ($action == "delete_product") {
 			try {
+				// Get the product_id from the POST request and sanitize it
 				$product_id = test_input($_POST['product_id']);
 
 				// Use prepared statement to prevent SQL injection
 				$stmt = $conn->prepare("DELETE FROM product WHERE product_id=?");
 				$stmt->bind_param("i", $product_id);
 
+				// Execute the prepared statement
 				if ($stmt->execute()) {
+					// If deletion is successful, echo success message and set session message
 					echo "Record deleted successfully";
 					$_SESSION['msg'] = "Delete Data Successfully";
 					logMessage("Successfully deleted Product ID: " . $product_id);
 				} else {
+					// If deletion fails, echo error message and set session error message
 					echo "Error deleting record: " . $stmt->error;
 					$_SESSION['msg_error'] = "Failed to delete Product";
 					logMessage("Failed to delete Product ID: " . $product_id, 'error');
 				}
 			} catch (Exception $e) {
+				// Catch any exceptions and log them
 				echo json_encode(['status' => false, 'message' => 'An error occurred: ' . $e->getMessage()]);
 				logMessage("Exception caught: " . $e->getMessage(), 'error');
 				logMessage("Line: " . $e->getLine(), 'error');
 			}
 		}
+
 
 		// Delete product End
 		
@@ -1004,6 +1041,7 @@
 					$body = "First Name: $fname\nLast Name: $lname\nEmail: $email\nPhone: $phone\nMessage: $message";
 					$headers = "From: $email";
 
+					// Check if email is valid before sending
 					if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 						if (mail($to, $subject, $body, $headers)) {
 							echo json_encode(['status' => true]);
@@ -1028,6 +1066,7 @@
 				logMessage("Line: " . $e->getLine(), 'error');
 			}
 		}
+
 
 		
 		// Customer contact End
@@ -1107,6 +1146,7 @@
 				$stmt = $conn->prepare("INSERT INTO billingaddress (first_name, last_name, email, phone, address_line_1, address_line_2, country, city, state, pin_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				$stmt->bind_param("ssssssssss", $first_name, $last_name, $email, $phone, $address_line_1, $address_line_2, $country, $city, $state, $pin_code);
 
+				// Execute the query
 				if ($stmt->execute()) {
 					echo json_encode(['status' => true]);
 					$_SESSION['msg'] = "Add billing_Address successfully";
