@@ -103,7 +103,6 @@ if($order == "No Order") {
 			<?php 
 				// Retrieve customer ID from session
 				$customer_id = $_SESSION['customer_id'];
-
 				// Query to select order history for the current customer
 				$customer_history_query = "SELECT * FROM order_list WHERE customer_id='$customer_id' ";
 				
@@ -119,13 +118,13 @@ if($order == "No Order") {
             <div class="order_history_box mb-4"  >
 					<div class="row" >
 						<div class="col-md-4">
-							<h6><b>Total Amount : </b><?php echo $customer_histor_result['total_price']  ?><h6>
+							<h6><b>Total Amount : </b><?php echo $customer_history_row['total_price']  ?><h6>
 						</div>
 						<div class="col-md-4">
-							<h6><b>Ship To : </b><?php echo $customer_histor_result['product_name']  ?><h6>
+							<h6><b>Ship To : </b><?php echo $customer_history_row['product_name']  ?><h6>
 						</div>
 						<div class="col-md-4">
-							<h6><b>Order Id : </b><?php echo $customer_histor_result['product_id']  ?><h6>
+							<h6><b>Order Id : </b><?php echo $customer_history_row['product_id']  ?><h6>
 							<a class="arrow-link" href="cart.php	" style="color:#3d464d">View Order Detail</a>
 						</div>
 						<div class="border_bottom mt-2"></div>

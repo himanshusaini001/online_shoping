@@ -70,8 +70,7 @@
 							while($row = $result->fetch_assoc()) {
 								// Add the total price of each item to the total_amount variable
 								$total_amount += $row['total_price'];
-							}
-						}
+
 					?>
 
                     <tr>
