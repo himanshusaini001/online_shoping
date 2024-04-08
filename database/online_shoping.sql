@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 08, 2024 at 04:35 AM
+-- Generation Time: Apr 08, 2024 at 07:07 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -49,9 +49,7 @@ INSERT INTO `add_to_cart` (`cart_id`, `customer_id`, `product_id`, `cart_name`, 
 (1, 1, 1, 'Red', 1, '1000.00', 'Best', 'Red', 'S', '6000', 10),
 (2, 1, 4, 'Nike', 3, '999.00', 'Best shoes', 'Black', 'S', '18197', 25),
 (13, 2, 3, 'Dimodan', 2, '2500.00', 'Best watch', 'Black', 'M', '5000', 20),
-(15, 2, 1, 'Red', 2, '1000.00', 'Best', 'Red', 'S', '2000', 10),
-(31, 3, 1, 'Bluestar', 3, '1000.00', 'Bests', 'Black', 'S', '3000', 9),
-(32, 3, 2, 'Spider', 2, '999.00', 'Best product', 'Red', 'S', '1998', 14);
+(15, 2, 1, 'Red', 2, '1000.00', 'Best', 'Red', 'S', '2000', 10);
 
 -- --------------------------------------------------------
 
@@ -104,7 +102,17 @@ INSERT INTO `billingaddress` (`billing_address_id`, `first_name`, `last_name`, `
 (5, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '245'),
 (6, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '6476'),
 (7, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '454'),
-(8, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '4534');
+(8, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '4534'),
+(9, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '534'),
+(10, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '5645'),
+(11, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '45'),
+(12, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '534'),
+(13, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'CA', '255'),
+(14, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '7675'),
+(15, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '43543'),
+(16, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '222'),
+(17, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '2423'),
+(18, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '4342');
 
 -- --------------------------------------------------------
 
@@ -253,7 +261,7 @@ CREATE TABLE `login` (
 --
 
 CREATE TABLE `order_list` (
-  `place_order_id` int NOT NULL,
+  `order_id` int NOT NULL,
   `customer_id` int NOT NULL,
   `product_id` int NOT NULL,
   `product_name` varchar(255) NOT NULL,
@@ -269,8 +277,9 @@ CREATE TABLE `order_list` (
 -- Dumping data for table `order_list`
 --
 
-INSERT INTO `order_list` (`place_order_id`, `customer_id`, `product_id`, `product_name`, `product_qty`, `product_price`, `product_color`, `product_size`, `total_price`, `order_type`) VALUES
-(1, 3, 1, 'Bluestar', 3, '1000.00', 'Black', 'S', '3000.00', 'cash');
+INSERT INTO `order_list` (`order_id`, `customer_id`, `product_id`, `product_name`, `product_qty`, `product_price`, `product_color`, `product_size`, `total_price`, `order_type`) VALUES
+(23, 3, 1, 'Bluestar', 3, '1000.00', 'Black', 'S', '3000.00', 'cash'),
+(24, 3, 2, 'Spider', 2, '999.00', 'Red', 'S', '1998.00', 'cash');
 
 -- --------------------------------------------------------
 
@@ -296,8 +305,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `category`, `product_color`, `product_size`, `stock`, `price`, `product_name`, `description`, `product_img`, `status`) VALUES
-(1, '4', 'Black', 'S', '9', 1000, 'Bluestar', 'Bests', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
-(2, '1', 'Red', 'S', '14', 999, 'Spider', 'Best product', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
+(1, '4', 'Black', 'S', '22', 1000, 'Bluestar', 'Bests', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
+(2, '1', 'Red', 'S', '8', 999, 'Spider', 'Best product', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
 (6, '3', 'Black', 'L', '30', 1499, 'Nike', 'Best shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1),
 (7, '4', 'Black', 'L', '10', 1999, 'Diamond', 'Best diamond Watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1);
 
@@ -427,7 +436,7 @@ ALTER TABLE `login`
 -- Indexes for table `order_list`
 --
 ALTER TABLE `order_list`
-  ADD PRIMARY KEY (`place_order_id`);
+  ADD PRIMARY KEY (`order_id`);
 
 --
 -- Indexes for table `product`
@@ -455,7 +464,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `add_to_cart`
 --
 ALTER TABLE `add_to_cart`
-  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -467,7 +476,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `billingaddress`
 --
 ALTER TABLE `billingaddress`
-  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -510,6 +519,12 @@ ALTER TABLE `inquery`
 --
 ALTER TABLE `login`
   MODIFY `lid` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_list`
+--
+ALTER TABLE `order_list`
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `product`
