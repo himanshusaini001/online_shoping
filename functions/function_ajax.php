@@ -1,32 +1,16 @@
 <?php	
 	// Assuming you have a database connection already established
 	require_once('../include/db_file/config.php');
-<<<<<<< HEAD
 		require_once('../include/db_file/connection_file.php');
 		
-		// Session Start
+
 		
-		// Session End
-		
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			
-			$action = $_POST["action"];
-			
-			// Insert Query All Start ->
-			
-			
-			// Registration  function
-			 
-=======
-	require_once(__DIR__ . '/../include/db_file/connection_file.php');
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 		$action = $_POST["action"];
 
 		//Trim Function Start
-
->>>>>>> b6fd1ddc7a3be8927a9b27f57c62db56a3f0fbee
 			function test_input($data) {
 				$data = trim($data);
 				$data = stripslashes($data);
