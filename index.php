@@ -128,7 +128,7 @@
 				// Check if there are any rows returned
 				if ($result_category->num_rows > 0) {
 					// Loop through each row of the result set
-					while ($row1 = $result_category->fetch_assoc()) {
+					while ($row1 = $result_category->fetch_assoc()) 
 				{
 			?>
 				<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -166,9 +166,10 @@
 					$result_product = $conn->query($sql2);
 					
 					// Check if there are any rows returned
-					if ($result_product->num_rows > 0) {
+					if ($result_product->num_rows > 0) { 
 						// Loop through each row of the result set
-						while ($row2 = $result_product->fetch_assoc()) 	
+						while ($row2 = $result_product->fetch_assoc()) 
+							{
 				?>
 				 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
 					<div class="product-item bg-light mb-4">
@@ -189,7 +190,7 @@
 							}
 						?>
 							<div class="product-action">
-								<a class="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
+								<a c ="btn btn-outline-dark btn-square" href="cart.php"><i class="fa fa-shopping-cart"></i></a>
 							</div>
 						</div>
 						<div class="text-center py-4">
