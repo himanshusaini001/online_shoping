@@ -45,7 +45,9 @@
 				$phone_c = test_input($_POST["phone"]); // Sanitize phone number
 				$address_c = test_input($_POST["address"]); // Sanitize address
 				$username = test_input($_POST["username"]); // Sanitize username
-				$password = md5(test_input($_POST["password"])); // Sanitize password and hash it using MD5
+				$password= md5(test_input($_POST["password"])); // Sanitize password and hash it using MD5
+				
+				
 				$otp = mt_rand(100000, 999999); // Generate a random OTP (One-Time Password)
 
 				// Capitalize first letter of first name, last name, phone, and address
@@ -104,6 +106,13 @@
 						echo "Prepare statement error: " . mysqli_error($conn);
 					}
 				}
+			}
+			catch (Exception $e) {
+				// If an exception is caught during execution
+				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Return failure status with a generic error message as JSON
+				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log the exception message with 'error' level
+				logMessage("Line: " . $e->getLine(), 'error'); // Log the line number where the exception occurred with 'error' level
+			}
 		}
 
 		// User Login End
@@ -188,7 +197,9 @@
 			try {
 				// Sanitize input and hash the password
 				$password = md5(test_input($_POST['password']));
-				$sid = 3;
+				//$password = password_hash($password, PASSWORD_DEFAULT);
+				
+				$sid = 1;
 				// Prepare SQL statement to update the password
 				 // Assuming 1 is the user's sid
 				$stmt = $conn->prepare("UPDATE user SET password = ? WHERE sid = ?");
@@ -360,70 +371,64 @@
 
 		// User Login Start
 		
-		if ($action == 'login') { // Check if action is 'login'
+		if ($action == 'login') {
 			try {
-				$username = test_input($_POST['username']); // Sanitize Username
-				$password = test_input(md5($_POST["password"])); // Sanitize and hash Password
+				$username = test_input($_POST['username']);
+				$password = md5(test_input($_POST["password"]));
+				// Validate username and password format here
 
-				// SQL query to select user based on username and password
-				$sql = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
-				$result = $conn->query($sql); // Execute Query
+				$sql = "SELECT * FROM user WHERE username = ?";
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param("s", $username);
+				$stmt->execute();
+				$result = $stmt->get_result();
 
-				if ($result->num_rows > 0) { // If user found
-					$row = $result->fetch_assoc(); // Fetch user data
-
-					if ($row['status'] == 0) { // If user status is inactive
+				if ($result->num_rows > 0) {
+					$row = $result->fetch_assoc();
+					if ($row['status'] == '0') {
 						$response = [
 							'status' => 'error',
 							'message' => 'Your ID is not active'
 						];
-						echo json_encode($response); // Send error response
-						exit; // Exit script
+					} else if ($password === $row['password']) {
+						// Authentication successful
+						$_SESSION['customer_id'] = $row['sid'];
+						$_SESSION['customer_login'] = $row['username'];
+						$_SESSION['fname'] = ucfirst($row['fname']);
+						$_SESSION['lname'] = ucfirst($row['lname']);
+						$_SESSION['email'] = $row['email'];
+						$_SESSION['address'] = ucfirst($row['address']);
+						$_SESSION['phone'] = $row['phone'];
+
+						$response = [
+							'status' => 'success',
+							'message' => 'Authentication successful',
+							'fname' => $_SESSION['fname'],
+							'lname' => $_SESSION['lname'],
+							'email' => $_SESSION['email'],
+							'address' => $_SESSION['address'],
+							'phone' => $_SESSION['phone']
+						];
+					} else {
+						// Password does not match
+						$response = [
+							'status' => 'error',
+							'message' => 'Invalid username or password'
+						];
 					}
-
-					// Extract user data from row
-					$customer_id = test_input($row['sid']);
-					$fname_c = test_input($row['fname']);
-					$fname = ucfirst($fname_c);
-					$lname_c = test_input($row['lname']);
-					$lname = ucfirst($lname_c);
-					$email = test_input($row['email']);
-					$address_c = test_input($row['address']);
-					$address = ucfirst($address_c);
-					$phone = test_input($row['phone']);
-					$username = test_input($row['username']);
-
-					// Start session and store user data
-					$_SESSION['customer_id'] = $customer_id;
-					$_SESSION['customer_login'] = $username;
-					$_SESSION['fname'] = $fname;
-					$_SESSION['lname'] = $lname;
-					$_SESSION['email'] = $email;
-					$_SESSION['phone'] = $phone;
-					$_SESSION['address'] = $address;
-
-					// Prepare success response
-					$response = [
-						'status' => 'success',
-						'message' => 'Authentication successful',
-						'fname' => $fname,
-						'lname' => $lname,
-						'email' => $email,
-						'address' => $address,
-						'phone' => $phone
-					];
-					echo json_encode($response); // Send success response
-				} else { // If user not found or authentication failed
+				} else {
+					// User not found
 					$response = [
 						'status' => 'error',
 						'message' => 'Invalid username or password'
 					];
-					echo json_encode($response); // Send error response
 				}
-			} catch (Exception $e) { // Catch any exceptions
-				echo json_encode(['status' => false, 'message' => 'An error occurred']); // Send generic error response
-				logMessage("Exception caught: " . $e->getMessage(), 'error'); // Log exception message
-				logMessage("Line: " . $e->getLine(), 'error'); // Log line number of exception
+
+				echo json_encode($response);
+			} catch (Exception $e) {
+				echo json_encode(['status' => 'error', 'message' => 'An error occurred']);
+				logMessage("Exception caught: " . $e->getMessage(), 'error');
+				logMessage("Line: " . $e->getLine(), 'error');
 			}
 		}
 
@@ -1102,8 +1107,8 @@
 							echo json_encode(['status' => false, 'message' => 'Failed to send email']);
 							$_SESSION['msg_error'] = "Error sending email";
 						}
-					} else {
-						echo json_encode(['status' => 0]);
+					 }else {
+						echo json_encode(['status' => '0']);
 						$_SESSION['msg'] = "User status updated successfully";
 					}
 				} else {

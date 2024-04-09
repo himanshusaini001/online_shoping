@@ -1,4 +1,10 @@
-Today Date:- [2024-04-08] & Time:- [12:57:17] & Type:- [info] Successfully added product to cart for Product ID: 6, Customer ID: 3 
-Today Date:- [2024-04-08] & Time:- [15:54:48] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 6544 
-Today Date:- [2024-04-08] & Time:- [17:07:59] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 3 
-Today Date:- [2024-04-08] & Time:- [17:08:14] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 3242 
+Today Date:- [2024-04-09] & Time:- [11:14:55] & Type:- [info] Successfully verified OTP: 164003 
+Today Date:- [2024-04-09] & Time:- [11:18:35] & Type:- [info] Successfully sent OTP Link to: harshsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [11:18:52] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [11:30:15] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [11:30:23] & Type:- [info] Successfully deleted item from cart. Cart ID: 1 
+Today Date:- [2024-04-09] & Time:- [11:30:30] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [11:30:42] & Type:- [info] Successfully added product to cart for Product ID: 7, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [11:33:06] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 43 
+Today Date:- [2024-04-09] & Time:- [12:06:19] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [12:06:35] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 47154 

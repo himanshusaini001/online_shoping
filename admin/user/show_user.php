@@ -189,20 +189,17 @@
 							let resp = JSON.parse(response);
 							if(resp.status)
 							{
-								if(resp.status == '1')
+								if(resp.status == '0')
 								{
 									window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
 								}
 								else{
 									window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
 								}
-								
-								 
 							}
 							else{
 								alert ("Do not Relocate");
 							}
-							
 						},
 						error: function (xhr, status, error) { 
 							alert("AJAX request failed: " + status + "\nError: " + error);

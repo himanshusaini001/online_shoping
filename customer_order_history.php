@@ -17,7 +17,17 @@
     if(!isset($_SESSION['customer_id'])) {
         $order = $_SESSION['order_id'] = "No Order"; // Set order to "No Order" if customer ID is not set
     } else {
-        $order = $_SESSION['order_id'] = " order"; // Set order to "order" if customer ID is set
+		$order_list = "SELECT * FROM order_list WHERE customer_id = '$customer_id'";
+		$executer_order = $conn->query($order_list);
+		$order_row = $executer_order->num_rows;
+		if($order_row == 0)
+		{
+			$order = $_SESSION['order_id'] = "No Order";
+		}
+		else{
+			$order = $_SESSION['order_id'] = " order"; 
+		}
+        // Set order to "order" if customer ID is set
     }
 ?>
 
@@ -104,7 +114,11 @@ if($order == "No Order") {
 				// Retrieve customer ID from session
 				$customer_id = $_SESSION['customer_id'];
 				// Query to select order history for the current customer
-				$customer_history_query = "SELECT * FROM order_list WHERE customer_id='$customer_id' ";
+				//$customer_history_query = "SELECT * FROM order_list WHERE customer_id='$customer_id' ";
+				$customer_history_query ="SELECT product.product_img,product.product_img,order_list.total_price,order_list.product_name,order_list.product_id
+				FROM product
+				INNER JOIN order_list ON product.product_id = order_list.product_id WHERE customer_id = '$customer_id'";
+ 
 				
 				// Execute the query
 				$customer_history_result = $conn->query($customer_history_query);
@@ -127,40 +141,29 @@ if($order == "No Order") {
 							<h6><b>Order Id : </b><?php echo $customer_history_row['product_id']  ?><h6>
 							<a class="arrow-link" href="cart.php	" style="color:#3d464d">View Order Detail</a>
 						</div>
-						<div class="border_bottom mt-2"></div>
-						<div>
-							<h4 class="mt-3"><b>Delivered 00-00-2024</b></h4>
-							<p>Package was handed to resident</p>
+						<div class="border_bottom mt-2 mb-4"></div>
+						<div class="col-md-12">
 							<div class="row">
 								<div class="col-md-3">
 									<?php 
 										// Check if there are images for this product
-										if (!empty($customer_histor_result['product_img'])) {
-											$images = explode(",", $customer_histor_result['product_img']);
+										if (!empty($customer_history_row['product_img'])) {
+											$images = explode(",", $customer_history_row['product_img']);
 											foreach ($images as $key=>$image) {
 												if($key == '0')
 												{
 													echo "<img src='upload_img/$image' width='100px' height='100px'>";
 												}
-												
 											}
 										}
-										?>
+									?>
 								</div>
 								<div class="col-md-6">
-									<h6><b>Return window closed on 10-Feb-2024</b></h6>
-									<p>Return window closed on 10-Feb-2024</p>
+									<h5><b>Lorem Ipsum</b></h5>
+									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
 								</div>
 								<div class="col-md-3">
-									<div>
-										<a href="" class="customer_history_button mb-2">Random</a>
-									</div>
-									<div class="mt-3">
-										<a href="" class="customer_history_button mb-2">Random</a>
-									</div>
-									<div class="mt-3">
-										<a href="" class="customer_history_button mb-2">Random</a>
-									</div>
+									<a href="" class="customer_history_button mb-2">Cancel Order</a>
 								</div>
 							</div>
 						</div>
