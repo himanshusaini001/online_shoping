@@ -50,7 +50,6 @@
                         <th>Quantity</th>
                         <th>Remove</th>
                     </tr>
-				
                 </thead>
                 <tbody class="align-middle">
 					<?php 
