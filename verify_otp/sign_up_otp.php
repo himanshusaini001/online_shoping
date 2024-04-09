@@ -31,8 +31,8 @@
 		  background-color: #f8f9fa; /* Set background color */
 		  padding: 20px;
 		}
-		.countdown-container {
-		  text-align: center;
+		.countdown-container { 
+		  text-align: center;/* Set Align Center  */
 		  margin-top: 100px;
 		}
 		.countdown {
