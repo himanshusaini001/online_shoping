@@ -181,6 +181,8 @@ $(document).ready(function() {
                 });
             } else {
                 // If quantity is not 0, decrease total amount
+				 var inputValue = $("#btn_plus").val();
+				$("#btn_plus").prop("disabled", false);
                 totalAmount -= price;
             }
             updateTotal(totalAmount);
@@ -197,10 +199,15 @@ $(document).ready(function() {
             var stock = parseInt($(this).data('stock'));
             var cart_id = parseInt($(this).data('cart_id'));
             var product_id = parseInt($(this).data('product_id'));
-            
+           console.log(qut);
             if (qut >= stock) {
                 // If quantity is greater than or equal to stock, alert user
                 alert("Only Available Stock: " + stock);
+
+				totalAmount += price;
+				     var inputValue = $("#btn_plus").val();
+					 $("#btn_plus").prop("disabled", true);
+					 
             } else {
                 // If quantity is less than stock, increase total amount
                 totalAmount += price;
