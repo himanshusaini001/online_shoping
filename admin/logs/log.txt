@@ -8,3 +8,5 @@ Today Date:- [2024-04-09] & Time:- [11:30:42] & Type:- [info] Successfully added
 Today Date:- [2024-04-09] & Time:- [11:33:06] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 43 
 Today Date:- [2024-04-09] & Time:- [12:06:19] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
 Today Date:- [2024-04-09] & Time:- [12:06:35] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 47154 
+Today Date:- [2024-04-09] & Time:- [15:53:41] & Type:- [info] Failed to fetch Admin Login Data for: harsh 
+Today Date:- [2024-04-09] & Time:- [15:53:47] & Type:- [info] Successfully Admin Login = harsh 
