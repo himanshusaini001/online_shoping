@@ -110,43 +110,13 @@ if ($customer_id != "") {
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
 			<div class=" p-30 mb-5  border_bottom ">
 				<div class="row">
-				<?php
-						$category_product = "SELECT * FROM order_list WHERE customer_id = '$customer_id'";
-						$category_product_row = $conn->query($category_product);
-							if($category_product_row->num_rows > 0)
-							{
-								while($category_product_result = $category_product_row->fetch_assoc())
-								{
-								?>
-					<div class="col-md-4 bg-light ml-3">
-						
-								
-						 <img src="assets/img/place_order.png" alt="Image" class="img-fluid mr-3 mt-1" style="width:70px;"><span class="place_order_text"><b>Order placed, thank you!</b></span>
-						<p class="mt-3"><b>Shipping To :- </b> <?php echo $category_product_result['product_name'] ?></p>
-						<p class=""><b>Color :- </b>  <?php echo $category_product_result['product_color'] ?></p>
-						<p class=""><b>Size :-</b>  <?php echo $category_product_result['product_size'] ?></p>
-						<p class=""><b>Total Amount :- </b>  <?php echo $category_product_result['product_price'] ?></p>
-						<?php 
-							// Check if there are images for this product
-							if (!empty($row['product_img'])) {
-								$images = explode(",", $row['product_img']);
-								foreach ($images as $key=>$image) {
-									if($key == '0')
-									{
-										echo "<img class='show_img_after_place' src='upload_img/$image' width='150px' height='150px'>";
-									}
-									
-								}
-							}
-						?>
-						<button  type="text" name="cancel_order" class="btn btn-primary p-2" id="cancel_order">cancel order</button>
-							
+					<div class="col-md-2  ml-3">
+						 <img src="assets/img/place_order.png" alt="Image" class="img-fluid mr-3 mt-1" style="width:150px;">
 					</div>
-					<?php
-									}
-								}
-						?>
-					
+					<div class="col-md-4  ml-3">
+						 <span class="place_order_text"><b>Order placed, thank you!</b></span>
+						<span><p>"Thank you for your order! We appreciate your support and look forward to serving you again soon. Enjoy!"</p></span>
+					</div>
 				</div>
 			</div>
         </div>
@@ -161,7 +131,7 @@ if ($customer_id != "") {
     <div class="container-fluid py-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span></h2>
         <div class="row px-xl-5">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="owl-carousel related-carousel">
 				  <?php 
 						$sql2 = "SELECT * FROM product WHERE status = '1'";
