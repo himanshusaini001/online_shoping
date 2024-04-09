@@ -32,7 +32,7 @@
  
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page Header) -->
     <div class="content-header border_bottom_header">
       <div class="container-fluid">
         <div class="row mb-2">

@@ -22,7 +22,7 @@
     <!-- Empty column (col-3) -->
     <div class="col-md-3 d-none d-md-block"></div>
     
-    <!-- Form column (col-6) -->
+    <!-- Form column -->
     <div class="col-12 col-md-6 custom-shadow p-4">
 	
 		<h3>Enter New Password</h3>

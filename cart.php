@@ -1,5 +1,5 @@
 <?php 
-    // Include necessary files for database connection
+    // Include necessary files for database connection File
     require_once('include/db_file/config.php'); 
     require_once('include/db_file/connection_file.php');
     
@@ -10,8 +10,7 @@
     }
 
     // Get the customer ID from the session
-	$customer_id = $_SESSION['customer_id'];
-	
+		$customer_id = $_SESSION['customer_id'];
     // Include topbar and header files
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
@@ -51,7 +50,6 @@
                         <th>Quantity</th>
                         <th>Remove</th>
                     </tr>
-				
                 </thead>
                 <tbody class="align-middle">
 					<?php 
@@ -70,8 +68,7 @@
 							while($row = $result->fetch_assoc()) {
 								// Add the total price of each item to the total_amount variable
 								$total_amount += $row['total_price'];
-							}
-						}
+
 					?>
 
                     <tr>
@@ -184,6 +181,8 @@ $(document).ready(function() {
                 });
             } else {
                 // If quantity is not 0, decrease total amount
+				 var inputValue = $("#btn_plus").val();
+				$("#btn_plus").prop("disabled", false);
                 totalAmount -= price;
             }
             updateTotal(totalAmount);
@@ -200,10 +199,15 @@ $(document).ready(function() {
             var stock = parseInt($(this).data('stock'));
             var cart_id = parseInt($(this).data('cart_id'));
             var product_id = parseInt($(this).data('product_id'));
-            
+           console.log(qut);
             if (qut >= stock) {
                 // If quantity is greater than or equal to stock, alert user
                 alert("Only Available Stock: " + stock);
+
+				totalAmount += price;
+				     var inputValue = $("#btn_plus").val();
+					 $("#btn_plus").prop("disabled", true);
+					 
             } else {
                 // If quantity is less than stock, increase total amount
                 totalAmount += price;

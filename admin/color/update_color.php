@@ -29,7 +29,7 @@ $color_id = $_GET['color_id'];
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-  <!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page Content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">

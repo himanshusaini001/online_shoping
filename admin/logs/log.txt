@@ -1,2 +1,2 @@
-Today Date:- [2024-04-08] & Time:- [12:57:17] & Type:- [info] Successfully added product to cart for Product ID: 6, Customer ID: 3 
-Today Date:- [2024-04-08] & Time:- [15:54:48] & Type:- [info] Successfully inserted Billing Address: Anita Devi, Pin Code: 6544 
+Today Date:- [2024-04-09] & Time:- [16:13:59] & Type:- [info] Successfully deleted item from cart. Cart ID: 5 
+Today Date:- [2024-04-09] & Time:- [16:14:05] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 

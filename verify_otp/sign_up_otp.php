@@ -31,8 +31,8 @@
 		  background-color: #f8f9fa; /* Set background color */
 		  padding: 20px;
 		}
-		.countdown-container {
-		  text-align: center;
+		.countdown-container { 
+		  text-align: center;/* Set Align Center  */
 		  margin-top: 100px;
 		}
 		.countdown {
@@ -88,7 +88,6 @@
 		$(document).ready(function() {
 			$("#verify_otp").click(function() {
 			var otp = $("#otp").val();
-
 			$.ajax({
 				type: "POST",
 				url: "../functions/function_ajax.php", // Create a new PHP file for handling login logic
@@ -98,8 +97,6 @@
 				},
 				success: function(response) {
 					$("#result");
-
-					
 					if (response.includes("successful")) 
 						{
 							// Start the countdown
@@ -135,7 +132,7 @@
 								if (seconds < 0) 
 								{
 									clearInterval(countdownInterval);
-									window.location.href = "../customer_login.php"; // Redirect to another page
+									window.location.href = "../customer_login.php"; // Redirect to Another page
 								}
 							}, 1400);
 						}else {

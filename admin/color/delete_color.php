@@ -33,7 +33,7 @@
                 color_id: color_id 
             },
             success: function (response) {
-                // Redirect after successful deletion
+                // Redirect after Successful deletion
                 window.location.href = 'show_color.php';
             },
             error: function (xhr, status, error) {

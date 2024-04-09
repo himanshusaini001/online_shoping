@@ -1,6 +1,8 @@
 <?php 
+	// Include database Configuration
     require_once('include/db_file/config.php');
     require_once('include/db_file/connection_file.php');
+	// Include topbar file
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');
 

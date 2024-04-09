@@ -1,5 +1,5 @@
 <?php 
-	// Include configuration and connection files
+	// Include configuration and connection Files
 	require_once('include/db_file/config.php');
 	require_once('include/db_file/connection_file.php');
 	

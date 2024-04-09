@@ -72,8 +72,6 @@
 				<label for="email">Email:</label>
 				<input type="email" id="email" name="email" required>
 				<div id="emailError" class="error"></div>
-				
-				
 				<button type="button" id="addUser" class="Register_btn">submit</button>
             </form>
 		<p id="countdown" class="countdown countdown-animation">Redirecting in 3 second...</p>
@@ -82,16 +80,14 @@
     </div>
 </div>
 
-
-  
 <!-- Result Section -->
 <div id="result" class="result"></div>
 <!-- Script Start -->
-	<!-- Script Start -->
+<!-- Script Start -->
 <script>
     $(document).ready(function () {
         $("#addUser").click(function () {
-            // Custom validation logic
+            // Custom validation Logic
             $(".error").text("");
 
             // Get input values

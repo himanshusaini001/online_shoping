@@ -34,10 +34,9 @@ $cid = $_GET['cid'];
 	(function() {
 		// Your code
 		var cid = $("#cid").val();
-
 		// Confirm before deleting
 		if (confirm('Are you sure you want to delete this record?')) {
-			// AJAX request to delete record
+			// AJAX request to Delete record
 			var form = document.getElementById('addForm');
 			console.log(form);
 			let formdata = new FormData(form);

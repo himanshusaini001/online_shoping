@@ -1,5 +1,6 @@
  <!-- header Start -->
 <?php 
+// Include database Configuration And Connection
 require_once('include/db_file/config.php');
 require_once('include/db_file/connection_file.php');
 
@@ -105,7 +106,7 @@ if ($customer_id != "") {
 <!-- Checkout Start -->
 <div class="container-fluid block_out_off_stock">
     <div class="row px-xl-5">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
 			<div class=" p-30 mb-5  border_bottom ">
 				<div class="row">

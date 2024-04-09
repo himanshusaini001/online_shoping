@@ -1,7 +1,5 @@
 <?php
 
-// Start Include File 
-
 // Start Config File 
 	require_once('include/db_file/config.php');
 // End Config File 

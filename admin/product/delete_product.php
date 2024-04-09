@@ -19,7 +19,7 @@ $product_id = $_GET['product_id'];
 
 </form>
 
-<!-- Include jQuery library -->
+<!-- Include jQuery Library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">

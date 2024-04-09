@@ -1,4 +1,5 @@
 <?php 
+	// Admin Log Out 
 	include('../include/db_file/config.php');
 	
 	if(!isset($_SESSION['admin_name']))

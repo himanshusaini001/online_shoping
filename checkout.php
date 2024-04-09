@@ -1,9 +1,10 @@
 <?php 
-    // Include necessary files
+    // Include necessary Files
     require_once('include/db_file/config.php');
 	require_once('include/db_file/connection_file.php');
 	
 	// Check if the user is logged in, if not, redirect to login page
+	
 	if(!isset($_SESSION['customer_login'])) {
         header("location: customer_login.php");
         exit; // Exit after redirection to stop further execution

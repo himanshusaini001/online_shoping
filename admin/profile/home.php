@@ -8,7 +8,7 @@ if(!isset($_SESSION['admin_name']))
 	}
 ?>
 
-<!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains Page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">

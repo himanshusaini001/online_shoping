@@ -41,7 +41,7 @@
 <!-- Start Body  Tag -->
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-   <!-- Content Wrapper. Contains page content -->
+   <!-- Content Wrapper. Contains Page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header border_bottom_header">
@@ -189,20 +189,17 @@
 							let resp = JSON.parse(response);
 							if(resp.status)
 							{
-								if(resp.status == '1')
+								if(resp.status == '0')
 								{
 									window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
 								}
 								else{
 									window.location = window.location.origin+"/online-shoping/admin/user/show_user.php" ;
 								}
-								
-								 
 							}
 							else{
 								alert ("Do not Relocate");
 							}
-							
 						},
 						error: function (xhr, status, error) { 
 							alert("AJAX request failed: " + status + "\nError: " + error);
