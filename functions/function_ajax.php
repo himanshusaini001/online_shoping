@@ -199,7 +199,7 @@
 				$password = md5(test_input($_POST['password']));
 				//$password = password_hash($password, PASSWORD_DEFAULT);
 				
-				$sid = 1;
+				$sid = 3;
 				// Prepare SQL statement to update the password
 				 // Assuming 1 is the user's sid
 				$stmt = $conn->prepare("UPDATE user SET password = ? WHERE sid = ?");
@@ -371,66 +371,62 @@
 
 		// User Login Start
 		
-		if ($action == 'login') {
-			try {
-				$username = test_input($_POST['username']);
-				$password = md5(test_input($_POST["password"]));
-				// Validate username and password format here
+	if ($action == 'login') {
+    try {
+        $username = test_input($_POST['username']);
+        $password = md5(test_input($_POST["password"]));
 
-				$sql = "SELECT * FROM user WHERE username = ?";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param("s", $username);
-				$stmt->execute();
-				$result = $stmt->get_result();
+        // Validate username and password format here if needed
 
-				if ($result->num_rows > 0) {
-					$row = $result->fetch_assoc();
-					if ($row['status'] == '0') {
-						$response = [
-							'status' => 'error',
-							'message' => 'Your ID is not active'
-						];
-					} else if ($password === $row['password']) {
-						// Authentication successful
-						$_SESSION['customer_id'] = $row['sid'];
-						$_SESSION['customer_login'] = $row['username'];
-						$_SESSION['fname'] = ucfirst($row['fname']);
-						$_SESSION['lname'] = ucfirst($row['lname']);
-						$_SESSION['email'] = $row['email'];
-						$_SESSION['address'] = ucfirst($row['address']);
-						$_SESSION['phone'] = $row['phone'];
+        $sql = "SELECT * FROM user WHERE password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-						$response = [
-							'status' => 'success',
-							'message' => 'Authentication successful',
-							'fname' => $_SESSION['fname'],
-							'lname' => $_SESSION['lname'],
-							'email' => $_SESSION['email'],
-							'address' => $_SESSION['address'],
-							'phone' => $_SESSION['phone']
-						];
-					} else {
-						// Password does not match
-						$response = [
-							'status' => 'error',
-							'message' => 'Invalid username or password'
-						];
-					}
-				} else {
-					// User not found
-					$response = [
-						'status' => 'error',
-						'message' => 'Invalid username or password'
-					];
-				}
+        $row = $result->fetch_assoc();
+		print_r($row);exit;
+            if ($row['status'] == '0') {
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Your ID is not active'
+                ];
+            } else if (password_verify($password, $row['password'])) {
+                // Authentication successful
+             
+                $_SESSION['customer_id'] = $row['sid'];
+                $_SESSION['customer_login'] = $row['username'];
+                $_SESSION['fname'] = ucfirst($row['fname']);
+                $_SESSION['lname'] = ucfirst($row['lname']);
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['address'] = ucfirst($row['address']);
+                $_SESSION['phone'] = $row['phone'];
 
-				echo json_encode($response);
-			} catch (Exception $e) {
-				echo json_encode(['status' => 'error', 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
-				logMessage("Line: " . $e->getLine(), 'error');
-			}
-		}
+                $response = [
+                    'status' => 'success',
+                    'message' => 'Authentication successful',
+                    'fname' => $_SESSION['fname'],
+                    'lname' => $_SESSION['lname'],
+                    'email' => $_SESSION['email'],
+                    'address' => $_SESSION['address'],
+                    'phone' => $_SESSION['phone']
+                ];
+            } else {
+                // Password does not match
+                $response = [
+                    'status' => 'error',
+                    'message' => 'Invalid username or password'
+                ];
+            }
+
+        echo json_encode($response);
+    } catch (Exception $e) {
+        echo json_encode(['status' => 'error', 'message' => 'An error occurred']);
+        logMessage("Exception caught: " . $e->getMessage(), 'error');
+        logMessage("Line: " . $e->getLine(), 'error');
+    }
+}
+
 
 		// User Login End
 
@@ -1130,6 +1126,7 @@
 		if ($action == "billing_address") {
 			try {
 				// Get data from AJAX request and sanitize
+				$customer_id = $_SESSION['customer_id'];
 				$first_name = ucfirst(test_input($_POST['first_name']));
 				$last_name = ucfirst(test_input($_POST['last_name']));
 				$email = ucfirst(test_input($_POST['email']));
@@ -1148,8 +1145,8 @@
 				}
 
 				// Use prepared statement to prevent SQL injection
-				$stmt = $conn->prepare("INSERT INTO billingaddress (first_name, last_name, email, phone, address_line_1, address_line_2, country, city, state, pin_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-				$stmt->bind_param("ssssssssss", $first_name, $last_name, $email, $phone, $address_line_1, $address_line_2, $country, $city, $state, $pin_code);
+				$stmt = $conn->prepare("INSERT INTO billingaddress (customer_id, first_name, last_name, email, phone, address_line_1, address_line_2, country, city, state, pin_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				$stmt->bind_param("sssssssssss", $customer_id, $first_name, $last_name, $email, $phone, $address_line_1, $address_line_2, $country, $city, $state, $pin_code);
 
 				// Execute the query
 				if ($stmt->execute()) {
@@ -1163,11 +1160,10 @@
 				}
 			} catch (Exception $e) {
 				echo json_encode(['status' => false, 'message' => 'An error occurred']);
-				logMessage("Exception caught: " . $e->getMessage(), 'error');
+				
 				logMessage("Line: " . $e->getLine(), 'error');
 			}
-		}
-
+		} 
 		
 		// Add  billing Address End
 
