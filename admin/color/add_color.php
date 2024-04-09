@@ -53,7 +53,7 @@
 			</ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div><!-- /.Container-fluid -->
     </div>
     <!-- /.content-header -->
 

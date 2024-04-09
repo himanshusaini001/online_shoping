@@ -1,5 +1,5 @@
 <?php 
-    // Include necessary files for database connection
+    // Include necessary files for database connection File
     require_once('include/db_file/config.php'); 
     require_once('include/db_file/connection_file.php');
     
@@ -10,8 +10,7 @@
     }
 
     // Get the customer ID from the session
-	$customer_id = $_SESSION['customer_id'];
-	
+		$customer_id = $_SESSION['customer_id'];
     // Include topbar and header files
     include('include/main_file/topbar.php');
     include('include/main_file/header.php');

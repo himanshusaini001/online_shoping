@@ -42,7 +42,7 @@
 <div class="wrapper">
 
  
-  <!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page Content -->
   <div class="content-wrapper">
      <div class="content-header border_bottom_header">
             <div class="container-fluid">

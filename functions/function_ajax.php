@@ -1,5 +1,5 @@
 <?php	
-		// Assuming you have a database connection already established
+		// Assuming you have a database connection already Fstablished
 		require_once('../include/db_file/config.php');
 		require_once('../include/db_file/connection_file.php');
 

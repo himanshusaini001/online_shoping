@@ -1,5 +1,6 @@
  <!-- header Start -->
 <?php 
+// Include database Configuration And Connection
 require_once('include/db_file/config.php');
 require_once('include/db_file/connection_file.php');
 

@@ -1,6 +1,6 @@
 
 <?php 
-
+// Include Config File
 include('../include/db_file/config.php');
 	
 	if(isset($_SESSION['admin_name']))

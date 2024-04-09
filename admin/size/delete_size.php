@@ -16,7 +16,7 @@ $sid = $_GET['sid'];
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-    // Delete button click event
+    // Delete button click Event
 (function() {
     // Your code
     var sid = $("#sid").val();

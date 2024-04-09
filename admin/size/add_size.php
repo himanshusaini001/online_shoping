@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 // Start Include File 
 
@@ -26,7 +26,7 @@
 // End Top Link File 
 	
 ?>
-<!-- Start Script tag -->
+<!-- Start Script Tag -->
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
    <!-- Content Wrapper. Contains page content -->

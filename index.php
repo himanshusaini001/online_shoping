@@ -1,5 +1,5 @@
 	<?php 
-		// Include database configuration
+		// Include database Configuration
 		require_once('include/db_file/config.php');
 		
 		// Include file for establishing database connection

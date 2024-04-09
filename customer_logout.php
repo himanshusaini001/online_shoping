@@ -1,5 +1,5 @@
 <?php
-	// Include configuration file
+	// Include configuration File
 	require_once('include/db_file/config.php');
 
 	// Check if the user is not logged in
