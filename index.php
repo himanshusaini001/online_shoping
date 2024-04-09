@@ -10,6 +10,7 @@
 		
 		// Include header file
 		include('include/main_file/header.php');
+		print_r($customer_id = $_SESSION['customer_id']);exit;
 	?>
 
 	

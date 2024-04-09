@@ -385,13 +385,12 @@
         $result = $stmt->get_result();
 
         $row = $result->fetch_assoc();
-		print_r($row);exit;
             if ($row['status'] == '0') {
                 $response = [
                     'status' => 'error',
                     'message' => 'Your ID is not active'
                 ];
-            } else if (password_verify($password, $row['password'])) {
+            } else if ($password==$row['password']) {
                 // Authentication successful
              
                 $_SESSION['customer_id'] = $row['sid'];
