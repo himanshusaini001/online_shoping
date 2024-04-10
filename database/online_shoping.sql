@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 08, 2024 at 07:07 AM
+-- Generation Time: Apr 10, 2024 at 05:53 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -41,16 +41,6 @@ CREATE TABLE `add_to_cart` (
   `stock` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `add_to_cart`
---
-
-INSERT INTO `add_to_cart` (`cart_id`, `customer_id`, `product_id`, `cart_name`, `cart_qty`, `cart_price`, `description`, `cart_color`, `cart_size`, `total_price`, `stock`) VALUES
-(1, 1, 1, 'Red', 1, '1000.00', 'Best', 'Red', 'S', '6000', 10),
-(2, 1, 4, 'Nike', 3, '999.00', 'Best shoes', 'Black', 'S', '18197', 25),
-(13, 2, 3, 'Dimodan', 2, '2500.00', 'Best watch', 'Black', 'M', '5000', 20),
-(15, 2, 1, 'Red', 2, '1000.00', 'Best', 'Red', 'S', '2000', 10);
-
 -- --------------------------------------------------------
 
 --
@@ -78,6 +68,7 @@ INSERT INTO `admin` (`id`, `name`, `password`) VALUES
 
 CREATE TABLE `billingaddress` (
   `billing_address_id` int NOT NULL,
+  `customer_id` int DEFAULT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -89,30 +80,6 @@ CREATE TABLE `billingaddress` (
   `state` varchar(50) NOT NULL,
   `pin_code` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `billingaddress`
---
-
-INSERT INTO `billingaddress` (`billing_address_id`, `first_name`, `last_name`, `email`, `phone`, `address_line_1`, `address_line_2`, `country`, `city`, `state`, `pin_code`) VALUES
-(1, 'Kamal', 'Saini', 'Kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(2, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'Canada', 'Fddgf', 'NY', '435'),
-(3, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '435'),
-(4, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '45725'),
-(5, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '245'),
-(6, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '6476'),
-(7, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '454'),
-(8, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '4534'),
-(9, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '534'),
-(10, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '5645'),
-(11, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '45'),
-(12, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '534'),
-(13, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'CA', '255'),
-(14, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '7675'),
-(15, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '43543'),
-(16, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '222'),
-(17, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '2423'),
-(18, 'Anita', 'Devi', 'Anitadevi@gmail.com', '8699902297', 'Derabassi', 'Sdfse', 'USA', 'Fddgf', 'NY', '4342');
 
 -- --------------------------------------------------------
 
@@ -204,14 +171,6 @@ CREATE TABLE `customer_address` (
   `delivery_instructions` varchar(1000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `customer_address`
---
-
-INSERT INTO `customer_address` (`address_id`, `customer_id`, `country`, `full_name`, `phone`, `pincode`, `house_no`, `street`, `landmark`, `town`, `state`, `delivery_instructions`) VALUES
-(1, 2, 'India', 'Harsh saini', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House'),
-(2, 2, 'India', 'Arjun', '8699902297', '140201', 'Mubarikpur', 'Goldan plam', 'Goldan plam', 'Goldan plam', 'Punjab', 'House');
-
 -- --------------------------------------------------------
 
 --
@@ -273,14 +232,6 @@ CREATE TABLE `order_list` (
   `order_type` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `order_list`
---
-
-INSERT INTO `order_list` (`order_id`, `customer_id`, `product_id`, `product_name`, `product_qty`, `product_price`, `product_color`, `product_size`, `total_price`, `order_type`) VALUES
-(23, 3, 1, 'Bluestar', 3, '1000.00', 'Black', 'S', '3000.00', 'cash'),
-(24, 3, 2, 'Spider', 2, '999.00', 'Red', 'S', '1998.00', 'cash');
-
 -- --------------------------------------------------------
 
 --
@@ -305,9 +256,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `category`, `product_color`, `product_size`, `stock`, `price`, `product_name`, `description`, `product_img`, `status`) VALUES
-(1, '4', 'Black', 'S', '22', 1000, 'Bluestar', 'Bests', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
-(2, '1', 'Red', 'S', '8', 999, 'Spider', 'Best product', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
-(6, '3', 'Black', 'L', '30', 1499, 'Nike', 'Best shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1),
+(1, '4', 'Black', 'S', '10', 1000, 'Bluestar', 'Bests', '../admin/assets/upload_img/blue_star1.jpg,../admin/assets/upload_img/blue_star2.jpg,../admin/assets/upload_img/blue_star3.jpg,../admin/assets/upload_img/blue_star4.jpg,../admin/assets/upload_img/blue_star5.jpg', 1),
+(2, '1', 'Red', 'S', '18', 999, 'Spider', 'Best product', '../admin/assets/upload_img/red_tshirt_1.png,../admin/assets/upload_img/red_tshirt_2.png,../admin/assets/upload_img/red_tshirt_3.png,../admin/assets/upload_img/red_tshirt_4.png,../admin/assets/upload_img/red_tshirt_5.png', 1),
+(6, '3', 'Black', 'L', '29', 1499, 'Nike', 'Best shoes', '../admin/assets/upload_img/nike_shoes_1.png,../admin/assets/upload_img/nike_shoes_2.png,../admin/assets/upload_img/nike_shoes_3.png,../admin/assets/upload_img/nike_shoes_4.png,../admin/assets/upload_img/nike_shoes_5.png', 1),
 (7, '4', 'Black', 'L', '10', 1999, 'Diamond', 'Best diamond Watch', '../admin/assets/upload_img/diamond_watch_1.jpg,../admin/assets/upload_img/diamond_watch_2.png,../admin/assets/upload_img/diamond_watch_3.png,../admin/assets/upload_img/diamond_watch_4.png,../admin/assets/upload_img/diamond_watch_5.png', 1);
 
 -- --------------------------------------------------------
@@ -362,9 +313,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`sid`, `fname`, `lname`, `email`, `phone`, `address`, `username`, `password`, `created_at`, `updated_at`, `otp`, `status`) VALUES
-(1, 'Harsh', 'Saini', 'harshsaini26112002@gmail.com', '8699902297', 'Derabassi', 'admin', 'b0aa651c991deca550252ed6cbba99ba', '2024-04-02 12:45:23', '2024-04-02 12:51:35', '527586', '1'),
-(2, 'Kamal', 'Saini', 'kamalsaini26112002@gmail.com', '1234567890', 'Mubarikpur', 'admin', '7f58341b9dceb1f1edca80dae10b92bc', '2024-04-02 12:52:53', '2024-04-02 12:53:27', '453138', '1'),
-(3, 'Anita', 'Devi', 'anitadevi@gmail.com', '8699902297', 'Derabassi', 'admin', 'cf0761a0e0eb3fa006dc5dd9844736b0', '2024-04-05 10:18:29', '2024-04-05 10:40:12', '125663', '1');
+(1, 'Anita', 'Devi', 'anitadevi@gmail.com', '8699902297', 'Derabassi', 'admin', '6a2e2c33086162a2dfb92d0a4decfde8', '2024-04-09 12:59:02', '2024-04-09 12:59:56', '456126', '1'),
+(2, 'Sahil', 'Saini', 'sahilsaini@gmail.com', '7410258963', 'Derabassi', 'admin', '61bd5145b80aa2f1ee5f5984fbb5432f', '2024-04-09 13:08:41', '2024-04-09 13:09:20', '888476', '1');
 
 --
 -- Indexes for dumped tables
@@ -464,7 +414,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `add_to_cart`
 --
 ALTER TABLE `add_to_cart`
-  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `cart_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -476,7 +426,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `billingaddress`
 --
 ALTER TABLE `billingaddress`
-  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `billing_address_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -524,7 +474,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `order_list`
 --
 ALTER TABLE `order_list`
-  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -542,7 +492,7 @@ ALTER TABLE `site_settings`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sid` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
