@@ -53,6 +53,16 @@
                   <p>Site Settings</p>
                 </a>
               </li>
+			  <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <h5><b>Orders Settings</b></h5>
+                </a>
+              </li>
+			  <li class="nav-item">
+                <a href="../orders/show_order.php" class="nav-link">
+                  <p>Order List</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>

@@ -1,3 +1,70 @@
 Today Date:- [2024-04-09] & Time:- [16:13:59] & Type:- [info] Successfully deleted item from cart. Cart ID: 5 
 Today Date:- [2024-04-09] & Time:- [16:14:05] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
 Today Date:- [2024-04-09] & Time:- [16:21:25] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 5434 
+Today Date:- [2024-04-09] & Time:- [17:13:22] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:13:30] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:13:56] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 4534 
+Today Date:- [2024-04-09] & Time:- [17:15:16] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:15:28] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:15:39] & Type:- [info] Successfully deleted item from cart. Cart ID: 9 
+Today Date:- [2024-04-09] & Time:- [17:15:40] & Type:- [info] Successfully deleted item from cart. Cart ID: 10 
+Today Date:- [2024-04-09] & Time:- [17:15:47] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:15:52] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:16:23] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 54 
+Today Date:- [2024-04-09] & Time:- [17:22:38] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:22:38] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:22:55] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:23:02] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:23:43] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:23:43] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:23:53] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:23:53] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:24:16] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:24:16] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:25:22] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:25:22] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:25:26] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:25:26] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:26:36] & Type:- [error] Exception caught: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:26:36] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:27:56] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:30:00] & Type:- [error] Line: 1152 
+Today Date:- [2024-04-09] & Time:- [17:31:52] & Type:- [error] Error: Column count doesn't match value count at row 1 
+Today Date:- [2024-04-09] & Time:- [17:32:49] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 3243 
+Today Date:- [2024-04-09] & Time:- [17:45:16] & Type:- [info] Successfully verified OTP: 244463 
+Today Date:- [2024-04-09] & Time:- [17:46:13] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [17:46:31] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [17:46:47] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:46:53] & Type:- [info] Successfully added product to cart for Product ID: 6, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:47:31] & Type:- [info] Successfully inserted Billing Address: Harsh Saini, Pin Code: 432 
+Today Date:- [2024-04-09] & Time:- [17:47:46] & Type:- [info] Successfully Admin Login = harsh 
+Today Date:- [2024-04-09] & Time:- [17:51:28] & Type:- [info] Successfully added product to cart for Product ID: 1, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:51:37] & Type:- [info] Successfully added product to cart for Product ID: 2, Customer ID: 1 
+Today Date:- [2024-04-09] & Time:- [17:57:12] & Type:- [info] Successfully verified OTP: 840241 
+Today Date:- [2024-04-09] & Time:- [17:57:36] & Type:- [info] Successfully Admin Login = harsh 
+Today Date:- [2024-04-09] & Time:- [17:59:46] & Type:- [info] Successfully verified OTP: 838404 
+Today Date:- [2024-04-09] & Time:- [18:00:16] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:00:20] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:00:36] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [18:01:27] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [18:04:46] & Type:- [info] Successfully verified OTP: 652886 
+Today Date:- [2024-04-09] & Time:- [18:05:14] & Type:- [info] Failed to fetch Admin Login Data for: admin 
+Today Date:- [2024-04-09] & Time:- [18:05:41] & Type:- [info] Successfully Admin Login = harsh 
+Today Date:- [2024-04-09] & Time:- [18:06:54] & Type:- [info] Successfully verified OTP: 854116 
+Today Date:- [2024-04-09] & Time:- [18:07:47] & Type:- [info] Successfully Admin Login = harsh 
+Today Date:- [2024-04-09] & Time:- [18:13:53] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:13:57] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:14:16] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [18:14:59] & Type:- [info] Successfully verified OTP: 477403 
+Today Date:- [2024-04-09] & Time:- [18:19:52] & Type:- [info] Successfully sent OTP Link to: satpalsingh12@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:19:56] & Type:- [info] Successfully sent OTP Link to: satpalsingh12@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:21:42] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:21:47] & Type:- [info] Successfully sent OTP Link to: kamalsaini26112002@gmail.com 
+Today Date:- [2024-04-09] & Time:- [18:22:02] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [18:23:29] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [18:24:07] & Type:- [info] Password successfully updated 
+Today Date:- [2024-04-09] & Time:- [18:25:37] & Type:- [info] Successfully verified OTP: 898972 
+Today Date:- [2024-04-09] & Time:- [18:26:07] & Type:- [info] Successfully Admin Login = harsh 
+Today Date:- [2024-04-09] & Time:- [18:29:10] & Type:- [info] Successfully verified OTP: 456126 
+Today Date:- [2024-04-09] & Time:- [18:38:50] & Type:- [info] Successfully verified OTP: 888476 
+Today Date:- [2024-04-09] & Time:- [18:39:15] & Type:- [info] Successfully Admin Login = harsh 
